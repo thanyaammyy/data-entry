@@ -1,0 +1,7 @@
+d:\my documents\visual studio 2010\Projects\HotelDataEntry\HotelDataEntry\bin\HotelDataEntry.dll
+d:\my documents\visual studio 2010\Projects\HotelDataEntry\HotelDataEntry\bin\HotelDataEntry.pdb
+d:\my documents\visual studio 2010\Projects\HotelDataEntry\HotelDataEntry\obj\Debug\ResolveAssemblyReference.cache
+d:\my documents\visual studio 2010\Projects\HotelDataEntry\HotelDataEntry\obj\Debug\HotelDataEntry.dll
+d:\my documents\visual studio 2010\Projects\HotelDataEntry\HotelDataEntry\obj\Debug\HotelDataEntry.pdb
+D:\My Documents\Visual Studio 2010\Projects\HotelDataEntry\HotelDataEntry\bin\Microsoft.Exchange.WebServices.dll
+D:\My Documents\Visual Studio 2010\Projects\HotelDataEntry\HotelDataEntry\bin\Microsoft.Exchange.WebServices.xml
