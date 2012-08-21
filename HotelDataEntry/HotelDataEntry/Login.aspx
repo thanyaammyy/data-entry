@@ -51,7 +51,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlBrand" ToolTip="Brand is required." DataSourceID="BrandDataSource"
-                            DataTextField="BrandCodeWithName" DataValueField="Email" Width="90" AutoPostBack="True"
+                            DataTextField="BrandCodeWithName" DataValueField="Email" Width="90"
                             runat="server">
                         </asp:DropDownList>
                         <asp:Label ID="lbBrand" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
@@ -66,7 +66,7 @@
                 <tr>
                     <td colspan="2" style="text-align: center">
                         <asp:Label ID="lbError" CssClass="asteric" Visible="False" runat="server">Your login attempt was not successful. Please try again.</asp:Label>
-                        <asp:Label ID="lbRequired" CssClass="asteric" Visible="False" runat="server">Pleae enter username and password</asp:Label>
+                        <asp:Label ID="lbRequired" CssClass="asteric" Visible="False" runat="server">Pleae enter username, password and select brand</asp:Label>
                     </td>
                 </tr>
             </table>

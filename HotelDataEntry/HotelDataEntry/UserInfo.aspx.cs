@@ -11,12 +11,15 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["company"] = "1";
+            //Session["propertyid"] = "1";
         }
 
-        protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlCompany_SelectedIndexChanged1(object sender, EventArgs e)
         {
-            Session["company"] = ddlCompany.SelectedValue;
+            if (((DropDownList)sender).SelectedValue != "")
+            {
+                Session["propertyid"] = ddlCompany.SelectedValue;
+            }
         }
     }
 }
