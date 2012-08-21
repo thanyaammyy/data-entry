@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataEntry" Class="HotelDataEntryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=61.90.202.67;Initial Catalog=DataEntry;Persist Security Info=True;User ID=sa" SettingsObjectName="HoltelDataEntryLib.Properties.Settings" SettingsPropertyName="DataEntryConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=61.90.202.67;Initial Catalog=DataEntry;Persist Security Info=True;User ID=sa" SettingsObjectName="HotelDataEntryLib.Properties.Settings" SettingsPropertyName="DataEntryConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Brand" Member="Brands">
     <Type Name="Brand">
       <Column Name="BrandId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

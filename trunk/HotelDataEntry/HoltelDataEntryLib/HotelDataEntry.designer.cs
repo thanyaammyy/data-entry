@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HoltelDataEntryLib
+namespace HotelDataEntryLib
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -60,7 +60,7 @@ namespace HoltelDataEntryLib
     #endregion
 		
 		public HotelDataEntryDataContext() : 
-				base(global::HoltelDataEntryLib.Properties.Settings.Default.DataEntryConnectionString, mappingSource)
+				base(global::HotelDataEntryLib.Properties.Settings.Default.DataEntryConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

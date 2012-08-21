@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using HotelDataEntryLib.Page;
 
 namespace HotelDataEntry
 {
@@ -11,7 +7,11 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            var email = Request.QueryString["email"];
+            if(UserHelper.GetUser(email)==0)
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "MyKey", "firstLogin();", true);
+            }
         }
     }
 }
