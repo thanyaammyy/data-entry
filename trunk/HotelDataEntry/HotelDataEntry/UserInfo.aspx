@@ -57,15 +57,7 @@
                                 Company
                             </td>
                             <td>
-                                <asp:DropDownList runat="server" ID="ddlCompany" class="TextBlack12" Width="120px"
-                                    DataSourceID="CompanyDatasource" DataTextField="PropertyCode" DataValueField="PropertyId"
-                                    OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" />
-                                <asp:SqlDataSource ID="CompanyDatasource" runat="server" ConnectionString="Data Source=61.90.202.67;Initial Catalog=DataEntry;Persist Security Info=True;User ID=sa;Password=sa@onyx#sqlsa10"
-                                    ProviderName="System.Data.SqlClient" SelectCommand="SELECT [PropertyId], [PropertyCode], [PropertyName] FROM [Property] WHERE ([Status] = @Status)">
-                                    <SelectParameters>
-                                        <asp:Parameter DefaultValue="1" Name="Status" Type="Int32" />
-                                    </SelectParameters>
-                                </asp:SqlDataSource>
+                                <asp:DropDownList runat="server" ID="ddlCompany" class="TextBlack12" Width="120px"/>
                                 <asp:Label ID="lbCompanyRequired" CssClass="asteric" runat="server">*</asp:Label>
                             </td>
                         </tr>
@@ -74,14 +66,8 @@
                                 Alternative Company
                             </td>
                             <td>
-                                <asp:DropDownList runat="server" ID="DropDownList1" class="TextBlack12" Width="120px"
-                                    DataSourceID="AlterCompanyDataSource" DataTextField="PropertyCode" DataValueField="PropertyId" />
-                                <asp:SqlDataSource ID="AlterCompanyDataSource" runat="server" ConnectionString="Data Source=61.90.202.67;Initial Catalog=DataEntry;Persist Security Info=True;User ID=sa;Password=sa@onyx#sqlsa10"
-                                    ProviderName="System.Data.SqlClient" SelectCommand="SELECT [PropertyId], [PropertyCode], [PropertyName] FROM [Property] WHERE ([PropertyId] &lt;&gt; @PropertyId)">
-                                    <SelectParameters>
-                                        <asp:SessionParameter Name="PropertyId" SessionField="company" Type="Int32" />
-                                    </SelectParameters>
-                                </asp:SqlDataSource>
+                                <asp:DropDownList runat="server" ID="DropDownList1" class="TextBlack12" Width="120px"/>
+
                             </td>
                         </tr>
                     </table>

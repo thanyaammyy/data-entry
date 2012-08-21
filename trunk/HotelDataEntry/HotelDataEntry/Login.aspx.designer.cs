@@ -22,6 +22,24 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.HtmlControls.HtmlForm formLogin;
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// updateTeamPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updateTeamPanel;
+        
+        /// <summary>
         /// tbUsername control.
         /// </summary>
         /// <remarks>
@@ -76,15 +94,6 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbBrand;
         
         /// <summary>
-        /// BrandDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource BrandDataSource;
-        
-        /// <summary>
         /// btnLogin control.
         /// </summary>
         /// <remarks>
@@ -119,5 +128,14 @@ namespace HotelDataEntry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbRequired;
+        
+        /// <summary>
+        /// BrandDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource BrandDataSource;
     }
 }
