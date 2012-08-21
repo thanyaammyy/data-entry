@@ -18,7 +18,7 @@ namespace HotelDataEntry
             var username = tbUsername.Text;
             var password = tbPassword.Text;
             var emailSuffix = ddlBrand.SelectedValue;
-            if(!(string.IsNullOrEmpty(username)&&string.IsNullOrEmpty(password)))
+            if(!(string.IsNullOrEmpty(username)||string.IsNullOrEmpty(password)||string.IsNullOrEmpty(emailSuffix)))
             {
                 
                 var exchangeService = new ExchangeService(ExchangeVersion.Exchange2010_SP1)
