@@ -44,14 +44,14 @@
         <elementListCompartment Id="ca17b9c5-6fae-4f54-b0ee-e807bddff433" absoluteBounds="4.765, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.9374995 : 3.5); (3.9374995 : 1.57774983723958); (4.75 : 1.57774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.9374995 : 3.5); (3.9374995 : 1.57774983723958); (4.75 : 1.57774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/HotelEntry/HotelEntry_Property" />
       <nodes>
         <classShapeMoniker Id="68053fe7-64a0-49f4-bf28-8aa178691664" />
         <classShapeMoniker Id="c9d1be9c-ab7d-441c-b79e-32abec3e1a09" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.0625005 : 2.65549967447917); (6.0625005 : 3.25); (8 : 3.25); (8 : 3.76044840494792); (9.125 : 3.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.0625005 : 2.65549967447917); (6.0625005 : 3.25); (8 : 3.25); (8 : 3.76044840494792); (9.125 : 3.76044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/Property/Property_Brand" />
       <nodes>
         <classShapeMoniker Id="c9d1be9c-ab7d-441c-b79e-32abec3e1a09" />
@@ -65,14 +65,14 @@
         <classShapeMoniker Id="22481c18-65ae-4148-aad8-2c06c5a5ce31" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 4.87424967447917); (5.125 : 4.87424967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 4.87424967447917); (5.125 : 4.87424967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/DataEntry/DataEntry_HotelEntry" />
       <nodes>
         <classShapeMoniker Id="5ed48e2e-0973-4da4-ab9b-9115c5157881" />
         <classShapeMoniker Id="68053fe7-64a0-49f4-bf28-8aa178691664" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.125 : 5.27089680989583); (4.125 : 5.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.125 : 5.27089680989583); (4.125 : 5.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/HotelEntry/HotelEntry_DataEntryType" />
       <nodes>
         <classShapeMoniker Id="68053fe7-64a0-49f4-bf28-8aa178691664" />
@@ -91,14 +91,14 @@
         <elementListCompartment Id="e7dd8916-dff5-4a48-b147-6e2fc0fa5241" absoluteBounds="0.51500000000000012, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 2.17912475585937); (3.85416616666667 : 2.17912475585937 : JumpStart); (4.02083283333333 : 2.17912475585937 : JumpEnd); (4.75 : 2.17912475585937)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 2.17912475585937); (3.85416616666667 : 2.17912475585937 : JumpStart); (4.02083283333333 : 2.17912475585937 : JumpEnd); (4.75 : 2.17912475585937)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/User/User_Property" />
       <nodes>
         <classShapeMoniker Id="d50b321f-47ed-4630-bd8a-1a625efa6e3f" />
         <classShapeMoniker Id="c9d1be9c-ab7d-441c-b79e-32abec3e1a09" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 3.4151025390625); (1.5 : 3.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 3.4151025390625); (1.5 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/User/User_Permission" />
       <nodes>
         <classShapeMoniker Id="d50b321f-47ed-4630-bd8a-1a625efa6e3f" />

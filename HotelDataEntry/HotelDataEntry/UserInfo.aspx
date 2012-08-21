@@ -76,14 +76,19 @@
                                             DataSourceID="AlterCompanyDataSource" DataTextField="PropertyCodeWithName" DataValueField="PropertyId" />
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <asp:Button runat="server" ID="btnUpdateProfile" Text="Update"/>
+                                    </td>
+                                </tr>
                             </table>
                 </table>
             </div>
-            <asp:ObjectDataSource ID="CompanyDataSource" DataObjectTypeName="HoltelDataEntryLib.Property"
-                SelectMethod="ListCompany" TypeName="HoltelDataEntryLib.Page.PropertyHelper"
+            <asp:ObjectDataSource ID="CompanyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
+                SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper"
                 runat="server"></asp:ObjectDataSource>
-            <asp:ObjectDataSource ID="AlterCompanyDataSource" DataObjectTypeName="HoltelDataEntryLib.Property"
-                SelectMethod="ListAlterCompany" TypeName="HoltelDataEntryLib.Page.PropertyHelper"
+            <asp:ObjectDataSource ID="AlterCompanyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
+                SelectMethod="ListAlterCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper"
                 runat="server">
                 <SelectParameters>
                     <asp:SessionParameter Name="PropertyId" SessionField="PropertyId" Type="Int32" />

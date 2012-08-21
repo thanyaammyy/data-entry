@@ -2,6 +2,7 @@
 using System.Net;
 using Microsoft.Exchange.WebServices.Data;
 
+
 namespace HotelDataEntry
 {
     public partial class Login : System.Web.UI.Page
@@ -32,7 +33,7 @@ namespace HotelDataEntry
                     exchangeService.AutodiscoverUrl(username + emailSuffix);
                     Session["LoginSession"] = "True";
                     Session["UserSession"] = username;
-                    Response.Redirect("~/Main.aspx");
+                    Response.Redirect("~/Main.aspx?email="+username + emailSuffix);
                 }
                 catch (Exception ex)
                 {

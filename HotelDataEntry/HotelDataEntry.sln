@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelDataEntry", "HotelData
 		{2C8873DE-79D2-4346-B452-56EAE7B8DEB7} = {2C8873DE-79D2-4346-B452-56EAE7B8DEB7}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoltelDataEntryLib", "HoltelDataEntryLib\HoltelDataEntryLib.csproj", "{2C8873DE-79D2-4346-B452-56EAE7B8DEB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelDataEntryLib", "HoltelDataEntryLib\HotelDataEntryLib.csproj", "{2C8873DE-79D2-4346-B452-56EAE7B8DEB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

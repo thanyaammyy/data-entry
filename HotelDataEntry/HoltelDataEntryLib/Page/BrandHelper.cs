@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HoltelDataEntryLib.Page
+namespace HotelDataEntryLib.Page
 {
     public static class BrandHelper
     {

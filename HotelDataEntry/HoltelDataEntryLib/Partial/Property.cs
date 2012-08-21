@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HoltelDataEntryLib
+namespace HotelDataEntryLib
 {
     public partial class Property
     {
