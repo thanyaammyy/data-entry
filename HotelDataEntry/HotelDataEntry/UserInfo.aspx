@@ -60,7 +60,7 @@
                                 Company
                             </td>
                             <td>
-                                <asp:UpdatePanel ID="updateTeamPanel" UpdateMode="Conditional" runat="server">
+                                <asp:UpdatePanel ID="updateCompanyPanel" UpdateMode="Conditional" runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList runat="server" ID="ddlCompany" ToolTip="Company is required" class="TextBlack12"
                                             DataSourceID="CompanyDataSource" DataTextField="PropertyCodeWithName" DataValueField="PropertyId"
@@ -75,7 +75,7 @@
                                 Alternative Company
                             </td>
                             <td>
-                                <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                                <asp:UpdatePanel ID="updateAlterPanel" UpdateMode="Conditional" runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList runat="server" ID="ddlAlterCompany" class="TextBlack12" Width="175px"
                                             AutoPostBack="True" DataSourceID="AlterCompanyDataSource" DataTextField="PropertyCodeWithName"
