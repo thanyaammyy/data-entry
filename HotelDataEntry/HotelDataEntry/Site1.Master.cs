@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Globalization;
+using HotelDataEntryLib.Helper;
+using HotelDataEntryLib.Page;
 
 namespace HotelDataEntry
 {
@@ -11,14 +10,7 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!ReferenceEquals(Session["LoginSession"], "True"))
-            {
-                Response.Redirect("Login.aspx");
-            }
-            else
-            {
-                lbUsername.Text = Session["UserSession"].ToString();
-            }
+           
         }
     }
 }

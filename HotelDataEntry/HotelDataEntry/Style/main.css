@@ -79,6 +79,7 @@ SELECT {
 	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
 	line-height: 15px; 
 	color: #ba9963;
+    white-space: nowrap;
 }
 .Texthead {
 	font-size: 9pt; 
@@ -87,5 +88,14 @@ SELECT {
 	color: #ba9963;
 }
 .asteric {
+    color: #ba9963;
+}
+.redText {
     color: red;
+}
+#copyright {
+text-align: right;
+padding: 10px;
+font-size: 11px;
+color: #727272;
 }

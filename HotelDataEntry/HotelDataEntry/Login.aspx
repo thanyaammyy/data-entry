@@ -65,8 +65,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center">
-                        <asp:Label ID="lbError" CssClass="asteric" Visible="False" runat="server">Your login attempt was not successful. Please try again.</asp:Label>
-                        <asp:Label ID="lbRequired" CssClass="asteric" Visible="False" runat="server">Pleae enter username, password and select brand</asp:Label>
+                        <asp:Label ID="lbError" CssClass="redText" Visible="False" runat="server">Your login attempt was not successful. Please try again.</asp:Label>
+                        <asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Pleae enter username, password and select brand</asp:Label>
                     </td>
                 </tr>
             </table>

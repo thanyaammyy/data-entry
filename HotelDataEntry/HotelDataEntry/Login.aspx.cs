@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Net;
+using System.Web.Configuration;
+using HotelDataEntryLib.Helper;
 using Microsoft.Exchange.WebServices.Data;
-
 
 namespace HotelDataEntry
 {
@@ -33,7 +35,10 @@ namespace HotelDataEntry
                     exchangeService.AutodiscoverUrl(username + emailSuffix);
                     Session["LoginSession"] = "True";
                     Session["UserSession"] = username;
-                    Response.Redirect("~/Main.aspx?email="+username + emailSuffix);
+
+                    var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
+                    var encryptEmail = Encryption.EncryptStringAES(username + emailSuffix, strSharedSecret);
+                    Response.Redirect("~/Main.aspx?email="+encryptEmail);
                 }
                 catch (Exception ex)
                 {

@@ -31,15 +31,6 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// updateTeamPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updateTeamPanel;
-        
-        /// <summary>
         /// tbFirstName control.
         /// </summary>
         /// <remarks>
@@ -76,22 +67,22 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbLastNameRequired;
         
         /// <summary>
-        /// tbEmail control.
+        /// lbEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmail;
+        protected global::System.Web.UI.WebControls.Label lbEmail;
         
         /// <summary>
-        /// lbEmailRequired control.
+        /// updateTeamPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbEmailRequired;
+        protected global::System.Web.UI.UpdatePanel updateTeamPanel;
         
         /// <summary>
         /// ddlCompany control.
@@ -112,13 +103,13 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbCompanyRequired;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// ddlAlterCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAlterCompany;
         
         /// <summary>
         /// btnUpdateProfile control.
@@ -128,6 +119,15 @@ namespace HotelDataEntry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdateProfile;
+        
+        /// <summary>
+        /// lbRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbRequired;
         
         /// <summary>
         /// CompanyDataSource control.
