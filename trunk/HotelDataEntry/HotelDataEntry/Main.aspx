@@ -1,10 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="HotelDataEntry.Main" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true"
+    CodeBehind="Main.aspx.cs" Inherits="HotelDataEntry.Main" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript" language="javascript">
         function firstLogin() {
             $(".fancybox").fancybox({
-                width: 370,
-                showCloseButton: false,
+                'width': 432,
+                'closeBtn': false,
+                'modal': true,
+                'height': 'auto',
+                scrolling: 'no',
                 helpers: {
                     title: null
                 }
@@ -15,4 +20,3 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     Hi
 </asp:Content>
-

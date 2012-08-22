@@ -1,7 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="HotelDataEntry.Site1" %>
+<%@ Register Src="CenterControl/Footer.ascx" TagName="Footer" TagPrefix="uc2" %>
+<%@ Register Src="CenterControl/Header.ascx" TagName="Header" TagPrefix="uc1" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,31 +17,27 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+<uc1:Header ID="header1" runat="server" />
     <form id="form1" runat="server">
     <div>
-        <div class="Texthead" style="padding-top: 20px;padding-right: 10px; text-align: right">
-                <span style="color: slategrey">Welcome :</span>
-                    <a class="fancybox fancybox.iframe" href="UserInfo.aspx">
-                        <asp:Label runat="server" ID="lbUsername" ToolTip="View or edit your infromation"></asp:Label>
-                    </a>
-                    [<asp:HyperLink ID="hplLogout" runat="server" ToolTip="Log out of system" NavigateUrl="~/Logout.aspx"
-                        Text="logout"></asp:HyperLink>] 
-            </div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
     </div>
     </form>
+    <uc2:Footer ID="footer1" runat="server" />
 </body>
 </html>
 <script type="text/javascript" language="javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.fancybox')
             .fancybox({
-                width:370,
-                helpers : {
-                    title : null
-                } 
-        });
+                width: 432,
+                height: 'auto',
+                scrolling: 'no',
+                helpers: {
+                    title: null
+                }
+            });
     });
 </script>
