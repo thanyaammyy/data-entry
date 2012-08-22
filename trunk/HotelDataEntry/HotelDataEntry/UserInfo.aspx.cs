@@ -21,10 +21,16 @@ namespace HotelDataEntry
             if (UserId != 0)
             {
                 var userInfo = UserHelper.GetUserInfo(UserId);
+
+                if(!Page.IsPostBack)
+                {
+                    ddlCompany.SelectedValue = userInfo.PropertyId.ToString();
+                }
+                
                 tbFirstName.Text = userInfo.FirstName;
                 tbLastName.Text = userInfo.LastName;
                 lbEmail.Text = userInfo.Email;
-                ddlCompany.SelectedValue = userInfo.PropertyId.ToString();
+                
                 if (userInfo.AlterPropertyId != 0) ddlAlterCompany.SelectedValue = userInfo.AlterPropertyId.ToString();
             }
             else
@@ -40,6 +46,7 @@ namespace HotelDataEntry
             {
                 Session["propertyid"] = ddlCompany.SelectedValue;
             }
+            updateAlterPanel.Update();
         }
 
         protected void btnUpdateProfile_Click(object sender, EventArgs e)
@@ -69,7 +76,7 @@ namespace HotelDataEntry
                     user.UserId = UserId;
                     UserHelper.UpdateUserProfile(user);
                 }
-                Page.ClientScript.RegisterStartupScript(GetType(), "KeyClosed", "closeIframe();", true);
+                Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close();</script>");
             }else
             {
                 lbRequired.Visible = true;
