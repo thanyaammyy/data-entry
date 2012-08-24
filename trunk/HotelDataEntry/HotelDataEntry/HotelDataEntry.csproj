@@ -52,6 +52,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Trirand.Web">
+      <HintPath>..\References\Trirand.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CenterControl\Footer.ascx" />
