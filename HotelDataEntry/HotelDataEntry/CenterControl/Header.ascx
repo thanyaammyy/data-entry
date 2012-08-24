@@ -9,9 +9,12 @@
     </div>
     <div>
         <p align="center" style="font-size: 12px; font-family: Helvetica;">
-            <a href="#" id="inputForm">Data Input Form</a><span style="color: #727272; padding: 2px">l</span><a href="#" id="report">Report</a>
-            <span style="color: #727272; padding: 2px">l</span><a href="#" id="compMa">Company Maintenance</a> <span style="color: #727272; padding: 2px">l</span> <a href="#" id="userMa">User Maintenance</a>
-            <span style="color: #727272; padding: 2px">l</span><a href="#" id="currencyMa">Currency Maintenance</a>
+            <a href="#" id="inputForm">Data Input Form</a> <span style="color: black; padding: 2px">
+                l </span> <a href="#" id="report">Report</a> <span style="color: black; padding: 2px">
+                    l</span> <a href="#" id="compMa">Company Maintenance</a> <span style="color: black;
+                        padding: 2px">l</span> <a href="#" id="userMa">User Maintenance</a>
+            <span style="color: black; padding: 2px">l</span> <a href="#" id="currencyMa">Currency
+                Maintenance</a>
         </p>
     </div>
     <hr style="height: 0px; border-bottom: 2px solid #ba9963;">
