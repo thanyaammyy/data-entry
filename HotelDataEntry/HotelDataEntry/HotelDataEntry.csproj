@@ -59,11 +59,25 @@
   <ItemGroup>
     <Content Include="CenterControl\Footer.ascx" />
     <Content Include="CenterControl\Header.ascx" />
+    <Content Include="Currency.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="Main.aspx" />
     <Content Include="Script\fancybox\lib\jquery-1.7.2.min.js" />
     <Content Include="Script\fancybox\lib\jquery.mousewheel-3.0.6.pack.js" />
+    <Content Include="Script\jqueryUI\grid.locale-en.js" />
+    <Content Include="Script\jqueryUI\jquery-1.7.2.min.js" />
+    <Content Include="Script\jqueryUI\jquery-ui-1.8.20.custom.min.js" />
+    <Content Include="Script\jqueryUI\jquery-ui-i18n.js" />
+    <Content Include="Script\jqueryUI\jquery-ui-timepicker-addon.js" />
+    <Content Include="Script\jqueryUI\jquery.jqAutoComplete.min.js" />
+    <Content Include="Script\jqueryUI\jquery.jqChart.exporting.min.js" />
+    <Content Include="Script\jqueryUI\jquery.jqChart.min.js" />
+    <Content Include="Script\jqueryUI\jquery.jqDatePicker.min.js" />
+    <Content Include="Script\jqueryUI\jquery.jqGrid.min.js" />
+    <Content Include="Script\jqueryUI\jquery.jqGrid.src.js" />
+    <Content Include="Script\jqueryUI\jquery.jqTreeView.min.js" />
+    <Content Include="Script\jqueryUI\jquery.ui.datepicker-th.js" />
     <Content Include="Script\sources\blank.gif" />
     <Content Include="Script\sources\fancybox_loading.gif" />
     <Content Include="Script\sources\fancybox_sprite.png" />
@@ -77,7 +91,22 @@
     <Content Include="Script\sources\jquery.fancybox.js" />
     <Content Include="Script\sources\jquery.fancybox.pack.js" />
     <Content Include="Style\images\ONYX.gif" />
+    <Content Include="Style\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Style\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Style\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Style\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Style\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Style\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Style\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Style\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Style\images\ui-icons_222222_256x240.png" />
+    <Content Include="Style\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Style\images\ui-icons_454545_256x240.png" />
+    <Content Include="Style\images\ui-icons_888888_256x240.png" />
+    <Content Include="Style\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Style\jquery-ui-1.8.23.custom.css" />
     <Content Include="Style\main.css" />
+    <Content Include="Style\ui.jqgrid.css" />
     <Content Include="UserInfo.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -101,6 +130,13 @@
     </Compile>
     <Compile Include="CenterControl\Header.ascx.designer.cs">
       <DependentUpon>Header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Currency.aspx.cs">
+      <DependentUpon>Currency.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Currency.aspx.designer.cs">
+      <DependentUpon>Currency.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -151,6 +187,7 @@
       <Name>HotelDataEntryLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
