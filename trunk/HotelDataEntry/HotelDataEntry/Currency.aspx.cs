@@ -16,28 +16,32 @@ namespace HotelDataEntry
 
         private void JqgridCurrencyBinding()
         {
-            var currencyList = new HotelDataEntryDataContext();
-            
-            
-            JqgridCurrency.DataSource = currencyList.Currencies;
+            var currencyList = CurrencyHelper.ListCurreny();
+            JqgridCurrency.DataSource = currencyList;
             JqgridCurrency.DataBind();
         }
 
         protected void JqgridCurrency_RowAdding(object sender, Trirand.Web.UI.WebControls.JQGridRowAddEventArgs e)
         {
-            var status = e.RowData["Status"];
-            var isBase = e.RowData["IsBase"];
+            var status = e.RowData["StatusLabel"];
+            var isBase = e.RowData["IsBaseLabel"];
             var rate = e.RowData["ConversionRate"];
             if(!(string.IsNullOrEmpty(status)||string.IsNullOrEmpty(isBase)||string.IsNullOrEmpty(rate)))
             {
-                var currency = new HotelDataEntryLib.Currency()
-                               {
-                                   CurrencyName = e.RowData["CurrencyName"],
-                                   CurrencyCode = e.RowData["CurrencyCode"],
-                                   Status = Convert.ToInt32(status),
-                                   ConversionRate = Convert.ToDouble(rate),
-                                   IsBase = Convert.ToInt32(isBase)
-                               };
+                var currency = new HotelDataEntryLib.Currency();
+                               //{
+                               //    CurrencyName = e.RowData["CurrencyName"],
+                               //    CurrencyCode = e.RowData["CurrencyCode"],
+                               //    Status = Convert.ToInt32(status),
+                               //    ConversionRate = Convert.ToDouble(rate),
+                               //    IsBase = Convert.ToInt32(isBase)
+                               //};
+
+                currency.CurrencyName = e.RowData["CurrencyName"];
+                currency.CurrencyCode = e.RowData["CurrencyCode"];
+                currency.Status = Convert.ToInt32(status);
+                currency.ConversionRate = Convert.ToDouble(rate);
+                currency.IsBase = Convert.ToInt32(isBase);
                 CurrencyHelper.AddCurrency(currency);
             }
         }
@@ -53,8 +57,8 @@ namespace HotelDataEntry
 
         protected void JqgridCurrency_RowEditing(object sender, Trirand.Web.UI.WebControls.JQGridRowEditEventArgs e)
         {
-            var status = e.RowData["Status"];
-            var isBase = e.RowData["IsBase"];
+            var status = e.RowData["StatusLabel"];
+            var isBase = e.RowData["IsBaseLabel"];
             var rate = e.RowData["ConversionRate"];
             var id = e.RowKey;
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(isBase) || string.IsNullOrEmpty(rate)||string.IsNullOrEmpty(id)))
