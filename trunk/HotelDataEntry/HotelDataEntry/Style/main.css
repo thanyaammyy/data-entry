@@ -99,3 +99,9 @@ padding: 10px;
 font-size: 11px;
 color: #727272;
 }
+.headerMenuLabel {
+   font-size: 15pt; 
+	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
+	line-height: 15px; 
+	color: #6c4505;
+}
