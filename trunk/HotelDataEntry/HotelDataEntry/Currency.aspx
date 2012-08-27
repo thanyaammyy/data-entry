@@ -19,12 +19,12 @@
                         TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Currency Name" DataField="CurrencyName" Editable="True"
                         TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Base Currency" DataField="IsBase" Editable="True" EditType="DropDown" EditValues="0:False;1:True"
+                   <%-- <cc1:JQGridColumn HeaderText="Base Currency" DataField="IsBaseLabel" Editable="True" EditType="DropDown" EditValues="0:False;1:True"
                         TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Conversion Rate" DataField="ConversionRate" Editable="True"
                         TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Status" DataField="Status" Editable="True" EditType="DropDown"
-                EditValues="0:InActive;1:Active" TextAlign="Center" />
+                    <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" Editable="True" EditType="DropDown"
+                EditValues="0:InActive;1:Active" TextAlign="Center" />--%>
                 </Columns>
                 <AddDialogSettings CloseAfterAdding="False" />
                 <EditDialogSettings CloseAfterEditing="True" />
