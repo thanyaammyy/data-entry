@@ -98,10 +98,13 @@ text-align: right;
 padding: 10px;
 font-size: 11px;
 color: #727272;
+    padding-top: 20px;
 }
 .headerMenuLabel {
-   font-size: 15pt; 
+    font-size: 15pt; 
 	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
 	line-height: 15px; 
 	color: #6c4505;
+	padding-bottom: 30px
 }
+
