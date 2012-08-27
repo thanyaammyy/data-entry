@@ -18,15 +18,15 @@
                         <cc1:JQGridColumn HeaderText="Currency Name" DataField="CurrencyName" Editable="True"
                             TextAlign="Center" />
                         <cc1:JQGridColumn HeaderText="Base Currency" DataField="IsBaseLabel" Editable="True"
-                            EditType="CheckBox" EditValues="0:False;1:True" TextAlign="Center" />
+                            EditType="DropDown" EditValues="0:False;1:True" TextAlign="Center" />
                         <cc1:JQGridColumn HeaderText="Conversion Rate" DataField="ConversionRate" Editable="True"
                             TextAlign="Center" />
                         <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" Editable="True" EditType="DropDown"
                             EditValues="0:InActive;1:Active" TextAlign="Center" />
                     </Columns>
                     <AddDialogSettings CloseAfterAdding="False" />
-                    <EditDialogSettings CloseAfterEditing="True" />
-                    <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" ShowAddButton="True"
+                    <EditDialogSettings CloseAfterEditing="True"  />
+                    <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" ShowAddButton="True" 
                         ShowRefreshButton="True" ShowSearchButton="True" />
                     <AppearanceSettings ShowRowNumbers="true" />
                     <DeleteDialogSettings LeftOffset="497" TopOffset="241"></DeleteDialogSettings>
