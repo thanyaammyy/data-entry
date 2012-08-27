@@ -1,5 +1,6 @@
 ﻿using System;
 using HotelDataEntryLib.Page;
+using HotelDataEntryLib;
 
 namespace HotelDataEntry
 {
@@ -15,8 +16,10 @@ namespace HotelDataEntry
 
         private void JqgridCurrencyBinding()
         {
-            var currencyList = CurrencyHelper.ListCurreny();
-            JqgridCurrency.DataSource = currencyList;
+            var currencyList = new HotelDataEntryDataContext();
+            
+            
+            JqgridCurrency.DataSource = currencyList.Currencies;
             JqgridCurrency.DataBind();
         }
 
