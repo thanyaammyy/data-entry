@@ -14,5 +14,17 @@ namespace HotelDataEntryLib
                 return PropertyId == 0 ? PropertyName : PropertyCode + "--" + PropertyName;
             }
         }
+
+        public string StatusLabel
+        {
+            get
+            {
+                if (Status == 1)
+                {
+                    return "Active";
+                }
+                return "Inactive";
+            }
+        }
     }
 }

@@ -7,7 +7,15 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var companyList = CompanyHelper.ListCompany();
+            if(!Page.IsPostBack)
+            {
+                JqgridCompanyBinding();
+            }
+        }
+
+        private void JqgridCompanyBinding()
+        {
+            var companyList = PropertyHelper.ListAllCompany();
             JqgridCompany.DataSource = companyList;
             JqgridCompany.DataBind();
         }
