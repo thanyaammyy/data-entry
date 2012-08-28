@@ -28,20 +28,14 @@ namespace HotelDataEntry
             var rate = e.RowData["ConversionRate"];
             if(!(string.IsNullOrEmpty(status)||string.IsNullOrEmpty(isBase)||string.IsNullOrEmpty(rate)))
             {
-                var currency = new HotelDataEntryLib.Currency();
-                               //{
-                               //    CurrencyName = e.RowData["CurrencyName"],
-                               //    CurrencyCode = e.RowData["CurrencyCode"],
-                               //    Status = Convert.ToInt32(status),
-                               //    ConversionRate = Convert.ToDouble(rate),
-                               //    IsBase = Convert.ToInt32(isBase)
-                               //};
-
-                currency.CurrencyName = e.RowData["CurrencyName"];
-                currency.CurrencyCode = e.RowData["CurrencyCode"];
-                currency.Status = Convert.ToInt32(status);
-                currency.ConversionRate = Convert.ToDouble(rate);
-                currency.IsBase = Convert.ToInt32(isBase);
+                var currency = new HotelDataEntryLib.Currency()
+                               {
+                                   CurrencyName = e.RowData["CurrencyName"],
+                                   CurrencyCode = e.RowData["CurrencyCode"],
+                                   Status = Convert.ToInt32(status),
+                                   ConversionRate = Convert.ToDouble(rate),
+                                   IsBase = Convert.ToInt32(isBase)
+                               };
                 CurrencyHelper.AddCurrency(currency);
             }
         }
