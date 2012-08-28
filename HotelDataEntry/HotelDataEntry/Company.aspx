@@ -18,10 +18,12 @@
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Brand" DataField="BrandName" Editable="True" TextAlign="Center" />
+                    <cc1:JQGridColumn HeaderText="Brand" DataField="BrandName" EditorControlID="ddlBrand"
+                        Editable="True" TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Company Name" DataField="PropertyName" Editable="True"
                         TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Currency" DataField="CurrencyCode" Editable="True" TextAlign="Center" />
+                    <cc1:JQGridColumn HeaderText="Currency" DataField="CurrencyCode" Editable="True"
+                        TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" EditType="DropDown"
                         EditValues="0:InActive;1:Active" Editable="True" TextAlign="Center" />
                 </Columns>
@@ -36,6 +38,12 @@
                 <EditDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterEditing="True" Caption="Edit Season"></EditDialogSettings>
             </cc1:JQGrid>
+            <asp:DropDownList ID="ddlBrand" ToolTip="Brand is required." DataSourceID="BrandDataSource"
+                DataTextField="BrandCodeWithName"  Width="90" runat="server">
+            </asp:DropDownList>
+            <asp:ObjectDataSource ID="BrandDataSource" DataObjectTypeName="HotelDataEntryLib.Brand"
+                SelectMethod="ListBrand" TypeName="HotelDataEntryLib.Page.BrandHelper" runat="server">
+            </asp:ObjectDataSource>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
