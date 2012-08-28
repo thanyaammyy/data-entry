@@ -9,6 +9,7 @@
       <Column Name="ConversionRate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="IsBase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Currency_Property" Member="Properties" ThisKey="CurrencyId" OtherKey="CurrencyId" Type="Property" />
     </Type>
   </Table>
   <Table Name="dbo.Property" Member="Properties">
@@ -20,9 +21,10 @@
       <Column Name="CurrencyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Property_Brand" Member="Brands" ThisKey="BrandId" OtherKey="BrandId" Type="Brand" />
       <Association Name="User_Property" Member="User" ThisKey="PropertyId" OtherKey="PropertyId" Type="User" IsForeignKey="true" />
       <Association Name="HotelEntry_Property" Member="HotelEntry" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelEntry" IsForeignKey="true" />
+      <Association Name="Currency_Property" Member="Currency" ThisKey="CurrencyId" OtherKey="CurrencyId" Type="Currency" IsForeignKey="true" />
+      <Association Name="Brand_Property" Member="Brand" ThisKey="BrandId" OtherKey="BrandId" Type="Brand" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.[User]" Member="Users">
@@ -47,7 +49,7 @@
       <Column Name="BrandName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Property_Brand" Member="Property" ThisKey="BrandId" OtherKey="BrandId" Type="Property" IsForeignKey="true" />
+      <Association Name="Brand_Property" Member="Properties" ThisKey="BrandId" OtherKey="BrandId" Type="Property" />
     </Type>
   </Table>
   <Table Name="dbo.DataEntry" Member="DataEntries">
@@ -58,7 +60,7 @@
       <Column Name="YTDActual" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="YTDBudget" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="HotelEntry_DataEntry" Member="HotelEntry" ThisKey="DataEntryId" OtherKey="DataEntryId" Type="HotelEntry" IsForeignKey="true" />
+      <Association Name="DataEntry_HotelEntry" Member="HotelEntries" ThisKey="DataEntryId" OtherKey="DataEntryId" Type="HotelEntry" />
     </Type>
   </Table>
   <Table Name="dbo.ErrorLog" Member="ErrorLogs">
@@ -76,8 +78,8 @@
       <Column Name="DataEntryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PositionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="HotelEntry_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
-      <Association Name="HotelEntry_DataEntry" Member="DataEntries" ThisKey="DataEntryId" OtherKey="DataEntryId" Type="DataEntry" />
-      <Association Name="HotelEntry_DataEntryType" Member="DataEntryTypes" ThisKey="DataEntryTypeId" OtherKey="DataEntryTypeId" Type="DataEntryType" />
+      <Association Name="DataEntry_HotelEntry" Member="DataEntry" ThisKey="DataEntryId" OtherKey="DataEntryId" Type="DataEntry" IsForeignKey="true" />
+      <Association Name="DataEntryType_HotelEntry" Member="DataEntryType" ThisKey="DataEntryTypeId" OtherKey="DataEntryTypeId" Type="DataEntryType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DataEntryType" Member="DataEntryTypes">
@@ -85,7 +87,7 @@
       <Column Name="DataEntryTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DataEntryTypeName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="HotelEntry_DataEntryType" Member="HotelEntry" ThisKey="DataEntryTypeId" OtherKey="DataEntryTypeId" Type="HotelEntry" IsForeignKey="true" />
+      <Association Name="DataEntryType_HotelEntry" Member="HotelEntries" ThisKey="DataEntryTypeId" OtherKey="DataEntryTypeId" Type="HotelEntry" />
     </Type>
   </Table>
   <Table Name="dbo.Permission" Member="Permissions">

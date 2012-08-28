@@ -182,6 +182,8 @@ namespace HotelDataEntryLib
 		
 		private System.Nullable<int> _IsBase;
 		
+		private EntitySet<Property> _Properties;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -204,6 +206,7 @@ namespace HotelDataEntryLib
 		
 		public Currency()
 		{
+			this._Properties = new EntitySet<Property>(new Action<Property>(this.attach_Properties), new Action<Property>(this.detach_Properties));
 			OnCreated();
 		}
 		
@@ -347,6 +350,19 @@ namespace HotelDataEntryLib
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Currency_Property", Storage="_Properties", ThisKey="CurrencyId", OtherKey="CurrencyId")]
+		public EntitySet<Property> Properties
+		{
+			get
+			{
+				return this._Properties;
+			}
+			set
+			{
+				this._Properties.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -365,6 +381,18 @@ namespace HotelDataEntryLib
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Properties(Property entity)
+		{
+			this.SendPropertyChanging();
+			entity.Currency = this;
+		}
+		
+		private void detach_Properties(Property entity)
+		{
+			this.SendPropertyChanging();
+			entity.Currency = null;
 		}
 	}
 	
@@ -388,11 +416,13 @@ namespace HotelDataEntryLib
 		
 		private System.DateTime _UpdateDateTime;
 		
-		private EntitySet<Brand> _Brands;
-		
 		private EntityRef<User> _User;
 		
 		private EntityRef<HotelEntry> _HotelEntry;
+		
+		private EntityRef<Currency> _Currency;
+		
+		private EntityRef<Brand> _Brand;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -416,9 +446,10 @@ namespace HotelDataEntryLib
 		
 		public Property()
 		{
-			this._Brands = new EntitySet<Brand>(new Action<Brand>(this.attach_Brands), new Action<Brand>(this.detach_Brands));
 			this._User = default(EntityRef<User>);
 			this._HotelEntry = default(EntityRef<HotelEntry>);
+			this._Currency = default(EntityRef<Currency>);
+			this._Brand = default(EntityRef<Brand>);
 			OnCreated();
 		}
 		
@@ -497,6 +528,10 @@ namespace HotelDataEntryLib
 			{
 				if ((this._BrandId != value))
 				{
+					if (this._Brand.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnBrandIdChanging(value);
 					this.SendPropertyChanging();
 					this._BrandId = value;
@@ -517,6 +552,10 @@ namespace HotelDataEntryLib
 			{
 				if ((this._CurrencyId != value))
 				{
+					if (this._Currency.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnCurrencyIdChanging(value);
 					this.SendPropertyChanging();
 					this._CurrencyId = value;
@@ -563,19 +602,6 @@ namespace HotelDataEntryLib
 					this.SendPropertyChanged("UpdateDateTime");
 					this.OnUpdateDateTimeChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Property_Brand", Storage="_Brands", ThisKey="BrandId", OtherKey="BrandId")]
-		public EntitySet<Brand> Brands
-		{
-			get
-			{
-				return this._Brands;
-			}
-			set
-			{
-				this._Brands.Assign(value);
 			}
 		}
 		
@@ -647,6 +673,74 @@ namespace HotelDataEntryLib
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Currency_Property", Storage="_Currency", ThisKey="CurrencyId", OtherKey="CurrencyId", IsForeignKey=true)]
+		public Currency Currency
+		{
+			get
+			{
+				return this._Currency.Entity;
+			}
+			set
+			{
+				Currency previousValue = this._Currency.Entity;
+				if (((previousValue != value) 
+							|| (this._Currency.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Currency.Entity = null;
+						previousValue.Properties.Remove(this);
+					}
+					this._Currency.Entity = value;
+					if ((value != null))
+					{
+						value.Properties.Add(this);
+						this._CurrencyId = value.CurrencyId;
+					}
+					else
+					{
+						this._CurrencyId = default(int);
+					}
+					this.SendPropertyChanged("Currency");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Brand_Property", Storage="_Brand", ThisKey="BrandId", OtherKey="BrandId", IsForeignKey=true)]
+		public Brand Brand
+		{
+			get
+			{
+				return this._Brand.Entity;
+			}
+			set
+			{
+				Brand previousValue = this._Brand.Entity;
+				if (((previousValue != value) 
+							|| (this._Brand.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Brand.Entity = null;
+						previousValue.Properties.Remove(this);
+					}
+					this._Brand.Entity = value;
+					if ((value != null))
+					{
+						value.Properties.Add(this);
+						this._BrandId = value.BrandId;
+					}
+					else
+					{
+						this._BrandId = default(int);
+					}
+					this.SendPropertyChanged("Brand");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -665,18 +759,6 @@ namespace HotelDataEntryLib
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Brands(Brand entity)
-		{
-			this.SendPropertyChanging();
-			entity.Property = this;
-		}
-		
-		private void detach_Brands(Brand entity)
-		{
-			this.SendPropertyChanging();
-			entity.Property = null;
 		}
 	}
 	
@@ -1019,7 +1101,7 @@ namespace HotelDataEntryLib
 		
 		private string _Email;
 		
-		private EntityRef<Property> _Property;
+		private EntitySet<Property> _Properties;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1039,7 +1121,7 @@ namespace HotelDataEntryLib
 		
 		public Brand()
 		{
-			this._Property = default(EntityRef<Property>);
+			this._Properties = new EntitySet<Property>(new Action<Property>(this.attach_Properties), new Action<Property>(this.detach_Properties));
 			OnCreated();
 		}
 		
@@ -1054,10 +1136,6 @@ namespace HotelDataEntryLib
 			{
 				if ((this._BrandId != value))
 				{
-					if (this._Property.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnBrandIdChanging(value);
 					this.SendPropertyChanging();
 					this._BrandId = value;
@@ -1147,37 +1225,16 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Property_Brand", Storage="_Property", ThisKey="BrandId", OtherKey="BrandId", IsForeignKey=true)]
-		public Property Property
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Brand_Property", Storage="_Properties", ThisKey="BrandId", OtherKey="BrandId")]
+		public EntitySet<Property> Properties
 		{
 			get
 			{
-				return this._Property.Entity;
+				return this._Properties;
 			}
 			set
 			{
-				Property previousValue = this._Property.Entity;
-				if (((previousValue != value) 
-							|| (this._Property.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Property.Entity = null;
-						previousValue.Brands.Remove(this);
-					}
-					this._Property.Entity = value;
-					if ((value != null))
-					{
-						value.Brands.Add(this);
-						this._BrandId = value.BrandId;
-					}
-					else
-					{
-						this._BrandId = default(int);
-					}
-					this.SendPropertyChanged("Property");
-				}
+				this._Properties.Assign(value);
 			}
 		}
 		
@@ -1200,6 +1257,18 @@ namespace HotelDataEntryLib
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_Properties(Property entity)
+		{
+			this.SendPropertyChanging();
+			entity.Brand = this;
+		}
+		
+		private void detach_Properties(Property entity)
+		{
+			this.SendPropertyChanging();
+			entity.Brand = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DataEntry")]
@@ -1220,7 +1289,7 @@ namespace HotelDataEntryLib
 		
 		private System.DateTime _UpdateDateTime;
 		
-		private EntityRef<HotelEntry> _HotelEntry;
+		private EntitySet<HotelEntry> _HotelEntries;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1242,7 +1311,7 @@ namespace HotelDataEntryLib
 		
 		public DataEntry()
 		{
-			this._HotelEntry = default(EntityRef<HotelEntry>);
+			this._HotelEntries = new EntitySet<HotelEntry>(new Action<HotelEntry>(this.attach_HotelEntries), new Action<HotelEntry>(this.detach_HotelEntries));
 			OnCreated();
 		}
 		
@@ -1257,10 +1326,6 @@ namespace HotelDataEntryLib
 			{
 				if ((this._DataEntryId != value))
 				{
-					if (this._HotelEntry.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnDataEntryIdChanging(value);
 					this.SendPropertyChanging();
 					this._DataEntryId = value;
@@ -1370,37 +1435,16 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntry", Storage="_HotelEntry", ThisKey="DataEntryId", OtherKey="DataEntryId", IsForeignKey=true)]
-		public HotelEntry HotelEntry
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataEntry_HotelEntry", Storage="_HotelEntries", ThisKey="DataEntryId", OtherKey="DataEntryId")]
+		public EntitySet<HotelEntry> HotelEntries
 		{
 			get
 			{
-				return this._HotelEntry.Entity;
+				return this._HotelEntries;
 			}
 			set
 			{
-				HotelEntry previousValue = this._HotelEntry.Entity;
-				if (((previousValue != value) 
-							|| (this._HotelEntry.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HotelEntry.Entity = null;
-						previousValue.DataEntries.Remove(this);
-					}
-					this._HotelEntry.Entity = value;
-					if ((value != null))
-					{
-						value.DataEntries.Add(this);
-						this._DataEntryId = value.DataEntryId;
-					}
-					else
-					{
-						this._DataEntryId = default(int);
-					}
-					this.SendPropertyChanged("HotelEntry");
-				}
+				this._HotelEntries.Assign(value);
 			}
 		}
 		
@@ -1422,6 +1466,18 @@ namespace HotelDataEntryLib
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_HotelEntries(HotelEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.DataEntry = this;
+		}
+		
+		private void detach_HotelEntries(HotelEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.DataEntry = null;
 		}
 	}
 	
@@ -1553,9 +1609,9 @@ namespace HotelDataEntryLib
 		
 		private EntitySet<Property> _Properties;
 		
-		private EntitySet<DataEntry> _DataEntries;
+		private EntityRef<DataEntry> _DataEntry;
 		
-		private EntitySet<DataEntryType> _DataEntryTypes;
+		private EntityRef<DataEntryType> _DataEntryType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1576,8 +1632,8 @@ namespace HotelDataEntryLib
 		public HotelEntry()
 		{
 			this._Properties = new EntitySet<Property>(new Action<Property>(this.attach_Properties), new Action<Property>(this.detach_Properties));
-			this._DataEntries = new EntitySet<DataEntry>(new Action<DataEntry>(this.attach_DataEntries), new Action<DataEntry>(this.detach_DataEntries));
-			this._DataEntryTypes = new EntitySet<DataEntryType>(new Action<DataEntryType>(this.attach_DataEntryTypes), new Action<DataEntryType>(this.detach_DataEntryTypes));
+			this._DataEntry = default(EntityRef<DataEntry>);
+			this._DataEntryType = default(EntityRef<DataEntryType>);
 			OnCreated();
 		}
 		
@@ -1632,6 +1688,10 @@ namespace HotelDataEntryLib
 			{
 				if ((this._DataEntryTypeId != value))
 				{
+					if (this._DataEntryType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnDataEntryTypeIdChanging(value);
 					this.SendPropertyChanging();
 					this._DataEntryTypeId = value;
@@ -1652,6 +1712,10 @@ namespace HotelDataEntryLib
 			{
 				if ((this._DataEntryId != value))
 				{
+					if (this._DataEntry.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnDataEntryIdChanging(value);
 					this.SendPropertyChanging();
 					this._DataEntryId = value;
@@ -1694,29 +1758,71 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntry", Storage="_DataEntries", ThisKey="DataEntryId", OtherKey="DataEntryId")]
-		public EntitySet<DataEntry> DataEntries
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataEntry_HotelEntry", Storage="_DataEntry", ThisKey="DataEntryId", OtherKey="DataEntryId", IsForeignKey=true)]
+		public DataEntry DataEntry
 		{
 			get
 			{
-				return this._DataEntries;
+				return this._DataEntry.Entity;
 			}
 			set
 			{
-				this._DataEntries.Assign(value);
+				DataEntry previousValue = this._DataEntry.Entity;
+				if (((previousValue != value) 
+							|| (this._DataEntry.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DataEntry.Entity = null;
+						previousValue.HotelEntries.Remove(this);
+					}
+					this._DataEntry.Entity = value;
+					if ((value != null))
+					{
+						value.HotelEntries.Add(this);
+						this._DataEntryId = value.DataEntryId;
+					}
+					else
+					{
+						this._DataEntryId = default(int);
+					}
+					this.SendPropertyChanged("DataEntry");
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntryType", Storage="_DataEntryTypes", ThisKey="DataEntryTypeId", OtherKey="DataEntryTypeId")]
-		public EntitySet<DataEntryType> DataEntryTypes
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataEntryType_HotelEntry", Storage="_DataEntryType", ThisKey="DataEntryTypeId", OtherKey="DataEntryTypeId", IsForeignKey=true)]
+		public DataEntryType DataEntryType
 		{
 			get
 			{
-				return this._DataEntryTypes;
+				return this._DataEntryType.Entity;
 			}
 			set
 			{
-				this._DataEntryTypes.Assign(value);
+				DataEntryType previousValue = this._DataEntryType.Entity;
+				if (((previousValue != value) 
+							|| (this._DataEntryType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DataEntryType.Entity = null;
+						previousValue.HotelEntries.Remove(this);
+					}
+					this._DataEntryType.Entity = value;
+					if ((value != null))
+					{
+						value.HotelEntries.Add(this);
+						this._DataEntryTypeId = value.DataEntryTypeId;
+					}
+					else
+					{
+						this._DataEntryTypeId = default(int);
+					}
+					this.SendPropertyChanged("DataEntryType");
+				}
 			}
 		}
 		
@@ -1751,30 +1857,6 @@ namespace HotelDataEntryLib
 			this.SendPropertyChanging();
 			entity.HotelEntry = null;
 		}
-		
-		private void attach_DataEntries(DataEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = this;
-		}
-		
-		private void detach_DataEntries(DataEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = null;
-		}
-		
-		private void attach_DataEntryTypes(DataEntryType entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = this;
-		}
-		
-		private void detach_DataEntryTypes(DataEntryType entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DataEntryType")]
@@ -1789,7 +1871,7 @@ namespace HotelDataEntryLib
 		
 		private int _Status;
 		
-		private EntityRef<HotelEntry> _HotelEntry;
+		private EntitySet<HotelEntry> _HotelEntries;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1805,7 +1887,7 @@ namespace HotelDataEntryLib
 		
 		public DataEntryType()
 		{
-			this._HotelEntry = default(EntityRef<HotelEntry>);
+			this._HotelEntries = new EntitySet<HotelEntry>(new Action<HotelEntry>(this.attach_HotelEntries), new Action<HotelEntry>(this.detach_HotelEntries));
 			OnCreated();
 		}
 		
@@ -1820,10 +1902,6 @@ namespace HotelDataEntryLib
 			{
 				if ((this._DataEntryTypeId != value))
 				{
-					if (this._HotelEntry.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnDataEntryTypeIdChanging(value);
 					this.SendPropertyChanging();
 					this._DataEntryTypeId = value;
@@ -1873,37 +1951,16 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntryType", Storage="_HotelEntry", ThisKey="DataEntryTypeId", OtherKey="DataEntryTypeId", IsForeignKey=true)]
-		public HotelEntry HotelEntry
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DataEntryType_HotelEntry", Storage="_HotelEntries", ThisKey="DataEntryTypeId", OtherKey="DataEntryTypeId")]
+		public EntitySet<HotelEntry> HotelEntries
 		{
 			get
 			{
-				return this._HotelEntry.Entity;
+				return this._HotelEntries;
 			}
 			set
 			{
-				HotelEntry previousValue = this._HotelEntry.Entity;
-				if (((previousValue != value) 
-							|| (this._HotelEntry.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HotelEntry.Entity = null;
-						previousValue.DataEntryTypes.Remove(this);
-					}
-					this._HotelEntry.Entity = value;
-					if ((value != null))
-					{
-						value.DataEntryTypes.Add(this);
-						this._DataEntryTypeId = value.DataEntryTypeId;
-					}
-					else
-					{
-						this._DataEntryTypeId = default(int);
-					}
-					this.SendPropertyChanged("HotelEntry");
-				}
+				this._HotelEntries.Assign(value);
 			}
 		}
 		
@@ -1925,6 +1982,18 @@ namespace HotelDataEntryLib
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_HotelEntries(HotelEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.DataEntryType = this;
+		}
+		
+		private void detach_HotelEntries(HotelEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.DataEntryType = null;
 		}
 	}
 	
