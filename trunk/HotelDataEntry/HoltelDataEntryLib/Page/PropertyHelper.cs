@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -44,6 +45,81 @@ namespace HotelDataEntryLib.Page
                                currency.CurrencyCode
                            }).ToList();
             return listCompany;
+        }
+
+        public static void AddProperty(Property property)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                hdc.Properties.InsertOnSubmit(new HotelDataEntryLib.Property
+                {
+                    PropertyCode = property.PropertyCode,
+                    PropertyName = property.PropertyName,
+                    BrandId = property.BrandId,
+                    CurrencyId = property.CurrencyId,
+                    UpdateDateTime = DateTime.Now,
+                    Status = property.Status
+                });
+
+                try
+                {
+                    hdc.SubmitChanges();
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public static void UpdateProperty(Property property)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var prop = hdc.Properties.Single(item => item.PropertyId == property.PropertyId);
+
+                prop.PropertyName =property.PropertyName;
+                prop.PropertyCode = property.PropertyCode;
+                prop.BrandId = property.BrandId;
+                prop.CurrencyId = property.CurrencyId;
+                prop.Status = property.Status;
+                prop.UpdateDateTime = DateTime.Now;
+
+                try
+                {
+                    hdc.SubmitChanges();
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public static void DeleteProperty(int propertyId)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var property = hdc.Properties.Single(item => item.PropertyId == propertyId);
+                hdc.Properties.DeleteOnSubmit(property);
+                try
+                {
+                    hdc.SubmitChanges();
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                    {
+                        throw;
+                    }
+                }
+            }
         }
     }
 }
