@@ -71,7 +71,7 @@
                 </tr>
             </table>
             <asp:ObjectDataSource ID="BrandDataSource" DataObjectTypeName="HotelDataEntryLib.Brand"
-                SelectMethod="ListBrand" TypeName="HotelDataEntryLib.Page.BrandHelper" runat="server">
+                SelectMethod="ListBrandWithZeroId" TypeName="HotelDataEntryLib.Page.BrandHelper" runat="server">
             </asp:ObjectDataSource>
         </ContentTemplate>
     </asp:UpdatePanel>

@@ -7,7 +7,7 @@ namespace HotelDataEntryLib.Page
 {
     public static class BrandHelper
     {
-        public static IEnumerable<Brand> ListBrand()
+        public static IEnumerable<Brand> ListBrandWithZeroId()
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
@@ -15,6 +15,14 @@ namespace HotelDataEntryLib.Page
                 listBrand.AddRange(hdc.Brands.ToList());
                 return listBrand;
             }
-        } 
+        }
+
+        public static IEnumerable<Brand> ListBrand()
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                return hdc.Brands.ToList();
+            }
+        }
     }
 }
