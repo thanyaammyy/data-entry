@@ -9,6 +9,21 @@
         Compamy Management</div>
     <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
+            <asp:DropDownList ID="ddlBrand" ClientIDMode="Static" ToolTip="Brand is required."
+                DataSourceID="BrandDataSource" DataValueField="BrandId" DataTextField="BrandName"
+                Width="90" runat="server">
+            </asp:DropDownList>
+            <asp:ObjectDataSource ID="BrandDataSource" DataObjectTypeName="HotelDataEntryLib.Brand"
+                SelectMethod="ListBrand" TypeName="HotelDataEntryLib.Page.BrandHelper" runat="server">
+            </asp:ObjectDataSource>
+            <asp:DropDownList ID="ddlCurrency" ClientIDMode="Static" ToolTip="Currency is required."
+                DataSourceID="CurrencyDataSource" DataValueField="CurrencyId" DataTextField="CurrencyCode"
+                Width="90" runat="server">
+            </asp:DropDownList>
+            <asp:ObjectDataSource ID="CurrencyDataSource" DataObjectTypeName="HotelDataEntryLib.Currency"
+                SelectMethod="ListCurreny" TypeName="HotelDataEntryLib.Page.CurrencyHelper" runat="server">
+            </asp:ObjectDataSource>
+
             <cc1:JQGrid ID="JqgridCompany" AutoWidth="True" runat="server" Height="80%">
                 <Columns>
                     <cc1:JQGridColumn DataField="PropertyId" PrimaryKey="True" Width="55" Visible="False" />
@@ -18,11 +33,11 @@
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Brand" DataField="BrandName" EditorControlID="ddlBrand"
+                    <cc1:JQGridColumn HeaderText="Brand" DataField="BrandName" EditorControlID="ddlBrand" EditType="DropDown"
                         Editable="True" TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Company Name" DataField="PropertyName" Editable="True"
                         TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Currency" DataField="CurrencyCode" Editable="True"
+                    <cc1:JQGridColumn HeaderText="Currency" DataField="CurrencyCode" Editable="True" EditorControlID="ddlCurrency" EditType="DropDown"
                         TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" EditType="DropDown"
                         EditValues="0:InActive;1:Active" Editable="True" TextAlign="Center" />
@@ -38,12 +53,6 @@
                 <EditDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterEditing="True" Caption="Edit Season"></EditDialogSettings>
             </cc1:JQGrid>
-            <asp:DropDownList ID="ddlBrand" ToolTip="Brand is required." DataSourceID="BrandDataSource"
-                DataTextField="BrandCodeWithName"  Width="90" runat="server">
-            </asp:DropDownList>
-            <asp:ObjectDataSource ID="BrandDataSource" DataObjectTypeName="HotelDataEntryLib.Brand"
-                SelectMethod="ListBrand" TypeName="HotelDataEntryLib.Page.BrandHelper" runat="server">
-            </asp:ObjectDataSource>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
