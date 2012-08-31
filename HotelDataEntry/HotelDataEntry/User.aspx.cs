@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HotelDataEntryLib.Page;
+using Trirand.Web.UI.WebControls;
 
 namespace HotelDataEntry
 {
@@ -12,9 +13,28 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var maincompany = Request.QueryString["companyid"];
             if(!Page.IsPostBack)
             {
-                JqgridUserBinding();
+                if (JqgridUser.AjaxCallBackMode == AjaxCallBackMode.RequestData)
+                {
+                    JqgridUserBinding();
+                }
+            }
+
+            if (!string.IsNullOrEmpty(maincompany))
+            {
+                var companyid = Convert.ToInt32(maincompany);
+                Response.Clear();
+                Response.Write(PropertyHelper.ListAlterCompany(companyid));
+                try
+                {
+                    Response.End();
+                }
+                catch (Exception exception)
+                {
+
+                }
             }
         }
 

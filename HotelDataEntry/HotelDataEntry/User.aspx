@@ -12,7 +12,7 @@
         function updateCompanyCallBack(mainCompany) {
             $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
             $.ajax({
-                url: 'URL อะไรดี method ที่ call อยู่ที่ PropertyHelper.ListAlterCompanyWithoutZeroIndex(int companyid)' + "?companyid=" + mainCompany,
+                url: "User.aspx?companyid=" + mainCompany,
                 type: "GET",
                 success: function (altercompany) {
                     var company = eval(altercompany);
@@ -47,12 +47,13 @@
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="User Name" DataField="UserFLName" Editable="True" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Firstname" DataField="FirstName" Editable="True" TextAlign="Center">
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Email" DataField="Email" EditorControlID="ddlBrand"
-                        EditType="DropDown" Editable="True" TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Alternative Company" DataField="AlterCompany" Editable="True"
-                        EditorControlID="ddlAlterCompany" EditType="DropDown" TextAlign="Center" />
+                    <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Center">
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="False" TextAlign="Center" />
+                    <cc1:JQGridColumn HeaderText="Alternative Company" DataField="AlterCompany" Editable="true"
+                        EditType="DropDown" EditValues="Select a company" TextAlign="Center" />
                     <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True"
                         TextAlign="Center">
                     </cc1:JQGridColumn>
@@ -73,11 +74,11 @@
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <asp:UpdatePanel ID="updateAlterCompany" runat="server">
+    <%--<asp:UpdatePanel ID="updateAlterCompany" runat="server">
         <ContentTemplate>
             <asp:DropDownList ID="ddlAlterCompany" DataValueField="PropertyId" DataTextField="PropertyCode"
                 Width="90" runat="server">
             </asp:DropDownList>
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>--%>
 </asp:Content>

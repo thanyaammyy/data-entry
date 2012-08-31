@@ -21,7 +21,8 @@ namespace HotelDataEntryLib.Page
                                user.UserId,
                                property1.PropertyCode, 
                                AlterCompany = property2.PropertyCode,
-                               user.UserFLName,
+                               user.FirstName,
+                               user.LastName,
                                user.Email,
                                permission.PermissionId,
                                user.StatusLabel
