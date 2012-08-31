@@ -61,7 +61,7 @@
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Alternative Company" DataField="AlterCompany" Editable="true"
                         EditType="DropDown" EditValues="Select a company" TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True"
+                    <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True" EditType="DropDown" EditValues="1:Admin"
                         TextAlign="Center">
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" EditType="DropDown"
