@@ -53,5 +53,62 @@ namespace HotelDataEntry
             JqgridUser.DataBind();
         }
 
+        protected void JqgridUser_RowAdding(object sender, JQGridRowAddEventArgs e)
+        {
+            var status = e.RowData["StatusLabel"];
+            var mainCompany = e.RowData["PropertyCode"];
+            var alterCompany = e.RowData["AlterCompany"];
+            var permissionId = e.RowData["PermissionId"];
+            if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany)|| string.IsNullOrEmpty(permissionId)))
+            {
+
+                var user = new HotelDataEntryLib.User()
+                {
+                    PropertyId = Convert.ToInt32(mainCompany),
+                    FirstName = e.RowData["FirstName"],
+                    LastName = e.RowData["LastName"],
+                    Email = e.RowData["Email"],
+                    Status = Convert.ToInt32(status),
+                    UpdateDateTime = DateTime.Now,
+                    AlterPropertyId = Convert.ToInt32(alterCompany),
+                    PermissionId= Convert.ToInt32(permissionId)
+                };
+                UserHelper.AddUserProfile(user);
+            }
+        }
+
+        protected void JqgridUser_RowEditing(object sender, JQGridRowEditEventArgs e)
+        {
+            var status = e.RowData["StatusLabel"];
+            var mainCompany = e.RowData["PropertyCode"];
+            var alterCompany = e.RowData["AlterCompany"];
+            var permissionId = e.RowData["PermissionId"];
+            var userId = e.RowKey;
+            if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
+            {
+
+                var user = new HotelDataEntryLib.User()
+                {
+                    UserId = Convert.ToInt32(userId),
+                    PropertyId = Convert.ToInt32(mainCompany),
+                    FirstName = e.RowData["FirstName"],
+                    LastName = e.RowData["LastName"],
+                    Email = e.RowData["Email"],
+                    Status = Convert.ToInt32(status),
+                    UpdateDateTime = DateTime.Now,
+                    AlterPropertyId = Convert.ToInt32(alterCompany),
+                    PermissionId = Convert.ToInt32(permissionId)
+                };
+                UserHelper.UpdateUserProfile(user);
+            }
+        }
+
+        protected void JqgridUser_RowDeleting(object sender, JQGridRowDeleteEventArgs e)
+        {
+            var userId = e.RowKey;
+            if(string.IsNullOrEmpty(userId))return;
+            UserHelper.DeleteUserProfile(Convert.ToInt32(userId));
+        }
+
     }
 }

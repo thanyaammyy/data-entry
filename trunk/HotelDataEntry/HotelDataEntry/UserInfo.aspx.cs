@@ -10,6 +10,7 @@ namespace HotelDataEntry
     public partial class UserInfo : System.Web.UI.Page
     {
         public int UserId;
+        public int UserPermissionId;
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -21,7 +22,7 @@ namespace HotelDataEntry
             if (UserId != 0)
             {
                 var userInfo = UserHelper.GetUserInfo(UserId);
-
+                UserPermissionId = userInfo.PermissionId;
                 if(!Page.IsPostBack)
                 {
                     ddlCompany.SelectedValue = userInfo.PropertyId.ToString();
@@ -68,11 +69,13 @@ namespace HotelDataEntry
                 };
                 if (UserId == 0)
                 {
-                    UserHelper.InsertUserProfile(user);
+                    user.PermissionId = 0;
+                    UserHelper.AddUserProfile(user);
                 }
                 else
                 {
                     user.UserId = UserId;
+                    user.PermissionId = UserPermissionId;
                     UserHelper.UpdateUserProfile(user);
                 }
                 Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close();</script>");

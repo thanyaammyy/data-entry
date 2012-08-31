@@ -50,11 +50,10 @@ namespace HotelDataEntryLib.Page
             return hdc.Users.Single(item => item.UserId == userId);
         }
 
-        public static void InsertUserProfile(User user)
+        public static void AddUserProfile(User user)
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                user.PermissionId = 0;
                 hdc.Users.InsertOnSubmit(user);
                 try
                 {
@@ -83,6 +82,27 @@ namespace HotelDataEntryLib.Page
                 getUser.PropertyId = user.PropertyId;
                 getUser.AlterPropertyId = user.AlterPropertyId;
                 getUser.UpdateDateTime = DateTime.Now;
+                getUser.PermissionId = user.PermissionId;
+                try
+                {
+                    hdc.SubmitChanges();
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public static void DeleteUserProfile(int userId)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var user = hdc.Users.Single(item => item.UserId == userId);
+                hdc.Users.DeleteOnSubmit(user);
                 try
                 {
                     hdc.SubmitChanges();
