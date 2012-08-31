@@ -25,13 +25,12 @@ namespace HotelDataEntry
                 if(!Page.IsPostBack)
                 {
                     ddlCompany.SelectedValue = userInfo.PropertyId.ToString();
+                    if (userInfo.AlterPropertyId != 0) ddlAlterCompany.SelectedValue = userInfo.AlterPropertyId.ToString();
                 }
                 
                 tbFirstName.Text = userInfo.FirstName;
                 tbLastName.Text = userInfo.LastName;
                 lbEmail.Text = userInfo.Email;
-                
-                if (userInfo.AlterPropertyId != 0) ddlAlterCompany.SelectedValue = userInfo.AlterPropertyId.ToString();
             }
             else
             {

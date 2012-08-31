@@ -10,7 +10,7 @@
         }
 
         function updateCompanyCallBack(mainCompany) {
-            $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
+            $("#PropertyCode").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
             $.ajax({
                 url: "User.aspx?companyid=" + mainCompany,
                 type: "GET",
@@ -20,7 +20,7 @@
                     $(company).each(function (i, option) {
                         alterCompanyHtml += '<option value="' + option + '">' + option + '</option>';
                     });
-                    $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
+                    $("#PropertyCode").removeAttr("disabled").html(alterCompanyHtml);
                 }
             });
         }
@@ -74,11 +74,4 @@
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <%--<asp:UpdatePanel ID="updateAlterCompany" runat="server">
-        <ContentTemplate>
-            <asp:DropDownList ID="ddlAlterCompany" DataValueField="PropertyId" DataTextField="PropertyCode"
-                Width="90" runat="server">
-            </asp:DropDownList>
-        </ContentTemplate>
-    </asp:UpdatePanel>--%>
 </asp:Content>

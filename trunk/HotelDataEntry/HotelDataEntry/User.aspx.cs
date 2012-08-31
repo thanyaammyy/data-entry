@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,7 +14,7 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var maincompany = Request.QueryString["companyid"];
+            var mainCompany = Request.QueryString["companyid"];
             if(!Page.IsPostBack)
             {
                 if (JqgridUser.AjaxCallBackMode == AjaxCallBackMode.RequestData)
@@ -22,11 +23,11 @@ namespace HotelDataEntry
                 }
             }
 
-            if (!string.IsNullOrEmpty(maincompany))
+            if (!string.IsNullOrEmpty(mainCompany))
             {
-                var companyid = Convert.ToInt32(maincompany);
+                var companyid = Convert.ToInt32(mainCompany);
                 Response.Clear();
-                Response.Write(PropertyHelper.ListAlterCompany(companyid));
+                Response.Write(CompanyToJSON(companyid));
                 try
                 {
                     Response.End();
@@ -36,6 +37,17 @@ namespace HotelDataEntry
 
                 }
             }
+        }
+
+        private string CompanyToJSON(int companyId)
+        {
+            var dropdownHtml = new StringBuilder();
+            var listCompany = PropertyHelper.ListAlterCompany(companyId);
+            //for (var i = 0; i < listCompany.Count();i++ )
+            //{
+            //    dropdownHtml.AppendFormat("", listCompany[i]);
+            //}
+            return "";
         }
 
         private void JqgridUserBinding()
