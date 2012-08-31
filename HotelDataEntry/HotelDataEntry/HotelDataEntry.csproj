@@ -33,8 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Exchange.WebServices">
-      <HintPath>C:\Program Files\Microsoft\Exchange\Web Services\1.2\Microsoft.Exchange.WebServices.dll</HintPath>
+    <Reference Include="Microsoft.Exchange.WebServices, Version=14.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Microsoft.Exchange.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web.DynamicData" />
