@@ -2,12 +2,33 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 
 namespace HotelDataEntryLib.Page
 {
     public static class UserHelper
     {
+        public static IEnumerable<object> ListUser()
+        {
+            var hdc = new HotelDataEntryDataContext();
+            IEnumerable<object> listUser= null;
+
+            listUser = (from user in hdc.Users
+                           join property1 in hdc.Properties on user.PropertyId equals property1.PropertyId
+                           join property2 in hdc.Properties on user.AlterPropertyId equals property2.PropertyId
+                           join permission in hdc.Permissions on user.PermissionId equals permission.PermissionId
+                           select new
+                           {
+                               user.UserId,
+                               property1.PropertyCode, 
+                               AlterCompany = property2.PropertyCode,
+                               user.UserFLName,
+                               user.Email,
+                               permission.PermissionId,
+                               user.StatusLabel
+                           }).ToList();
+            return listUser;
+        }
+
         public static User GetUser(string email)
         {
             var user = new User();

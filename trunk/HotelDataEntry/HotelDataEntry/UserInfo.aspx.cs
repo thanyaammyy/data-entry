@@ -57,7 +57,7 @@ namespace HotelDataEntry
             var email = lbEmail.Text;
             if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||company.Equals("0")))
             {
-                var user = new User
+                var user = new HotelDataEntryLib.User()
                 {
                     FirstName = fName,
                     LastName = lName,

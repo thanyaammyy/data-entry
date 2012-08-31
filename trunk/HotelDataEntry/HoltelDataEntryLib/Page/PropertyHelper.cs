@@ -18,12 +18,30 @@ namespace HotelDataEntryLib.Page
             }
         }
 
+        public static IEnumerable<Property> ListCompanyWithoutZeroIndex()
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                return hdc.Properties.ToList();
+            }
+        }
+
         public static IEnumerable<Property> ListAlterCompany(int propertyid)
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
                 var listAlterCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Alter Company" } };
                 listAlterCompany.AddRange(hdc.Properties.Where(item => item.PropertyId != propertyid).ToList());
+                return listAlterCompany;
+            }
+        }
+
+        public static IEnumerable<Property> ListAlterCompanyWithoutZeroIndex(int companyid)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var listAlterCompany = new List<Property>();
+                listAlterCompany.AddRange(hdc.Properties.Where(item => item.PropertyId != companyid).ToList());
                 return listAlterCompany;
             }
         }

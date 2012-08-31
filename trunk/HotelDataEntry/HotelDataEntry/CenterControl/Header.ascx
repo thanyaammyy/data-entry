@@ -12,7 +12,7 @@
             <a href="#" id="inputForm">Data Input Form</a> <span style="color: black; padding: 2px">
                 l </span> <a href="#" id="report">Report</a> <span style="color: black; padding: 2px">
                     l</span> <a href="Company.aspx?UserId=<%=StrUserId%>&Email=<%=Email %>" id="compMa">Company Maintenance</a> <span style="color: black;
-                        padding: 2px">l</span> <a href="#" id="userMa">User Maintenance</a>
+                        padding: 2px">l</span> <a href="User.aspx?UserId=<%=StrUserId%>&Email=<%=Email %>" id="userMa">User Maintenance</a>
             <span style="color: black; padding: 2px">l</span> <a href="Currency.aspx?UserId=<%=StrUserId%>&Email=<%=Email %>" id="currencyMa">Currency
                 Maintenance</a>
         </p>
