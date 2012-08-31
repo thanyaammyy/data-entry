@@ -10,17 +10,18 @@
         }
 
         function updateCompanyCallBack(mainCompany) {
-            $("#PropertyCode").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
+            $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
             $.ajax({
                 url: "User.aspx?companyid=" + mainCompany,
                 type: "GET",
                 success: function (altercompany) {
-                    var company = eval(altercompany);
+                    var company = altercompany.split("|");
                     var alterCompanyHtml = "";
-                    $(company).each(function (i, option) {
-                        alterCompanyHtml += '<option value="' + option + '">' + option + '</option>';
-                    });
-                    $("#PropertyCode").removeAttr("disabled").html(alterCompanyHtml);
+                    for (var i = 0; i < company.length; i++) {
+                        var str = company[i].split(",");
+                        alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
+                    }
+                    $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
                 }
             });
         }
@@ -70,7 +71,7 @@
                     CloseAfterAdding="True" Caption="Add Season" ClearAfterAdding="True"></AddDialogSettings>
                 <EditDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterEditing="True" Caption="Edit Season"></EditDialogSettings>
-                <ClientSideEvents AfterEditDialogShown="populateAlterCompany" />
+                <ClientSideEvents AfterEditDialogShown="populateAlterCompany" AfterAddDialogShown="populateAlterCompany" />
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
 
@@ -43,11 +38,12 @@ namespace HotelDataEntry
         {
             var dropdownHtml = new StringBuilder();
             var listCompany = PropertyHelper.ListAlterCompany(companyId);
-            //for (var i = 0; i < listCompany.Count();i++ )
-            //{
-            //    dropdownHtml.AppendFormat("", listCompany[i]);
-            //}
-            return "";
+            for (var i = 0; i < listCompany.Count;i++ )
+            {
+                if (i != 0) dropdownHtml.Append("|");
+                dropdownHtml.Append(listCompany[i].PropertyId+","+listCompany[i].PropertyCode);
+            }
+            return dropdownHtml.ToString();
         }
 
         private void JqgridUserBinding()

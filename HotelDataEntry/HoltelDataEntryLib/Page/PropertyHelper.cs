@@ -18,7 +18,7 @@ namespace HotelDataEntryLib.Page
             }
         }
 
-        public static IEnumerable<Property> ListAlterCompany(int propertyid)
+        public static List<Property> ListAlterCompany(int propertyid)
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
