@@ -11,21 +11,23 @@
 
         function updateCompanyCallBack(mainCompany) {
             $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
+            var grid = $("#<%= JqgridUser.ClientID %>");
+            var userid = grid.getGridParam("selrow");
             $.ajax({
-                url: "User.aspx?companyid=" + mainCompany,
+                url: "User.aspx?companyid=" + mainCompany + "&userid=" + userid,
                 type: "GET",
                 success: function (altercompany) {
                     var company = altercompany.split("|");
                     var alterCompanyHtml = "";
                     for (var i = 0; i < company.length; i++) {
                         var str = company[i].split(",");
-                        alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
+                        alterCompanyHtml += '<option selected="' + str[2] + '" value="' + str[0] + '">' + str[1] + '</option>';
                     }
                     $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
                 }
             });
         }
-       
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -39,9 +41,8 @@
             <asp:ObjectDataSource ID="CompanyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
                 SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
             </asp:ObjectDataSource>
-            <cc1:JQGrid ID="JqgridUser" AutoWidth="True" runat="server" Height="80%" 
-                onrowadding="JqgridUser_RowAdding" onrowdeleting="JqgridUser_RowDeleting" 
-                onrowediting="JqgridUser_RowEditing">
+            <cc1:JQGrid ID="JqgridUser" AutoWidth="True" runat="server" Height="80%" OnRowAdding="JqgridUser_RowAdding"
+                OnRowDeleting="JqgridUser_RowDeleting" OnRowEditing="JqgridUser_RowEditing">
                 <Columns>
                     <cc1:JQGridColumn DataField="UserId" PrimaryKey="True" Width="55" Visible="False" />
                     <cc1:JQGridColumn HeaderText="Company" DataField="PropertyCode" EditorControlID="ddlCompany"
@@ -54,15 +55,15 @@
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Center">
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Center" >
+                    <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Center">
                         <EditClientSideValidators>
                             <cc1:EmailValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Alternative Company" DataField="AlterCompany" Editable="true"
                         EditType="DropDown" EditValues="Select a company" TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True" EditType="DropDown" EditValues="1:Admin"
-                        TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True"
+                        EditType="DropDown" EditValues="1:Admin" TextAlign="Center">
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" EditType="DropDown"
                         EditValues="0:InActive;1:Active" Editable="True" TextAlign="Center" />
