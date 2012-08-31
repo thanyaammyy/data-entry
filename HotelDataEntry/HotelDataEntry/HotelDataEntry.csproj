@@ -108,6 +108,7 @@
     <Content Include="Style\jquery-ui-1.8.23.custom.css" />
     <Content Include="Style\main.css" />
     <Content Include="Style\ui.jqgrid.css" />
+    <Content Include="User.aspx" />
     <Content Include="UserInfo.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -174,6 +175,13 @@
     </Compile>
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
+    </Compile>
+    <Compile Include="User.aspx.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User.aspx.designer.cs">
+      <DependentUpon>User.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserInfo.aspx.cs">
       <DependentUpon>UserInfo.aspx</DependentUpon>
