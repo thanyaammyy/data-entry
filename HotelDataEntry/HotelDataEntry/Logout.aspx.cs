@@ -11,8 +11,7 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["LoginSession"] = "False";
-            Session["UserSession"] = "";
+            Session.Clear();
             Response.Redirect("~/Login.aspx");
         }
     }
