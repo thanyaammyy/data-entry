@@ -12,17 +12,9 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var listCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Company" } };
+                var listCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Company", PropertyCode = "Select Company"} };
                 listCompany.AddRange(hdc.Properties.ToList());
                 return listCompany;
-            }
-        }
-
-        public static IEnumerable<Property> ListCompanyWithoutZeroIndex()
-        {
-            using (var hdc = new HotelDataEntryDataContext())
-            {
-                return hdc.Properties.ToList();
             }
         }
 
@@ -30,21 +22,12 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var listAlterCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Alter Company" } };
+                var listAlterCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Alter Company", PropertyCode = "Select Company"} };
                 listAlterCompany.AddRange(hdc.Properties.Where(item => item.PropertyId != propertyid).ToList());
                 return listAlterCompany;
             }
         }
 
-        public static IEnumerable<Property> ListAlterCompanyWithoutZeroIndex(int companyid)
-        {
-            using (var hdc = new HotelDataEntryDataContext())
-            {
-                var listAlterCompany = new List<Property>();
-                listAlterCompany.AddRange(hdc.Properties.Where(item => item.PropertyId != companyid).ToList());
-                return listAlterCompany;
-            }
-        }
         public static IEnumerable<object> ListAllCompany()
         {
             var hdc = new HotelDataEntryDataContext();

@@ -47,23 +47,5 @@ namespace HotelDataEntry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Trirand.Web.UI.WebControls.JQGrid JqgridUser;
-        
-        /// <summary>
-        /// updateAlterCompany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updateAlterCompany;
-        
-        /// <summary>
-        /// ddlAlterCompany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAlterCompany;
     }
 }
