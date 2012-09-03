@@ -11,7 +11,7 @@ namespace HotelDataEntry
 {
 
 
-    public partial class Main
+    public partial class DataEntry
     {
     }
 }
