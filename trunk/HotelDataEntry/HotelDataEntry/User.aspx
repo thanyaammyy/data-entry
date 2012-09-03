@@ -21,8 +21,30 @@
                     var alterCompanyHtml = "";
                     for (var i = 0; i < company.length; i++) {
                         var str = company[i].split(",");
-                        if (str[2] == "") alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
-                        else alterCompanyHtml += '<option selected="' + str[2] + '" value="' + str[0] + '">' + str[1] + '</option>';
+                        if (str[2]=="selected") alterCompanyHtml += '<option selected="' + str[2] + '" value="' + str[0] + '">' + str[1] + '</option>';
+                        else alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
+                    }
+                    $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
+                }
+            });
+        }
+
+        function populateAddAlterCompany() {
+            addCompanyCallBack($("#PropertyCode").val());
+            $("#PropertyCode").bind("change", function (e) { addCompanyCallBack($("#PropertyCode").val()); });
+        }
+
+        function addCompanyCallBack(mainCompany) {
+            $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
+            $.ajax({
+                url: "User.aspx?companyid=" + mainCompany + "&userid=-1",
+                type: "GET",
+                success: function (altercompany) {
+                    var company = altercompany.split("|");
+                    var alterCompanyHtml = "";
+                    for (var i = 0; i < company.length; i++) {
+                        var str = company[i].split(",");
+                        alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
                     }
                     $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
                 }
@@ -79,7 +101,7 @@
                     CloseAfterAdding="True" Caption="Add Season" ClearAfterAdding="True"></AddDialogSettings>
                 <EditDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterEditing="True" Caption="Edit Season"></EditDialogSettings>
-                <ClientSideEvents AfterEditDialogShown="populateAlterCompany" AfterAddDialogShown="populateAlterCompany" />
+                <ClientSideEvents AfterEditDialogShown="populateAlterCompany" AfterAddDialogShown="populateAddAlterCompany" />
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>
