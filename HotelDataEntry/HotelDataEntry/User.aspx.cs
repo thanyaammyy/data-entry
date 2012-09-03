@@ -25,7 +25,7 @@ namespace HotelDataEntry
             {
                 var companyid = Convert.ToInt32(mainCompany);
                 Response.Clear();
-                if (!string.IsNullOrEmpty(user))
+                if (!(string.IsNullOrEmpty(user)||user=="null"))
                 {
                     var userId = Convert.ToInt32(user);
                     Response.Write(CompanyToJSON(companyid, userId));
@@ -51,7 +51,7 @@ namespace HotelDataEntry
             for (var i = 0; i < listCompany.Count; i++)
             {
                 if (i != 0) dropdownHtml.Append("|");
-                dropdownHtml.Append(listCompany[i].PropertyId + "," + listCompany[i].PropertyCode + "," + UserHelper.GetAlterCompany(listCompany[i].PropertyId, userId));
+                dropdownHtml.Append(userId <= 0 ? listCompany[i].PropertyId + "," + listCompany[i].PropertyCode : listCompany[i].PropertyId + "," + listCompany[i].PropertyCode + "," + UserHelper.GetAlterCompany(listCompany[i].PropertyId, userId));
             }
             return dropdownHtml.ToString();
         }
