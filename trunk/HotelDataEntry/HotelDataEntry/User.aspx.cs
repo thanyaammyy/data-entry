@@ -44,17 +44,6 @@ namespace HotelDataEntry
             }
         }
 
-        private string CheckSelected(int id, int userId)
-        {
-            string selected = "";
-            using (var hdc = new HotelDataEntryDataContext())
-            {
-                var propertyId = hdc.Users.Single(item => item.UserId == userId).AlterPropertyId;
-                selected = propertyId == id ? "selected" : "";
-            }
-            return selected;
-        }
-
         private string CompanyToJSON(int companyId, int userId)
         {
             var dropdownHtml = new StringBuilder();
@@ -62,7 +51,7 @@ namespace HotelDataEntry
             for (var i = 0; i < listCompany.Count; i++)
             {
                 if (i != 0) dropdownHtml.Append("|");
-                dropdownHtml.Append(listCompany[i].PropertyId + "," + listCompany[i].PropertyCode + "," + CheckSelected(listCompany[i].PropertyId, userId));
+                dropdownHtml.Append(listCompany[i].PropertyId + "," + listCompany[i].PropertyCode + "," + UserHelper.GetAlterCompany(listCompany[i].PropertyId, userId));
             }
             return dropdownHtml.ToString();
         }
