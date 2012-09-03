@@ -11,7 +11,7 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var listBrand = new List<Brand> {new Brand() {BrandId = 0, BrandName = "Select Brand", Email = ""}};
+                var listBrand = new List<Brand> {new Brand() {BrandId = 0, BrandName = "Select a brand", Email = ""}};
                 listBrand.AddRange(hdc.Brands.ToList());
                 return listBrand;
             }
