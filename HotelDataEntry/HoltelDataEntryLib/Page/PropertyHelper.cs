@@ -12,7 +12,7 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var listCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Company", PropertyCode = "Select Company"} };
+                var listCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select a Company", PropertyCode = "Select a Company"} };
                 listCompany.AddRange(hdc.Properties.ToList());
                 return listCompany;
             }
@@ -22,7 +22,7 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var listAlterCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select Alter Company", PropertyCode = "Select Company"} };
+                var listAlterCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select a Company", PropertyCode = "Select a Company"} };
                 listAlterCompany.AddRange(hdc.Properties.Where(item => item.PropertyId != propertyid).ToList());
                 return listAlterCompany;
             }
