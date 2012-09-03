@@ -21,7 +21,8 @@
                     var alterCompanyHtml = "";
                     for (var i = 0; i < company.length; i++) {
                         var str = company[i].split(",");
-                        alterCompanyHtml += '<option selected="' + str[2] + '" value="' + str[0] + '">' + str[1] + '</option>';
+                        if (str[2] == "") alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
+                        else alterCompanyHtml += '<option selected="' + str[2] + '" value="' + str[0] + '">' + str[1] + '</option>';
                     }
                     $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
                 }
