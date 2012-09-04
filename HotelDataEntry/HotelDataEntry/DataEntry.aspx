@@ -20,22 +20,26 @@
                     var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                     $(this).datepicker('setDate', new Date(year, month, 1));
+                    var my = (month + 1) + "/" + year;
+                    document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
                 }
             });
         });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <input type="hidden" id="hiddenMonthYear" runat="server" />
     <div class="headerMenuLabel">
         Data Entry</div>
     <div>
-        <table class="TextBlack12">
+        <table class="TextBlack12" cellpadding="3" cellspacing="3">
             <tr>
                 <td>
                     Position Date
                 </td>
                 <td>
                     <input type="text" id="calendar" name="calendar" />
+                    <asp:Label ID="lbCalendar" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
             </tr>
             <tr>
@@ -46,6 +50,7 @@
                     <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
                         DataValueField="PropertyId" DataTextField="PropertyCode" Width="120" runat="server">
                     </asp:DropDownList>
+                    <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
             </tr>
             <tr>
@@ -53,69 +58,72 @@
                     Revenue
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlMenu" ToolTip="Select a revenue" Width="120" runat="server">
-                        <asp:ListItem Value="0">Select a menu</asp:ListItem>
-                        <asp:ListItem Value="1">Room</asp:ListItem>
-                        <asp:ListItem Value="2">F&amp;B</asp:ListItem>
-                        <asp:ListItem Value="3">Spa</asp:ListItem>
-                        <asp:ListItem Value="4">Other Revenue</asp:ListItem>
+                    <asp:DropDownList ID="ddlMenu" ToolTip="Select a revenue" Width="120" runat="server"
+                        DataSourceID="RevenueDataSource" DataValueField="DataEntryTypeId" DataTextField="DataEntryTypeName">
                     </asp:DropDownList>
+                    <asp:Label ID="lbMenu" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <asp:Button runat="server" ID="btnCreateForm" onclick="btnCreateForm_Click" Text="Show"/>
+                <td colspan="2" align="center">
+                    <asp:Button runat="server" ID="btnCreateForm" OnClick="btnCreateForm_Click" Text="Show" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select any required feilds"
+                        CssClass="redText"></asp:Label>
                 </td>
             </tr>
         </table>
         <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
             SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
         </asp:ObjectDataSource>
-        <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
-            <ContentTemplate>
-                <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%">
-                    <Columns>
-                        <cc1:JQGridColumn DataField="HotelEntryId" PrimaryKey="True" Width="55" Visible="False" />
-                        <cc1:JQGridColumn HeaderText="Edit" Width="40" TextAlign="Center" EditActionIconsColumn="True" />
-                        <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" EditType="TextBox" DataType="DateTime"
-                            DataFormatString="{0:dd/MM/yyyy}" Editable="True" TextAlign="Center">
-                            <EditClientSideValidators>
-                                <cc1:RequiredValidator />
-                            </EditClientSideValidators>
-                        </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Actual" DataField="Actual" Editable="True" TextAlign="Right">
-                            <EditClientSideValidators>
-                                <cc1:RequiredValidator />
-                                <cc1:NumberValidator />
-                            </EditClientSideValidators>
-                        </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" TextAlign="Right">
-                            <EditClientSideValidators>
-                                <cc1:RequiredValidator />
-                                <cc1:NumberValidator />
-                            </EditClientSideValidators>
-                        </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right">
-                            <EditClientSideValidators>
-                                <cc1:EmailValidator />
-                            </EditClientSideValidators>
-                        </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right">
-                            <EditClientSideValidators>
-                                <cc1:EmailValidator />
-                            </EditClientSideValidators>
-                        </cc1:JQGridColumn>
-                    </Columns>
-                    <AddDialogSettings CloseAfterAdding="False" />
-                    <EditDialogSettings CloseAfterEditing="True" />
-                    <ToolBarSettings ShowAddButton="True"
-                        ShowRefreshButton="True" ShowSearchButton="True" />
-                    <AppearanceSettings ShowRowNumbers="true" />
-                    <DeleteDialogSettings LeftOffset="497" TopOffset="241"></DeleteDialogSettings>
-                    <ClientSideEvents RowSelect="bindCalendarDialog" AfterAddDialogShown="bindCalendarDialog2"
-                        AfterEditDialogShown="bindCalendarDialog2" />
-                </cc1:JQGrid>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+        <asp:ObjectDataSource ID="RevenueDataSource" DataObjectTypeName="HotelDataEntryLib.DataEntryType"
+            SelectMethod="ListDataEntryType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
+            runat="server"></asp:ObjectDataSource>
+        <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
+            <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
+                <ContentTemplate>
+                    <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
+                        <Columns>
+                            <cc1:JQGridColumn HeaderText="Edit Actions" Width="40" TextAlign="Center" EditActionIconsColumn="True" />
+                            <cc1:JQGridColumn DataField="DataEntryId" PrimaryKey="True" Width="55" Visible="False" />
+                            <cc1:JQGridColumn DataField="HotelEntryId" Width="55" Visible="False" />
+                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:NumberValidator />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:NumberValidator />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:NumberValidator />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:NumberValidator />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                        </Columns>
+                        <EditDialogSettings CloseAfterEditing="True" />
+                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" />
+                        <PagerSettings PageSize="50" />
+                        <AppearanceSettings ShowRowNumbers="true" />
+                    </cc1:JQGrid>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
     </div>
 </asp:Content>
