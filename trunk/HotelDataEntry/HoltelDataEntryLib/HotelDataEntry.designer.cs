@@ -1784,9 +1784,9 @@ namespace HotelDataEntryLib
 		
 		private EntitySet<Property> _Properties;
 		
-		private EntitySet<DataEntry> _DataEntries;
-		
 		private EntitySet<DataEntryType> _DataEntryTypes;
+		
+		private EntitySet<DataEntry> _DataEntries;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1807,8 +1807,8 @@ namespace HotelDataEntryLib
 		public HotelEntry()
 		{
 			this._Properties = new EntitySet<Property>(new Action<Property>(this.attach_Properties), new Action<Property>(this.detach_Properties));
-			this._DataEntries = new EntitySet<DataEntry>(new Action<DataEntry>(this.attach_DataEntries), new Action<DataEntry>(this.detach_DataEntries));
 			this._DataEntryTypes = new EntitySet<DataEntryType>(new Action<DataEntryType>(this.attach_DataEntryTypes), new Action<DataEntryType>(this.detach_DataEntryTypes));
+			this._DataEntries = new EntitySet<DataEntry>(new Action<DataEntry>(this.attach_DataEntries), new Action<DataEntry>(this.detach_DataEntries));
 			OnCreated();
 		}
 		
@@ -1925,19 +1925,6 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntry", Storage="_DataEntries", ThisKey="HotelEntryId", OtherKey="HotelEntryId")]
-		public EntitySet<DataEntry> DataEntries
-		{
-			get
-			{
-				return this._DataEntries;
-			}
-			set
-			{
-				this._DataEntries.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntryType", Storage="_DataEntryTypes", ThisKey="DataEntryTypeId", OtherKey="DataEntryTypeId")]
 		public EntitySet<DataEntryType> DataEntryTypes
 		{
@@ -1948,6 +1935,19 @@ namespace HotelDataEntryLib
 			set
 			{
 				this._DataEntryTypes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntry", Storage="_DataEntries", ThisKey="HotelEntryId", OtherKey="HotelEntryId")]
+		public EntitySet<DataEntry> DataEntries
+		{
+			get
+			{
+				return this._DataEntries;
+			}
+			set
+			{
+				this._DataEntries.Assign(value);
 			}
 		}
 		
@@ -1983,18 +1983,6 @@ namespace HotelDataEntryLib
 			entity.HotelEntry = null;
 		}
 		
-		private void attach_DataEntries(DataEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = this;
-		}
-		
-		private void detach_DataEntries(DataEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = null;
-		}
-		
 		private void attach_DataEntryTypes(DataEntryType entity)
 		{
 			this.SendPropertyChanging();
@@ -2002,6 +1990,18 @@ namespace HotelDataEntryLib
 		}
 		
 		private void detach_DataEntryTypes(DataEntryType entity)
+		{
+			this.SendPropertyChanging();
+			entity.HotelEntry = null;
+		}
+		
+		private void attach_DataEntries(DataEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.HotelEntry = this;
+		}
+		
+		private void detach_DataEntries(DataEntry entity)
 		{
 			this.SendPropertyChanging();
 			entity.HotelEntry = null;
@@ -2020,9 +2020,9 @@ namespace HotelDataEntryLib
 		
 		private double _Budget;
 		
-		private double _YTDActual;
+		private System.Nullable<double> _YTDActual;
 		
-		private double _YTDBudget;
+		private System.Nullable<double> _YTDBudget;
 		
 		private System.DateTime _UpdateDateTime;
 		
@@ -2042,9 +2042,9 @@ namespace HotelDataEntryLib
     partial void OnActualDataChanged();
     partial void OnBudgetChanging(double value);
     partial void OnBudgetChanged();
-    partial void OnYTDActualChanging(double value);
+    partial void OnYTDActualChanging(System.Nullable<double> value);
     partial void OnYTDActualChanged();
-    partial void OnYTDBudgetChanging(double value);
+    partial void OnYTDBudgetChanging(System.Nullable<double> value);
     partial void OnYTDBudgetChanged();
     partial void OnUpdateDateTimeChanging(System.DateTime value);
     partial void OnUpdateDateTimeChanged();
@@ -2120,8 +2120,8 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YTDActual", DbType="Float NOT NULL")]
-		public double YTDActual
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YTDActual", DbType="Float")]
+		public System.Nullable<double> YTDActual
 		{
 			get
 			{
@@ -2140,8 +2140,8 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YTDBudget", DbType="Float NOT NULL")]
-		public double YTDBudget
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YTDBudget", DbType="Float")]
+		public System.Nullable<double> YTDBudget
 		{
 			get
 			{

@@ -59,5 +59,31 @@ namespace HotelDataEntryLib.Page
             var dataEntryList = hdc.DataEntries.Where(item=>item.HotelEntryId==hotelEntry.HotelEntryId).ToList();
             return dataEntryList;
         }
+
+        public static void UpdateDataEntry(DataEntry dataEntry)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var entry = hdc.DataEntries.Single(item => item.DataEntryId == dataEntry.DataEntryId);
+
+                entry.ActualData = dataEntry.ActualData;
+                entry.Budget = dataEntry.Budget;
+                entry.YTDActual = dataEntry.YTDActual;
+                entry.YTDBudget = dataEntry.YTDBudget;
+                entry.UpdateDateTime = DateTime.Now;
+
+                try
+                {
+                    hdc.SubmitChanges();
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 2601 || ex.Number == 2627)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
     }
 }
