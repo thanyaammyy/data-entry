@@ -3,11 +3,24 @@
 
 <%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .ui-datepicker-calendar
+        {
+            display: none;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $('input[name="calendar"]').blur();
             $('input[name="calendar"]').datepicker({
-                dateFormat: 'dd/mm/yyyy'
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'mm/yy',
+                onClose: function (dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
             });
         });
     </script>
@@ -49,51 +62,59 @@
                     </asp:DropDownList>
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <asp:Button runat="server" ID="btnCreateForm" onclick="btnCreateForm_Click" Text="Show"/>
+                </td>
+            </tr>
         </table>
         <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
             SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
         </asp:ObjectDataSource>
         <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
             <ContentTemplate>
-                <%--<cc1:JQGrid ID="JqgridUser" AutoWidth="True" runat="server" Height="80%" OnRowAdding="JqgridUser_RowAdding"
-                    OnRowDeleting="JqgridUser_RowDeleting" OnRowEditing="JqgridUser_RowEditing">
+                <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%">
                     <Columns>
-                        <cc1:JQGridColumn DataField="UserId" PrimaryKey="True" Width="55" Visible="False" />
-                        <cc1:JQGridColumn HeaderText="Company" DataField="PropertyCode" EditorControlID="ddlCompany"
-                            EditType="DropDown" Editable="True" TextAlign="Center">
+                        <cc1:JQGridColumn DataField="HotelEntryId" PrimaryKey="True" Width="55" Visible="False" />
+                        <cc1:JQGridColumn HeaderText="Edit" Width="40" TextAlign="Center" EditActionIconsColumn="True" />
+                        <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" EditType="TextBox" DataType="DateTime"
+                            DataFormatString="{0:dd/MM/yyyy}" Editable="True" TextAlign="Center">
                             <EditClientSideValidators>
                                 <cc1:RequiredValidator />
                             </EditClientSideValidators>
                         </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Firstname" DataField="FirstName" Editable="True" TextAlign="Center">
+                        <cc1:JQGridColumn HeaderText="Actual" DataField="Actual" Editable="True" TextAlign="Right">
+                            <EditClientSideValidators>
+                                <cc1:RequiredValidator />
+                                <cc1:NumberValidator />
+                            </EditClientSideValidators>
                         </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Center">
+                        <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" TextAlign="Right">
+                            <EditClientSideValidators>
+                                <cc1:RequiredValidator />
+                                <cc1:NumberValidator />
+                            </EditClientSideValidators>
                         </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Center">
+                        <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right">
                             <EditClientSideValidators>
                                 <cc1:EmailValidator />
                             </EditClientSideValidators>
                         </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Alternative Company" DataField="AlterCompany" Editable="true"
-                            EditType="DropDown" EditValues="Select a company" TextAlign="Center" />
-                        <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True"
-                            EditType="DropDown" EditValues="1:Admin" TextAlign="Center">
+                        <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right">
+                            <EditClientSideValidators>
+                                <cc1:EmailValidator />
+                            </EditClientSideValidators>
                         </cc1:JQGridColumn>
-                        <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" EditType="DropDown"
-                            EditValues="0:InActive;1:Active" Editable="True" TextAlign="Center" />
                     </Columns>
                     <AddDialogSettings CloseAfterAdding="False" />
                     <EditDialogSettings CloseAfterEditing="True" />
-                    <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" ShowAddButton="True"
+                    <ToolBarSettings ShowAddButton="True"
                         ShowRefreshButton="True" ShowSearchButton="True" />
                     <AppearanceSettings ShowRowNumbers="true" />
                     <DeleteDialogSettings LeftOffset="497" TopOffset="241"></DeleteDialogSettings>
-                    <AddDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
-                        CloseAfterAdding="True" Caption="Add Season" ClearAfterAdding="True"></AddDialogSettings>
-                    <EditDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
-                        CloseAfterEditing="True" Caption="Edit Season"></EditDialogSettings>
-                    <ClientSideEvents AfterEditDialogShown="populateAlterCompany" AfterAddDialogShown="populateAddAlterCompany" />
-                </cc1:JQGrid>--%>
+                    <ClientSideEvents RowSelect="bindCalendarDialog" AfterAddDialogShown="bindCalendarDialog2"
+                        AfterEditDialogShown="bindCalendarDialog2" />
+                </cc1:JQGrid>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>

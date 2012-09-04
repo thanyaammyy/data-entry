@@ -31,6 +31,15 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
         
         /// <summary>
+        /// btnCreateForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateForm;
+        
+        /// <summary>
         /// PropertyDataSource control.
         /// </summary>
         /// <remarks>
@@ -47,5 +56,14 @@ namespace HotelDataEntry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel updatepanel1;
+        
+        /// <summary>
+        /// JqGridDataEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Trirand.Web.UI.WebControls.JQGrid JqGridDataEntry;
     }
 }
