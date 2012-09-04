@@ -49,6 +49,8 @@
     </Compile>
     <Compile Include="Page\BrandHelper.cs" />
     <Compile Include="Page\CurrencyHelper.cs" />
+    <Compile Include="Page\DataEntryHelper.cs" />
+    <Compile Include="Page\HotelEntryHelper.cs" />
     <Compile Include="Page\PropertyHelper.cs" />
     <Compile Include="Page\UserHelper.cs" />
     <Compile Include="Partial\Brand.cs" />

@@ -13,5 +13,10 @@ namespace HotelDataEntry
         {
 
         }
+
+        protected void btnCreateForm_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
