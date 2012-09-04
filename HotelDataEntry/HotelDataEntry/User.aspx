@@ -67,7 +67,7 @@
             <cc1:JQGrid ID="JqgridUser" AutoWidth="True" runat="server" Height="80%" OnRowAdding="JqgridUser_RowAdding"
                 OnRowDeleting="JqgridUser_RowDeleting" OnRowEditing="JqgridUser_RowEditing">
                 <Columns>
-                    <cc1:JQGridColumn DataField="UserId" PrimaryKey="True" Width="55" Visible="False" />
+                    <cc1:JQGridColumn DataField="UserId" Searchable="False" PrimaryKey="True" Width="55" Visible="False" />
                     <cc1:JQGridColumn HeaderText="Company" DataField="PropertyCode" EditorControlID="ddlCompany"
                         EditType="DropDown" Editable="True" TextAlign="Center">
                         <EditClientSideValidators>

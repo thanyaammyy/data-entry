@@ -87,9 +87,9 @@
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
-                            <cc1:JQGridColumn HeaderText="Edit Actions" Width="40" TextAlign="Center" EditActionIconsColumn="True" />
-                            <cc1:JQGridColumn DataField="DataEntryId" PrimaryKey="True" Width="55" Visible="False" />
-                            <cc1:JQGridColumn DataField="HotelEntryId" Width="55" Visible="False" />
+                            <cc1:JQGridColumn HeaderText="Edit Actions" Width="40" Searchable="False" TextAlign="Center" EditActionIconsColumn="True" />
+                            <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55" Visible="False" />
+                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" TextAlign="Right">
@@ -119,7 +119,7 @@
                         </Columns>
                         <EditDialogSettings CloseAfterEditing="True" />
                         <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" />
-                        <PagerSettings PageSize="50" />
+                        <PagerSettings PageSize="10" />
                         <AppearanceSettings ShowRowNumbers="true" />
                     </cc1:JQGrid>
                 </ContentTemplate>
