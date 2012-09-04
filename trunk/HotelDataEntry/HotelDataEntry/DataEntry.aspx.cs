@@ -32,6 +32,10 @@ namespace HotelDataEntry
             }
             else
             {
+                lbError.Visible = false;
+                lbCalendar.Visible = false;
+                lbCompany.Visible = false;
+                lbMenu.Visible = false;
                 divJqgrid.Attributes["style"] = "";
                 var hotelEntry = new HotelEntry()
                 {
