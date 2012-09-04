@@ -56,6 +56,7 @@
                 <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" ShowAddButton="True"
                     ShowRefreshButton="True" ShowSearchButton="True" />
                 <AppearanceSettings ShowRowNumbers="true" />
+                <PagerSettings PageSize="20" />
                 <DeleteDialogSettings LeftOffset="497" TopOffset="241"></DeleteDialogSettings>
                 <AddDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterAdding="True" Caption="Add Season" ClearAfterAdding="True"></AddDialogSettings>
