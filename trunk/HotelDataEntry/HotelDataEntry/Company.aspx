@@ -27,7 +27,7 @@
                 onrowadding="JqgridCompany_RowAdding" onrowdeleting="JqgridCompany_RowDeleting" 
                 onrowediting="JqgridCompany_RowEditing">
                 <Columns>
-                    <cc1:JQGridColumn DataField="PropertyId" PrimaryKey="True" Width="55" Visible="False" />
+                    <cc1:JQGridColumn DataField="PropertyId" Searchable="False" PrimaryKey="True" Width="55" Visible="False" />
                     <cc1:JQGridColumn HeaderText="Company Code" DataField="PropertyCode" Editable="True"
                         TextAlign="Center">
                         <EditClientSideValidators>

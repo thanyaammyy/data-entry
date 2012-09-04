@@ -15,15 +15,29 @@ namespace HotelDataEntry
         public string MonthYear;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Session["propertyId"] == null || Session["dataEntryTypeId"] == null || Session["MonthYear"]==null) return;
+                ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntryTypeId"]), Session["MonthYear"].ToString());
+            }
         }
 
         protected void btnCreateForm_Click(object sender, EventArgs e)
         {
-            var propertyId = Convert.ToInt32(ddlCompany.SelectedValue);
-            var dataEntryTypeId = Convert.ToInt32(ddlMenu.SelectedValue);
-            MonthYear = hiddenMonthYear.Value; 
+            var propertyId = ddlCompany.SelectedValue;
+            var dataEntryTypeId = ddlMenu.SelectedValue;
+            MonthYear = hiddenMonthYear.Value;
+            if (string.IsNullOrEmpty(propertyId) || string.IsNullOrEmpty(dataEntryTypeId) || string.IsNullOrEmpty(MonthYear))
+                return;
+            Session["propertyId"] = propertyId;
+            Session["dataEntryTypeId"] = dataEntryTypeId;
+            Session["MonthYear"] = MonthYear;
+            ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntryTypeId"]), Session["MonthYear"].ToString());
+        }
 
-            if (string.IsNullOrEmpty(MonthYear) || propertyId <= 0 || dataEntryTypeId <= 0)
+        private void ShowData(int propertyId, int dataEntryTypeId, string my)
+        {
+            if (string.IsNullOrEmpty(my) || propertyId <= 0 || dataEntryTypeId <= 0)
             {
                 lbError.Visible = true;
                 lbCalendar.Visible = true;
@@ -41,7 +55,7 @@ namespace HotelDataEntry
                 {
                     PropertyId = propertyId,
                     DataEntryTypeId = dataEntryTypeId,
-                    MonthYear = MonthYear
+                    MonthYear = my
                 };
 
                 if (HotelEntryHelper.ExistMothYear(hotelEntry))
