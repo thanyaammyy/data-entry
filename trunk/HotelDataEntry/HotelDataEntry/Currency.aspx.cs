@@ -8,6 +8,9 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["propertyId"] = null;
+            Session["dataEntryTypeId"] = null;
+            Session["MonthYear"] = null;
             if (!IsPostBack)
             {
                 JqgridCurrencyBinding();

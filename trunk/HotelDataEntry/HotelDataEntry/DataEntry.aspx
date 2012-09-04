@@ -38,7 +38,15 @@
                     Position Date
                 </td>
                 <td>
+                    <%if (Session["MonthYear"] == null)
+                      {
+                    %>
                     <input type="text" id="calendar" name="calendar" />
+                    <%}
+                      else
+                      {%>
+                    <input type="text" id="Text1" name="calendar" value="<%= Session["MonthYear"] %>"/>
+                    <% } %>
                     <asp:Label ID="lbCalendar" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
             </tr>
@@ -87,8 +95,10 @@
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
-                            <cc1:JQGridColumn HeaderText="Edit Actions" Width="40" Searchable="False" TextAlign="Center" EditActionIconsColumn="True" />
-                            <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55" Visible="False" />
+                            <cc1:JQGridColumn HeaderText="Edit Actions" Width="40" Searchable="False" TextAlign="Center"
+                                EditActionIconsColumn="True" />
+                            <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
+                                Visible="False" />
                             <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center">
                             </cc1:JQGridColumn>
