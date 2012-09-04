@@ -78,9 +78,22 @@ namespace HotelDataEntry
             JqGridDataEntry.DataSource = dataEntryList;
             JqGridDataEntry.DataBind();
         }
-        protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs jqGridRowEditEventArgs)
+        protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
         {
-
+            var dataEntryId = e.RowKey;
+            var actualData = e.RowData["ActualData"] == "" ? 0.00 : float.Parse(e.RowData["ActualData"]);
+            var budget = e.RowData["Budget"] == "" ? 0.00 : float.Parse(e.RowData["Budget"]);
+            var ytdActual = e.RowData["YTDActual"] == "" ? 0.00 : float.Parse(e.RowData["YTDActual"]);
+            var ytdBudget = e.RowData["YTDBudget"] == "" ? 0.00 : float.Parse(e.RowData["YTDBudget"]);
+            var dataEntry = new HotelDataEntryLib.DataEntry()
+                {
+                    DataEntryId = Convert.ToInt32(dataEntryId),
+                    ActualData =actualData,
+                    Budget = budget,
+                    YTDActual = ytdActual,
+                    YTDBudget = ytdBudget
+                };
+            DataEntryHelper.UpdateDataEntry(dataEntry);
         }
     }
 }
