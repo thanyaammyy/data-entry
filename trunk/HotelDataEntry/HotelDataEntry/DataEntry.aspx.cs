@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using HotelDataEntryLib;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
@@ -78,11 +73,13 @@ namespace HotelDataEntry
             JqGridDataEntry.Visible = true;
             var dataEntryList = DataEntryHelper.ListDataEntryByMonthYear(hotelEntry);
             JqGridDataEntry.DataSource = dataEntryList;
+            CalculateTotal(dataEntryList);
             JqGridDataEntry.DataBind();
         }
         protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
         {
             var dataEntryId = e.RowKey;
+            var hotelEntryId = e.RowData["HotelEntryId"]==""?0:Convert.ToInt32(e.RowData["HotelEntryId"]);
             var actualData = e.RowData["ActualData"] == "" ? 0.00 : float.Parse(e.RowData["ActualData"]);
             var budget = e.RowData["Budget"] == "" ? 0.00 : float.Parse(e.RowData["Budget"]);
             var ytdActual = e.RowData["YTDActual"] == "" ? 0.00 : float.Parse(e.RowData["YTDActual"]);
@@ -96,27 +93,31 @@ namespace HotelDataEntry
                     YTDBudget = ytdBudget
                 };
             DataEntryHelper.UpdateDataEntry(dataEntry);
+            var hotelEntry = new HotelEntry()
+                                 {
+                                     HotelEntryId = hotelEntryId
+                                 };
+            BindDataEntryJqgrid(hotelEntry);
         }
 
-        protected void JqGridDataEntry_DataRequested(object sender, JQGridDataRequestedEventArgs e)
+        protected void CalculateTotal(List<HotelDataEntryLib.DataEntry> listDataEntry)
         {
-            var dt = e.DataTable;
-            var actualTotal = 0.00; // get the whole datasource            
+            var actualTotal = 0.00;       
             var budgetTotal = 0.00;
             var ytdActualTotal = 0.00;
             var ytdBudgetTotal = 0.00;
-            foreach (DataRow row in dt.Rows)
+            foreach (var dataEntry in listDataEntry)
             {
-                var actualValue = float.Parse(row["ActualData"].ToString());
+                var actualValue = dataEntry.ActualData;
                 actualTotal += actualValue;
 
-                var budgetValue = float.Parse(row["Budget"].ToString());
+                var budgetValue = dataEntry.Budget;
                 budgetTotal += budgetValue;
 
-                var ytdActualValue = float.Parse(row["YTDActual"].ToString());
+                var ytdActualValue = dataEntry.YTDActual ?? 0.00;
                 ytdActualTotal += ytdActualValue;
 
-                var ytdBudgetValue = float.Parse(row["YTDBudget"].ToString());
+                var ytdBudgetValue = dataEntry.YTDBudget ?? 0.00;
                 ytdBudgetTotal += ytdBudgetValue;
             }
 

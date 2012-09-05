@@ -98,55 +98,50 @@
             SelectMethod="ListDataEntryType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
             runat="server"></asp:ObjectDataSource>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
-            <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
-                <ContentTemplate>
-                    <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing"
-                        OnDataRequested="JqGridDataEntry_DataRequested">
-                        <Columns>
-                            <cc1:JQGridColumn HeaderText="Edit" Width="32" Searchable="False" TextAlign="Center" EditActionIconsDeleteEnabled="False"
-                                EditActionIconsEditEnabled="True" EditActionIconsColumn="True" />
-                            <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
-                                Visible="False" />
-                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
-                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center"
-                                FooterValue="Total:">
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right"
-                                DataFormatString="{0:#,##0.00;(#,##0.00);0}">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right"
-                                DataFormatString="{0:#,##0.00;(#,##0.00);0}">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                        </Columns>
-                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" />
-                        <PagerSettings PageSize="32" />
-                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
-                        <ClientSideEvents AfterSubmitCell="reloadGrid"></ClientSideEvents>
-                    </cc1:JQGrid>
-                </ContentTemplate>
-            </asp:UpdatePanel>
+            <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
+                <Columns>
+                    <cc1:JQGridColumn HeaderText="Edit" Width="32" Searchable="False" TextAlign="Center"
+                        EditActionIconsDeleteEnabled="False" EditActionIconsEditEnabled="True" EditActionIconsColumn="True" />
+                    <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
+                        Visible="False" />
+                    <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
+                    <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center"
+                        FooterValue="Total:">
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                        TextAlign="Right">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                            <cc1:NumberValidator />
+                        </EditClientSideValidators>
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                        TextAlign="Right">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                            <cc1:NumberValidator />
+                        </EditClientSideValidators>
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right"
+                        DataFormatString="{0:#,##0.00;(#,##0.00);0}">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                            <cc1:NumberValidator />
+                        </EditClientSideValidators>
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right"
+                        DataFormatString="{0:#,##0.00;(#,##0.00);0}">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                            <cc1:NumberValidator />
+                        </EditClientSideValidators>
+                    </cc1:JQGridColumn>
+                </Columns>
+                <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" />
+                <PagerSettings PageSize="32" />
+                <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
+                <ClientSideEvents AfterSubmitCell="reloadGrid"></ClientSideEvents>
+            </cc1:JQGrid>
         </div>
     </div>
 </asp:Content>
