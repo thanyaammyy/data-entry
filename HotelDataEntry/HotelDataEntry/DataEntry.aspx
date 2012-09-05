@@ -137,7 +137,7 @@
                         <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True"/>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
-                        <ClientSideEvents AfterSubmitCell="reloadGrid" AfterSaveCell="reloadGrid"/>
+                        <ClientSideEvents AfterSubmitCell="reloadGrid"/>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
