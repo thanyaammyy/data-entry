@@ -9,7 +9,13 @@
             display: none;
         }
     </style>
-    <script type="text/javascript">
+    <script type="text/javascript"> 
+            function reloadGrid() {
+                alert("reload");
+                var grid = $("#<%= JqGridDataEntry.ClientID %>");
+                grid.trigger("reloadGrid");
+            }
+
         $(document).ready(function () {
             $('input[name="calendar"]').blur();
             $('input[name="calendar"]').datepicker({
@@ -25,11 +31,6 @@
                 }
             });
         });
-
-        function ReloadGrid() {
-            var grid = $("#<%= JqGridDataEntry.ClientID %>"); 
-            grid.trigger("reloadGrid");
-        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -102,7 +103,7 @@
                         OnDataRequested="JqGridDataEntry_DataRequested">
                         <Columns>
                             <cc1:JQGridColumn HeaderText="Edit Actions" Width="40" Searchable="False" TextAlign="Center"
-                                EditActionIconsColumn="True" />
+                                EditActionIconsEditEnabled="True" EditActionIconsColumn="True"/>
                             <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
@@ -133,12 +134,10 @@
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                         </Columns>
-                        <EditDialogSettings ReloadAfterSubmit="True"></EditDialogSettings>
-                        <EditDialogSettings CloseAfterEditing="True" />
-                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" />
+                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True"/>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
-                        <EditInlineCellSettings Enabled="True" />
+                        <ClientSideEvents AfterSubmitCell="reloadGrid" AfterSaveCell="reloadGrid"/>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
