@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -94,6 +96,35 @@ namespace HotelDataEntry
                     YTDBudget = ytdBudget
                 };
             DataEntryHelper.UpdateDataEntry(dataEntry);
+        }
+
+        protected void JqGridDataEntry_DataRequested(object sender, JQGridDataRequestedEventArgs e)
+        {
+            var dt = e.DataTable;
+            var actualTotal = 0.00; // get the whole datasource            
+            var budgetTotal = 0.00;
+            var ytdActualTotal = 0.00;
+            var ytdBudgetTotal = 0.00;
+            foreach (DataRow row in dt.Rows)
+            {
+                var actualValue = float.Parse(row["ActualData"].ToString());
+                actualTotal += actualValue;
+
+                var budgetValue = float.Parse(row["Budget"].ToString());
+                budgetTotal += budgetValue;
+
+                var ytdActualValue = float.Parse(row["YTDActual"].ToString());
+                ytdActualTotal += ytdActualValue;
+
+                var ytdBudgetValue = float.Parse(row["YTDBudget"].ToString());
+                ytdBudgetTotal += ytdBudgetValue;
+            }
+
+            JqGridDataEntry.Columns.FromDataField("ActualData").FooterValue = actualTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("YTDActual").FooterValue = ytdActualTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("YTDBudget").FooterValue = ytdBudgetTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
         }
     }
 }
