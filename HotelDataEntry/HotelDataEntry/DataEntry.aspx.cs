@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using HotelDataEntryLib;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
@@ -98,6 +97,7 @@ namespace HotelDataEntry
                                      HotelEntryId = hotelEntryId
                                  };
             BindDataEntryJqgrid(hotelEntry);
+           // Response.Redirect(HttpContext.Current.Request.Url.PathAndQuery);
         }
 
         protected void CalculateTotal(List<HotelDataEntryLib.DataEntry> listDataEntry)

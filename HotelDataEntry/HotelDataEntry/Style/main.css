@@ -6,47 +6,47 @@
 	background-color:#ffffff;
 }
 A:link {
-	font-size: 8pt;
+	font-size: 10pt;
 	font-weight: bold;
 	color: #ba9963;
 	text-decoration: none;
 }
 A:visited {
-	font-size: 8pt;
+	font-size: 10pt;
 	font-weight: bold;
 	color: #d3b380;
 	text-decoration: none;
 }
 A:active {
-	font-size: 8pt;
+	font-size: 10pt;
 	font-weight: bold;
 	color: #ba9963;
 	text-decoration: underline;
 }
 A:hover {
-	font-size: 8pt;
+	font-size: 10pt;
 	font-weight: bold;
 	color: #3d3d3d;
 	text-decoration: underline;
 }
 TABLE {
-	font-size: 8pt; 
+	font-size: 10pt; 
 	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
 	line-height: 15px; 
 	color: #ba9963;
 }
 INPUT {
-    font-size: 8pt;
+    font-size: 10pt;
     font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
     color: #3d3d3d;
 }
 TEXTAREA {
-	font-size: 8pt;
+	font-size: 10pt;
     font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
     color: #3d3d3d;
 }
 SELECT {
-	font-size: 8pt;
+	font-size: 10pt;
     font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
     color: #3d3d3d;
 }
@@ -69,20 +69,20 @@ SELECT {
 	border-bottom: 1px solid; 
 	border-color: #455a79; 
 	font-weight: bold; 
-	font-size: 8pt; 
+	font-size: 10pt; 
 	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
 	background-color: #486c9f; 
 	color: #b9b9b9;
 }
 .TextBlack12 {
-	font-size: 9pt; 
+	font-size: 10pt; 
 	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
 	line-height: 15px; 
 	color: #ba9963;
     white-space: nowrap;
 }
 .Texthead {
-	font-size: 9pt; 
+	font-size: 12pt; 
 	font-family: Tahoma, Verdana, Arial, helvetica, sans-serif; 
 	line-height: 15px; 
 	color: #ba9963;
