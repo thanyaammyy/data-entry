@@ -11,7 +11,6 @@
     </style>
     <script type="text/javascript">
         function reloadGrid() {
-            alert("reload");
             var grid = $("#<%= JqGridDataEntry.ClientID %>");
             grid.trigger("reloadGrid");
         }
@@ -97,6 +96,8 @@
         <asp:ObjectDataSource ID="RevenueDataSource" DataObjectTypeName="HotelDataEntryLib.DataEntryType"
             SelectMethod="ListDataEntryType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
             runat="server"></asp:ObjectDataSource>
+            <asp:UpdatePanel ID="updatepanel1" UpdateMode="Always"  runat="server">
+        <ContentTemplate>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
             <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                 <Columns>
@@ -143,5 +144,7 @@
                 <ClientSideEvents AfterSubmitCell="reloadGrid"></ClientSideEvents>
             </cc1:JQGrid>
         </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     </div>
 </asp:Content>
