@@ -16,6 +16,11 @@ namespace HotelDataEntry
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            lbUserRequired.Visible = false;
+            lbPwdRequired.Visible = false;
+            lbRequired.Visible = false;
+            lbBrand.Visible = false;
+            lbError.Visible = false;
             Session["LoginSession"] = "False";
             Session["UserSession"] = "";
             var username = tbUsername.Text;
