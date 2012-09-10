@@ -58,6 +58,24 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
         
         /// <summary>
+        /// updateRevenuePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updateRevenuePanel;
+        
+        /// <summary>
+        /// ddlSubMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubMenu;
+        
+        /// <summary>
         /// lbMenu control.
         /// </summary>
         /// <remarks>
@@ -101,6 +119,15 @@ namespace HotelDataEntry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource RevenueDataSource;
+        
+        /// <summary>
+        /// SubRevenueDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource SubRevenueDataSource;
         
         /// <summary>
         /// divJqgrid control.

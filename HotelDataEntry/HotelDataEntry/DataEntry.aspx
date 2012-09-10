@@ -65,7 +65,7 @@
                 </td>
                 <td>
                     <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
-                        DataValueField="PropertyId" DataTextField="PropertyCode" Width="120" runat="server">
+                        DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
                     </asp:DropDownList>
                     <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
@@ -75,10 +75,26 @@
                     Revenue
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlMenu" ToolTip="Select a revenue" Width="120" runat="server"
-                        DataSourceID="RevenueDataSource" DataValueField="DataEntryTypeId" DataTextField="DataEntryTypeName">
-                    </asp:DropDownList>
-                    <asp:Label ID="lbMenu" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
+                    <table border="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <asp:DropDownList ID="ddlMenu" ToolTip="Select a revenue" Width="150" runat="server"
+                                    AutoPostBack="True" DataSourceID="RevenueDataSource" DataValueField="DataEntryTypeId"
+                                    DataTextField="DataEntryTypeName" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                            <asp:UpdatePanel ID="updateRevenuePanel" UpdateMode="Conditional" runat="server">
+                                <ContentTemplate>
+                                    <td>
+                                        <asp:DropDownList ID="ddlSubMenu" Width="150" runat="server" DataSourceID="SubRevenueDataSource"
+                                            AutoPostBack="True" DataValueField="DataEntrySubTypeId" Enabled="False" DataTextField="DataEntrySubTypeName">
+                                        </asp:DropDownList>
+                                        <asp:Label ID="lbMenu" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
+                                    </td>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -99,6 +115,13 @@
         <asp:ObjectDataSource ID="RevenueDataSource" DataObjectTypeName="HotelDataEntryLib.DataEntryType"
             SelectMethod="ListDataEntryType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
             runat="server"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="SubRevenueDataSource" DataObjectTypeName="HotelDataEntryLib.DataEntrySubType"
+            SelectMethod="ListDataEntrySubType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
+            runat="server">
+            <SelectParameters>
+                <asp:SessionParameter Name="DataEntryTypeId" SessionField="DataEntryTypeId" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
@@ -114,28 +137,28 @@
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right"
                                 DataFormatString="{0:#,##0.00;(#,##0.00);0}">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right"
                                 DataFormatString="{0:#,##0.00;(#,##0.00);0}">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                         </Columns>
@@ -143,8 +166,8 @@
                         <PagerSettings PageSize="32" />
                         <EditDialogSettings CloseAfterEditing="True" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
-                        <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True" Caption="Edit Data Entry">
-                        </EditDialogSettings>
+                        <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
+                            Caption="Edit Data Entry"></EditDialogSettings>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>

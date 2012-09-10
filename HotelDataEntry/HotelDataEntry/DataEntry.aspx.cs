@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using HotelDataEntryLib;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
@@ -14,26 +15,27 @@ namespace HotelDataEntry
             if (!IsPostBack)
             {
                 if (Session["propertyId"] == null || Session["dataEntryTypeId"] == null || Session["MonthYear"]==null) return;
-                ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntryTypeId"]), Session["MonthYear"].ToString());
+                ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntrySubTypeId"]), Session["MonthYear"].ToString());
             }
         }
 
         protected void btnCreateForm_Click(object sender, EventArgs e)
         {
             var propertyId = ddlCompany.SelectedValue;
+            var dataEntrySubTypeId = ddlSubMenu.SelectedValue;
             var dataEntryTypeId = ddlMenu.SelectedValue;
             MonthYear = hiddenMonthYear.Value;
-            if (string.IsNullOrEmpty(propertyId) || string.IsNullOrEmpty(dataEntryTypeId) || string.IsNullOrEmpty(MonthYear))
+            if (string.IsNullOrEmpty(propertyId) || string.IsNullOrEmpty(dataEntrySubTypeId) || string.IsNullOrEmpty(MonthYear))
                 return;
             Session["propertyId"] = propertyId;
-            Session["dataEntryTypeId"] = dataEntryTypeId;
+            Session["dataEntrySubTypeId"] = Convert.ToInt32(dataEntryTypeId) == 4 ? "7" : dataEntrySubTypeId;//7 subtype of Others DataEntryType(id=4)
             Session["MonthYear"] = MonthYear;
-            ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntryTypeId"]), Session["MonthYear"].ToString());
+            ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntrySubTypeId"]), Session["MonthYear"].ToString());
         }
 
-        private void ShowData(int propertyId, int dataEntryTypeId, string my)
+        private void ShowData(int propertyId, int dataEntrySubTypeId, string my)
         {
-            if (string.IsNullOrEmpty(my) || propertyId <= 0 || dataEntryTypeId <= 0)
+            if (string.IsNullOrEmpty(my) || propertyId <= 0 || dataEntrySubTypeId <= 0)
             {
                 lbError.Visible = true;
                 lbCalendar.Visible = true;
@@ -50,7 +52,7 @@ namespace HotelDataEntry
                 var hotelEntry = new HotelEntry()
                 {
                     PropertyId = propertyId,
-                    DataEntryTypeId = dataEntryTypeId,
+                    DataEntrySubTypeId = dataEntrySubTypeId,
                     MonthYear = my
                 };
 
@@ -97,7 +99,6 @@ namespace HotelDataEntry
                                      HotelEntryId = hotelEntryId
                                  };
             BindDataEntryJqgrid(hotelEntry);
-           // Response.Redirect(HttpContext.Current.Request.Url.PathAndQuery);
         }
 
         protected void CalculateTotal(List<HotelDataEntryLib.DataEntry> listDataEntry)
@@ -126,6 +127,25 @@ namespace HotelDataEntry
             JqGridDataEntry.Columns.FromDataField("YTDActual").FooterValue = ytdActualTotal.ToString("#,##0.00");
             JqGridDataEntry.Columns.FromDataField("YTDBudget").FooterValue = ytdBudgetTotal.ToString("#,##0.00");
             JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
+        }
+
+        protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedValue = ddlMenu.SelectedValue;
+            if(Convert.ToInt32(selectedValue)<4)
+            {
+                ddlSubMenu.Enabled = true;
+                if (((DropDownList)sender).SelectedValue != "")
+                {
+                    Session["DataEntryTypeId"] = selectedValue;
+                }
+                updateRevenuePanel.Update();
+            }
+            else
+            {
+                ddlSubMenu.Enabled = false;
+            }
+
         }
     }
 }
