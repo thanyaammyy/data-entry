@@ -92,6 +92,7 @@
     <Content Include="Script\sources\jquery.fancybox.css" />
     <Content Include="Script\sources\jquery.fancybox.js" />
     <Content Include="Script\sources\jquery.fancybox.pack.js" />
+    <Content Include="Style\images\loader.gif" />
     <Content Include="Style\images\ONYX.gif" />
     <Content Include="Style\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Style\images\ui-bg_flat_75_ffffff_40x100.png" />

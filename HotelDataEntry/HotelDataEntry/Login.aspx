@@ -8,6 +8,16 @@
     <meta content="Onyx Hospitality: Corporate Office" name="DESCRIPTION">
     <title>Onyx-Hospitality | Login</title>
     <link href="Style/main.css" rel="stylesheet" type="text/css" />
+    <script src="Script/fancybox/lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript">
+        function clearLabel() {
+            $("#lbRequired").hide();
+            $("#lbError").hide();
+            $("#lbPwdRequired").hide();
+            $("#lbBrand").hide();
+            $("#lbUserRequired").hide();
+        }
+    </script>
 </head>
 <body>
     <form id="formLogin" runat="server">
@@ -30,7 +40,7 @@
                         Username
                     </td>
                     <td>
-                        <asp:TextBox ID="tbUsername" class="TextBlack12" Width="85" MaxLength="50" runat="server"
+                        <asp:TextBox ID="tbUsername" class="TextBlack12" Width="100" MaxLength="50" runat="server"
                             ErrorMessage="Username is required." ToolTip="Username is required."></asp:TextBox><asp:Label
                                 ID="lbUserRequired" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                     </td>
@@ -41,7 +51,7 @@
                     </td>
                     <td>
                         <asp:TextBox runat="server" ID="tbPassword" TextMode="Password" ToolTip="Password is required."
-                            ErrorMessage="Password is required." class="TextBlack12" Width="85" MaxLength="50"></asp:TextBox><asp:Label
+                            ErrorMessage="Password is required." class="TextBlack12" Width="100" MaxLength="50"></asp:TextBox><asp:Label
                                 ID="lbPwdRequired" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                     </td>
                 </tr>
@@ -51,28 +61,37 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlBrand" ToolTip="Brand is required." DataSourceID="BrandDataSource"
-                            DataTextField="BrandCodeWithName" DataValueField="Email" Width="90"
-                            runat="server">
+                            DataTextField="BrandCodeWithName" DataValueField="Email" Width="120" runat="server">
                         </asp:DropDownList>
                         <asp:Label ID="lbBrand" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center; margin-top: 10px">
-                        <asp:Button runat="server" ID="btnLogin" Text="Login" OnClick="btnLogin_Click" />
+                        <asp:Button runat="server" ID="btnLogin" Text="Login" OnClientClick="clearLabel();"
+                            OnClick="btnLogin_Click" />
                         <asp:Button runat="server" ID="btnReset" Text="Reset" OnClick="btnReset_Click" />
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center">
+                    <td colspan="2" style="text-align: center;">
+                        <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+                            <ProgressTemplate>
+                                <div style="filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);">
+                                    <asp:Image ID="Image1" runat="server" ImageUrl="/Style/images/loader.gif"></asp:Image><br />
+                                    <asp:Label ID="lblUpdateProgress" runat="server" Font-Size="12px" ForeColor="#778899"
+                                        Text="Please wait while authenticating your account..."></asp:Label>
+                                </div>
+                            </ProgressTemplate>
+                        </asp:UpdateProgress>
                         <asp:Label ID="lbError" CssClass="redText" Visible="False" runat="server">Your login attempt was not successful. Please try again.</asp:Label>
                         <asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Pleae enter username, password and select brand</asp:Label>
                     </td>
                 </tr>
             </table>
             <asp:ObjectDataSource ID="BrandDataSource" DataObjectTypeName="HotelDataEntryLib.Brand"
-                SelectMethod="ListBrandWithZeroId" TypeName="HotelDataEntryLib.Page.BrandHelper" runat="server">
-            </asp:ObjectDataSource>
+                SelectMethod="ListBrandWithZeroId" TypeName="HotelDataEntryLib.Page.BrandHelper"
+                runat="server"></asp:ObjectDataSource>
         </ContentTemplate>
     </asp:UpdatePanel>
     </form>

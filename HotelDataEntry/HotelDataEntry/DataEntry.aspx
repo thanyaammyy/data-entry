@@ -10,9 +10,12 @@
         }
     </style>
     <script type="text/javascript">
-        function reloadGrid() {
-            var grid = $("#<%= JqGridDataEntry.ClientID %>");
-            grid.trigger("reloadGrid");
+        function validateCurrency(value, column) {
+            var pattern = /(?:^\d{1,3}(?:\.?\d{3})*(?:,\d{2})?$)|(?:^\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$)/;
+            if (pattern.test(value))
+                return [true, ""];
+            else
+                return [false, "Please enter a number format"];
         }
 
         $(document).ready(function () {
@@ -101,8 +104,6 @@
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
-                            <cc1:JQGridColumn HeaderText="Edit" Width="32" Searchable="False" TextAlign="Center"
-                                EditActionIconsDeleteEnabled="False" EditActionIconsEditEnabled="True" EditActionIconsColumn="True" />
                             <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
@@ -113,35 +114,37 @@
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right"
                                 DataFormatString="{0:#,##0.00;(#,##0.00);0}">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right"
                                 DataFormatString="{0:#,##0.00;(#,##0.00);0}">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:NumberValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency"/>
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                         </Columns>
-                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" />
+                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" ShowEditButton="True" />
                         <PagerSettings PageSize="32" />
+                        <EditDialogSettings CloseAfterEditing="True" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
-                        <ClientSideEvents AfterSubmitCell="reloadGrid"></ClientSideEvents>
+                        <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True" Caption="Edit Data Entry">
+                        </EditDialogSettings>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
