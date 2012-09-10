@@ -14,5 +14,15 @@ namespace HotelDataEntryLib.Page
                 return listRevenue;
             }
         }
+
+        public static IEnumerable<DataEntrySubType> ListDataEntrySubType(int dataEntryTypeId)
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var listSubRevenue = new List<DataEntrySubType> { new DataEntrySubType() { DataEntrySubTypeId = 0, DataEntrySubTypeName = "select..." } };
+                listSubRevenue.AddRange(hdc.DataEntrySubTypes.Where(item=>item.DataEntryTypeId==dataEntryTypeId));
+                return listSubRevenue;
+            }
+        }
     }
 }

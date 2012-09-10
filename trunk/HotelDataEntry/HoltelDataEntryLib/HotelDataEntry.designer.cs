@@ -2020,9 +2020,9 @@ namespace HotelDataEntryLib
 		
 		private string _MonthYear;
 		
-		private EntitySet<DataEntry> _DataEntries;
-		
 		private EntitySet<Property> _Properties;
+		
+		private EntitySet<DataEntry> _DataEntries;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2042,8 +2042,8 @@ namespace HotelDataEntryLib
 		
 		public HotelEntry()
 		{
-			this._DataEntries = new EntitySet<DataEntry>(new Action<DataEntry>(this.attach_DataEntries), new Action<DataEntry>(this.detach_DataEntries));
 			this._Properties = new EntitySet<Property>(new Action<Property>(this.attach_Properties), new Action<Property>(this.detach_Properties));
+			this._DataEntries = new EntitySet<DataEntry>(new Action<DataEntry>(this.attach_DataEntries), new Action<DataEntry>(this.detach_DataEntries));
 			OnCreated();
 		}
 		
@@ -2147,19 +2147,6 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntry", Storage="_DataEntries", ThisKey="HotelEntryId", OtherKey="HotelEntryId")]
-		public EntitySet<DataEntry> DataEntries
-		{
-			get
-			{
-				return this._DataEntries;
-			}
-			set
-			{
-				this._DataEntries.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_Property", Storage="_Properties", ThisKey="PropertyId", OtherKey="PropertyId")]
 		public EntitySet<Property> Properties
 		{
@@ -2170,6 +2157,19 @@ namespace HotelDataEntryLib
 			set
 			{
 				this._Properties.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelEntry_DataEntry", Storage="_DataEntries", ThisKey="HotelEntryId", OtherKey="HotelEntryId")]
+		public EntitySet<DataEntry> DataEntries
+		{
+			get
+			{
+				return this._DataEntries;
+			}
+			set
+			{
+				this._DataEntries.Assign(value);
 			}
 		}
 		
@@ -2193,18 +2193,6 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		private void attach_DataEntries(DataEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = this;
-		}
-		
-		private void detach_DataEntries(DataEntry entity)
-		{
-			this.SendPropertyChanging();
-			entity.HotelEntry = null;
-		}
-		
 		private void attach_Properties(Property entity)
 		{
 			this.SendPropertyChanging();
@@ -2216,13 +2204,25 @@ namespace HotelDataEntryLib
 			this.SendPropertyChanging();
 			entity.HotelEntry = null;
 		}
+		
+		private void attach_DataEntries(DataEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.HotelEntry = this;
+		}
+		
+		private void detach_DataEntries(DataEntry entity)
+		{
+			this.SendPropertyChanging();
+			entity.HotelEntry = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DataEntrySubType")]
 	public partial class DataEntrySubType
 	{
 		
-		private int _DataEntrySubTypeID;
+		private int _DataEntrySubTypeId;
 		
 		private string _DataEntrySubTypeName;
 		
@@ -2234,18 +2234,18 @@ namespace HotelDataEntryLib
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataEntrySubTypeID", DbType="Int NOT NULL")]
-		public int DataEntrySubTypeID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataEntrySubTypeId", DbType="Int NOT NULL")]
+		public int DataEntrySubTypeId
 		{
 			get
 			{
-				return this._DataEntrySubTypeID;
+				return this._DataEntrySubTypeId;
 			}
 			set
 			{
-				if ((this._DataEntrySubTypeID != value))
+				if ((this._DataEntrySubTypeId != value))
 				{
-					this._DataEntrySubTypeID = value;
+					this._DataEntrySubTypeId = value;
 				}
 			}
 		}

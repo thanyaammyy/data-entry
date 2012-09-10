@@ -11,14 +11,14 @@ namespace HotelDataEntryLib.Page
         public static bool ExistMothYear(HotelEntry hotelEntry)
         {
             var hdc = new HotelDataEntryDataContext();
-            var count = hdc.HotelEntries.Count(item => item.MonthYear == hotelEntry.MonthYear && item.PropertyId==hotelEntry.PropertyId && item.DataEntryTypeId== hotelEntry.DataEntryTypeId);
+            var count = hdc.HotelEntries.Count(item => item.MonthYear == hotelEntry.MonthYear && item.PropertyId==hotelEntry.PropertyId && item.DataEntrySubTypeId== hotelEntry.DataEntrySubTypeId);
             return count != 0;
         }
 
         public static HotelEntry GetHotelEntry(HotelEntry hotelEntry)
         {
             var hdc = new HotelDataEntryDataContext();
-            var hEntry = hdc.HotelEntries.Single(item => item.MonthYear == hotelEntry.MonthYear && item.PropertyId == hotelEntry.PropertyId && item.DataEntryTypeId == hotelEntry.DataEntryTypeId);
+            var hEntry = hdc.HotelEntries.Single(item => item.MonthYear == hotelEntry.MonthYear && item.PropertyId == hotelEntry.PropertyId && item.DataEntrySubTypeId == hotelEntry.DataEntrySubTypeId);
             return hEntry;
         }
 
@@ -30,7 +30,7 @@ namespace HotelDataEntryLib.Page
                 hotelEntrySubmit = new HotelEntry()
                                            {
                                                PropertyId = hotelEntry.PropertyId,
-                                               DataEntryTypeId = hotelEntry.DataEntryTypeId,
+                                               DataEntrySubTypeId = hotelEntry.DataEntrySubTypeId,
                                                MonthYear = hotelEntry.MonthYear,
                                                UpdateDateTime = DateTime.Now
                                            };

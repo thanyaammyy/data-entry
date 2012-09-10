@@ -11,7 +11,7 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            btnLogin.Enabled = true;
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -37,6 +37,7 @@ namespace HotelDataEntry
                         };
                 try
                 {
+                    btnLogin.Enabled = false;
                     exchangeService.AutodiscoverUrl(username + emailSuffix);
                     Session["LoginSession"] = "True";
                     Session["UserSession"] = username;
