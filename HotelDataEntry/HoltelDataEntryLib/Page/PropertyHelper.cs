@@ -8,6 +8,11 @@ namespace HotelDataEntryLib.Page
 {
     public static class PropertyHelper
     {
+        public static Property GetProperty(int propId)
+        {
+            return new HotelDataEntryDataContext().Properties.Single(item => item.PropertyId == propId);
+        }
+
         public static IEnumerable<Property> ListCompany()
         {
             using (var hdc = new HotelDataEntryDataContext())

@@ -12,12 +12,14 @@ namespace HotelDataEntryLib.Page
         {
             var monthYear = hotelEntry.MonthYear;
             var str = monthYear.Split('/');
-            if(String.IsNullOrEmpty(str[0])||String.IsNullOrEmpty(str[1])) return;
+            if(string.IsNullOrEmpty(str[0])||string.IsNullOrEmpty(str[1])) return;
             var dates = GetDates(Convert.ToInt32(str[0]), Convert.ToInt32(str[1]));
             using (var hdc = new HotelDataEntryDataContext())
             {
+                var month = Convert.ToInt32(str[0]);
+                var year = Convert.ToInt32(str[1]);
                 for (var i = 0; i < dates; i++)
-                {
+                {                  
                     hdc.DataEntries.InsertOnSubmit(new DataEntry()
                         {
                             HotelEntryId = hotelEntry.HotelEntryId,
@@ -26,7 +28,7 @@ namespace HotelDataEntryLib.Page
                             YTDActual = 0.00,
                             YTDBudget = 0.00,
                             UpdateDateTime = DateTime.Now,
-                            PositionDate = (i+1)+"/"+str[0]+"/"+str[1]
+                            PositionDate = new DateTime(year, month,(i+1))
 
                         });
 

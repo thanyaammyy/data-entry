@@ -65,6 +65,7 @@
     <Content Include="DataEntry.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
+    <Content Include="Report.aspx" />
     <Content Include="Script\fancybox\lib\jquery-1.7.2.min.js" />
     <Content Include="Script\fancybox\lib\jquery.mousewheel-3.0.6.pack.js" />
     <Content Include="Script\jqueryUI\grid.locale-en.js" />
@@ -171,6 +172,13 @@
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -7,6 +7,12 @@ namespace HotelDataEntryLib.Page
 {
     public static class CurrencyHelper
     {
+        public static Currency GetCurrency(int currencyId)
+        {
+            var currency = new HotelDataEntryDataContext().Currencies.Single(item => item.CurrencyId == currencyId);
+            return currency;
+        }
+
         public static List<Currency> ListCurreny()
         {
             var currencyList = new HotelDataEntryDataContext().Currencies.ToList();
