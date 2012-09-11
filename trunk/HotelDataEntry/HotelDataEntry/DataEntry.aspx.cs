@@ -71,7 +71,6 @@ namespace HotelDataEntry
         }
         private void BindDataEntryJqgrid(HotelEntry hotelEntry)
         {
-            JqGridDataEntry.Visible = true;
             var dataEntryList = DataEntryHelper.ListDataEntryByMonthYear(hotelEntry);
             JqGridDataEntry.DataSource = dataEntryList;
             CalculateTotal(dataEntryList);
@@ -132,7 +131,10 @@ namespace HotelDataEntry
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedValue = ddlMenu.SelectedValue;
-            if(Convert.ToInt32(selectedValue)<4)
+            MonthYear = hiddenMonthYear.Value;
+            Session["MonthYear"] = MonthYear;
+            divJqgrid.Attributes["style"] = "display:none";
+            if (Convert.ToInt32(selectedValue) < 4)
             {
                 ddlSubMenu.Enabled = true;
                 if (((DropDownList)sender).SelectedValue != "")
@@ -143,9 +145,16 @@ namespace HotelDataEntry
             }
             else
             {
+                Session["dataEntrySubTypeId"] = 7;
+                ddlSubMenu.SelectedIndex = 0;
                 ddlSubMenu.Enabled = false;
             }
-
+        }
+        protected void ddlSubMenu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MonthYear = hiddenMonthYear.Value;
+            Session["MonthYear"] = MonthYear;
+            divJqgrid.Attributes["style"] = "display:none";
         }
     }
 }

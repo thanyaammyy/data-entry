@@ -29,7 +29,8 @@
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                     $(this).datepicker('setDate', new Date(year, month, 1));
                     var intMonth = parseInt(month) + 1;
-                    var my = intMonth + "/" + year;
+                    var strMonth = intMonth > 10 ? intMonth : 0 + "" + intMonth;
+                    var my = strMonth + "/" + year;
                     document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
                 }
             });
@@ -86,7 +87,7 @@
                             <asp:UpdatePanel ID="updateRevenuePanel" UpdateMode="Conditional" runat="server">
                                 <ContentTemplate>
                                     <td>
-                                        <asp:DropDownList ID="ddlSubMenu" Width="150" runat="server" DataSourceID="SubRevenueDataSource"
+                                        <asp:DropDownList ID="ddlSubMenu" Width="150" runat="server" DataSourceID="SubRevenueDataSource" OnSelectedIndexChanged="ddlSubMenu_SelectedIndexChanged"
                                             AutoPostBack="True" DataValueField="DataEntrySubTypeId" Enabled="False" DataTextField="DataEntrySubTypeName">
                                         </asp:DropDownList>
                                         <asp:Label ID="lbMenu" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
@@ -129,7 +130,7 @@
                         <Columns>
                             <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
-                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
+                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="True" />
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center"
                                 FooterValue="Total:">
                             </cc1:JQGridColumn>
@@ -164,7 +165,6 @@
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" ShowEditButton="True" />
                         <PagerSettings PageSize="32" />
-                        <EditDialogSettings CloseAfterEditing="True" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
                         <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Data Entry"></EditDialogSettings>
