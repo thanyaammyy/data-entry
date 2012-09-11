@@ -48,6 +48,7 @@ namespace HotelDataEntry
                 }
                 catch (Exception ex)
                 {
+                    btnLogin.Enabled = true;
                     lbError.Visible = true;
                     lbUserRequired.Visible = false;
                     lbPwdRequired.Visible = false;
@@ -57,6 +58,7 @@ namespace HotelDataEntry
             }
             else
             {
+                btnLogin.Enabled = true;
                 lbUserRequired.Visible = true;
                 lbPwdRequired.Visible = true;
                 lbRequired.Visible = true;
