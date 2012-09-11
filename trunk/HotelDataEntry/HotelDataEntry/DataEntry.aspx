@@ -105,7 +105,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select any required feilds"
+                    <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select a required feilds"
                         CssClass="redText"></asp:Label>
                 </td>
             </tr>
@@ -131,7 +131,7 @@
                             <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
-                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center"
+                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" DataType="DateTime" TextAlign="Center" DataFormatString="{0:dd/MM/yy}"
                                 FooterValue="Total:">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"

@@ -53,6 +53,7 @@
     <Compile Include="Page\DataEntryTypeHelper.cs" />
     <Compile Include="Page\HotelEntryHelper.cs" />
     <Compile Include="Page\PropertyHelper.cs" />
+    <Compile Include="Page\ReportHelper.cs" />
     <Compile Include="Page\UserHelper.cs" />
     <Compile Include="Partial\Brand.cs" />
     <Compile Include="Partial\Currency.cs" />
