@@ -65,7 +65,7 @@
                     Property
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
+                    <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource" AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
                         DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
                     </asp:DropDownList>
                     <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
@@ -130,7 +130,7 @@
                         <Columns>
                             <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
-                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="True" />
+                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" TextAlign="Center"
                                 FooterValue="Total:">
                             </cc1:JQGridColumn>

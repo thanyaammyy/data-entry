@@ -156,5 +156,12 @@ namespace HotelDataEntry
             Session["MonthYear"] = MonthYear;
             divJqgrid.Attributes["style"] = "display:none";
         }
+
+        protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MonthYear = hiddenMonthYear.Value;
+            Session["MonthYear"] = MonthYear;
+            divJqgrid.Attributes["style"] = "display:none";
+        }
     }
 }
