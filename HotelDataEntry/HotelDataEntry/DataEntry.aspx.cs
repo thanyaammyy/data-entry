@@ -82,15 +82,11 @@ namespace HotelDataEntry
             var hotelEntryId = e.RowData["HotelEntryId"]==""?0:Convert.ToInt32(e.RowData["HotelEntryId"]);
             var actualData = e.RowData["ActualData"] == "" ? 0.00 : float.Parse(e.RowData["ActualData"]);
             var budget = e.RowData["Budget"] == "" ? 0.00 : float.Parse(e.RowData["Budget"]);
-            var ytdActual = e.RowData["YTDActual"] == "" ? 0.00 : float.Parse(e.RowData["YTDActual"]);
-            var ytdBudget = e.RowData["YTDBudget"] == "" ? 0.00 : float.Parse(e.RowData["YTDBudget"]);
             var dataEntry = new HotelDataEntryLib.DataEntry()
                 {
                     DataEntryId = Convert.ToInt32(dataEntryId),
                     ActualData =actualData,
                     Budget = budget,
-                    YTDActual = ytdActual,
-                    YTDBudget = ytdBudget
                 };
             DataEntryHelper.UpdateDataEntry(dataEntry);
             var hotelEntry = new HotelEntry()
@@ -104,8 +100,6 @@ namespace HotelDataEntry
         {
             var actualTotal = 0.00;       
             var budgetTotal = 0.00;
-            var ytdActualTotal = 0.00;
-            var ytdBudgetTotal = 0.00;
             foreach (var dataEntry in listDataEntry)
             {
                 var actualValue = dataEntry.ActualData;
@@ -113,18 +107,10 @@ namespace HotelDataEntry
 
                 var budgetValue = dataEntry.Budget;
                 budgetTotal += budgetValue;
-
-                var ytdActualValue = dataEntry.YTDActual ?? 0.00;
-                ytdActualTotal += ytdActualValue;
-
-                var ytdBudgetValue = dataEntry.YTDBudget ?? 0.00;
-                ytdBudgetTotal += ytdBudgetValue;
             }
 
             JqGridDataEntry.Columns.FromDataField("ActualData").FooterValue = actualTotal.ToString("#,##0.00");
             JqGridDataEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("YTDActual").FooterValue = ytdActualTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("YTDBudget").FooterValue = ytdBudgetTotal.ToString("#,##0.00");
             JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
         }
 

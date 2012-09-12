@@ -25,8 +25,6 @@ namespace HotelDataEntryLib.Page
                             HotelEntryId = hotelEntry.HotelEntryId,
                             ActualData = 0.00,
                             Budget = 0.00,
-                            YTDActual = 0.00,
-                            YTDBudget = 0.00,
                             UpdateDateTime = DateTime.Now,
                             PositionDate = new DateTime(year, month,(i+1))
 
@@ -70,8 +68,6 @@ namespace HotelDataEntryLib.Page
 
                 entry.ActualData = dataEntry.ActualData;
                 entry.Budget = dataEntry.Budget;
-                entry.YTDActual = dataEntry.YTDActual;
-                entry.YTDBudget = dataEntry.YTDBudget;
                 entry.UpdateDateTime = DateTime.Now;
 
                 try
