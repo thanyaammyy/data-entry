@@ -148,20 +148,6 @@
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="YTD Actual" DataField="YTDActual" Editable="True" TextAlign="Right"
-                                DataFormatString="{0:#,##0.00;(#,##0.00);0}">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="YTD Budget" DataField="YTDBudget" Editable="True" TextAlign="Right"
-                                DataFormatString="{0:#,##0.00;(#,##0.00);0}">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" ShowEditButton="True" />
                         <PagerSettings PageSize="32" />

@@ -2040,10 +2040,6 @@ namespace HotelDataEntryLib
 		
 		private double _Budget;
 		
-		private System.Nullable<double> _YTDActual;
-		
-		private System.Nullable<double> _YTDBudget;
-		
 		private System.DateTime _UpdateDateTime;
 		
 		private System.Nullable<System.DateTime> _PositionDate;
@@ -2062,10 +2058,6 @@ namespace HotelDataEntryLib
     partial void OnActualDataChanged();
     partial void OnBudgetChanging(double value);
     partial void OnBudgetChanged();
-    partial void OnYTDActualChanging(System.Nullable<double> value);
-    partial void OnYTDActualChanged();
-    partial void OnYTDBudgetChanging(System.Nullable<double> value);
-    partial void OnYTDBudgetChanged();
     partial void OnUpdateDateTimeChanging(System.DateTime value);
     partial void OnUpdateDateTimeChanged();
     partial void OnPositionDateChanging(System.Nullable<System.DateTime> value);
@@ -2136,46 +2128,6 @@ namespace HotelDataEntryLib
 					this._Budget = value;
 					this.SendPropertyChanged("Budget");
 					this.OnBudgetChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YTDActual", DbType="Float")]
-		public System.Nullable<double> YTDActual
-		{
-			get
-			{
-				return this._YTDActual;
-			}
-			set
-			{
-				if ((this._YTDActual != value))
-				{
-					this.OnYTDActualChanging(value);
-					this.SendPropertyChanging();
-					this._YTDActual = value;
-					this.SendPropertyChanged("YTDActual");
-					this.OnYTDActualChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_YTDBudget", DbType="Float")]
-		public System.Nullable<double> YTDBudget
-		{
-			get
-			{
-				return this._YTDBudget;
-			}
-			set
-			{
-				if ((this._YTDBudget != value))
-				{
-					this.OnYTDBudgetChanging(value);
-					this.SendPropertyChanging();
-					this._YTDBudget = value;
-					this.SendPropertyChanged("YTDBudget");
-					this.OnYTDBudgetChanged();
 				}
 			}
 		}
