@@ -219,7 +219,7 @@
                     <td>
                         Period
                     </td>
-                    <td class="hidden">
+                    <td>
                         <%if (Session["monthlyDate"] == null)
                           {
                         %>
@@ -229,7 +229,7 @@
                           {%>
                         <input type="text" name="monthlyDate" value="<%= Session["monthlyDate"] %>" />
                         <% } %>
-                        <asp:Label ID="Label2" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
+                        <asp:Label ID="lbMonthlyDate" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                     </td>
                 </tr>
                 <tr id="displayCurrency2" style="display: none" runat="server">
@@ -247,24 +247,46 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <asp:Label Visible="False" runat="server" ID="lbRequired2" Text="Please select the required feilds"
+                        <asp:Label Visible="False" runat="server" ID="lbError2" Text="Please select the required feilds"
                             CssClass="redText"></asp:Label>
                     </td>
                 </tr>
             </table>
         </div>
-        <div style="display: none; padding-top: 20px; display: none" runat="server" id="div1">
+        <div style="display: none; padding-top: 20px; display: none" runat="server" id="divJqGridMonthlyReport">
             <cc1:JQGrid ID="JqGridMonthlyReport" AutoWidth="True" runat="server" Height="80%">
                 <Columns>
                     <cc1:JQGridColumn HeaderText="Type" DataField="Type" TextAlign="Center">
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Data" DataField="SubType" TextAlign="Center" FooterValue="Total:">
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Budget-TY" DataField="BudgetTY" GroupSummaryType="Sum"
-                        GroupTemplate="Sum: {0}" DataFormatString="{0:#,##0.00;(#,##0.00);0}" TextAlign="Right">
+                    <cc1:JQGridColumn HeaderText="Actual" DataField="Actual" GroupSummaryType="Sum"
+                        GroupTemplate="Sum: {0}" TextAlign="Right">
+                        <Formatter>
+                            <cc1:NumberFormatter ThousandsSeparator="," DecimalSeparator="." DecimalPlaces="2"
+                                DefaultValue="0.00" />
+                        </Formatter>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Budget-LY" DataField="BudgetLY" GroupSummaryType="Sum"
-                        GroupTemplate="Sum: {0}" DataFormatString="{0:#,##0.00;(#,##0.00);0}" TextAlign="Right">
+                    <cc1:JQGridColumn HeaderText="Actual-LY" DataField="ActualLY" GroupSummaryType="Sum"
+                        GroupTemplate="Sum: {0}" TextAlign="Right">
+                        <Formatter>
+                            <cc1:NumberFormatter ThousandsSeparator="," DecimalSeparator="." DecimalPlaces="2"
+                                DefaultValue="0.00" />
+                        </Formatter>
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Actual-YTD" DataField="ActualYtd" GroupSummaryType="Sum"
+                        GroupTemplate="Sum: {0}" TextAlign="Right">
+                        <Formatter>
+                            <cc1:NumberFormatter ThousandsSeparator="," DecimalSeparator="." DecimalPlaces="2"
+                                DefaultValue="0.00" />
+                        </Formatter>
+                    </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Actual-YTD-LY" DataField="ActualYtdLY" GroupSummaryType="Sum"
+                        GroupTemplate="Sum: {0}" TextAlign="Right">
+                        <Formatter>
+                            <cc1:NumberFormatter ThousandsSeparator="," DecimalSeparator="." DecimalPlaces="2"
+                                DefaultValue="0.00" />
+                        </Formatter>
                     </cc1:JQGridColumn>
                 </Columns>
                 <GroupSettings CollapseGroups="false">
@@ -279,7 +301,7 @@
                 <AppearanceSettings ShowRowNumbers="False" ShowFooter="true" />
             </cc1:JQGrid>
         </div>
-        <div style="display: none; padding-top: 20px" id="div2" runat="server">
+        <div style="display: none; padding-top: 20px" id="divExportData2" runat="server">
             <table class="TextBlack12" cellpadding="3" cellspacing="3">
                 <tr>
                     <td>

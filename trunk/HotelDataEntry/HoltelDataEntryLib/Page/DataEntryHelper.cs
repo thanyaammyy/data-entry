@@ -13,7 +13,7 @@ namespace HotelDataEntryLib.Page
             var monthYear = hotelEntry.MonthYear;
             var str = monthYear.Split('/');
             if(string.IsNullOrEmpty(str[0])||string.IsNullOrEmpty(str[1])) return;
-            var dates = GetDates(Convert.ToInt32(str[0]), Convert.ToInt32(str[1]));
+            var dates = GetDates((Convert.ToInt32(str[0])+1), Convert.ToInt32(str[1]));
             using (var hdc = new HotelDataEntryDataContext())
             {
                 var month = Convert.ToInt32(str[0]);
@@ -48,7 +48,7 @@ namespace HotelDataEntryLib.Page
 
         public static int GetDates(int month, int year)
         {
-            var n = new DateTime(year, month+1, 1);
+            var n = new DateTime(year, month, 1);
             var dates = n.AddDays(-1).Day;
             return dates;
         }
