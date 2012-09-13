@@ -135,7 +135,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select a required feilds"
+                        <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select the required feilds"
                             CssClass="redText"></asp:Label>
                     </td>
                 </tr>
@@ -247,7 +247,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <asp:Label Visible="False" runat="server" ID="lbRequired2" Text="Please select a required feilds"
+                        <asp:Label Visible="False" runat="server" ID="lbRequired2" Text="Please select the required feilds"
                             CssClass="redText"></asp:Label>
                     </td>
                 </tr>
