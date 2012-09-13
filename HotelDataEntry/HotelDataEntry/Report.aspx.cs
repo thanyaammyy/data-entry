@@ -14,8 +14,15 @@ namespace HotelDataEntry
 {
     public partial class Report : System.Web.UI.Page
     {
+        public string DateFrom;
+        public string DateTo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //dataEntry
+            Session["propertyId"] = null;
+            Session["dataEntryTypeId"] = null;
+            Session["MonthYear"] = null;
+
             if (!IsPostBack)
             {
                 if (chkReportMonthly.Checked) Session["monthly"] = "monthly";
@@ -44,14 +51,25 @@ namespace HotelDataEntry
         protected void btnYearlyReport_Click(object sender, EventArgs e)
         {
             var property = ddlCompany.SelectedValue;
-            var dateFrom = hiddenDateFrom.Value;
-            var dateTo = hiddenDateTo.Value;
+            DateFrom = hiddenDateFrom.Value;
+            DateTo = hiddenDateTo.Value;
 
+
+
+            if (string.IsNullOrEmpty(property) || string.IsNullOrEmpty(DateFrom) || string.IsNullOrEmpty(DateTo))
+                return;
             Session["property"] = property;
-            Session["dateFrom"] = dateFrom;
-            Session["dateTo"] = dateTo;
+            Session["dateFrom"] = DateFrom;
+            Session["dateTo"] = DateTo;
+            var propertyId = Convert.ToInt32(Session["property"]);
+            var strDateFrom = Session["dateFrom"].ToString();
+            var strDateTo = Session["dateTo"].ToString();
+            ShowYearlyReport(strDateFrom,strDateTo,propertyId);
+        }
 
-            if(string.IsNullOrEmpty(property)||string.IsNullOrEmpty(dateFrom)||string.IsNullOrEmpty(dateTo))
+        private void ShowYearlyReport(string dateFrom, string dateTo, int propertyId)
+        {
+            if (string.IsNullOrEmpty(dateFrom) || string.IsNullOrEmpty(dateTo)||propertyId<=0)
             {
                 lbCompany.Visible = true;
                 lbDateFrom.Visible = true;
@@ -67,76 +85,69 @@ namespace HotelDataEntry
 
                 divJqGridYearlyReport.Attributes["style"] = "display:";
                 divExportData.Attributes["style"] = "display:";
-                var propertyId = Convert.ToInt32(Session["property"]);
-                var strDateFrom = Session["dateFrom"].ToString();
-                var strDateTo = Session["dateTo"].ToString();
-                ShowYearlyReport(strDateFrom,strDateTo,propertyId);
-            }
-        }
 
-        private void ShowYearlyReport(string dateFrom, string dateTo, int propertyId)
-        {
-            var sesseionDateFrom = dateFrom;
-            var strFrom = sesseionDateFrom.Split('/');
-            var fromDate = Convert.ToInt32(strFrom[0]);
-            var fromMonth = Convert.ToInt32(strFrom[1]);
-            var fromYear = Convert.ToInt32(strFrom[2]);
+                var sesseionDateFrom = dateFrom;
+                var strFrom = sesseionDateFrom.Split('/');
+                var fromDate = Convert.ToInt32(strFrom[0]);
+                var fromMonth = Convert.ToInt32(strFrom[1]);
+                var fromYear = Convert.ToInt32(strFrom[2]);
 
-            var sesseionDateTo = dateTo;
-            var strTo = sesseionDateTo.Split('/');
-            var toDate = Convert.ToInt32(strTo[0]);
-            var toMonth = Convert.ToInt32(strTo[1]);
-            var toYear = Convert.ToInt32(strTo[2]);
+                var sesseionDateTo = dateTo;
+                var strTo = sesseionDateTo.Split('/');
+                var toDate = Convert.ToInt32(strTo[0]);
+                var toMonth = Convert.ToInt32(strTo[1]);
+                var toYear = Convert.ToInt32(strTo[2]);
 
-            DateTime dateTimeFromLastYear;
-            DateTime dateTimeToLastYear;
-            try
-            {
-                dateTimeFromLastYear = new DateTime((fromYear - 1), fromMonth, fromDate);
-            }
-            catch(Exception ex)
-            {
-                dateTimeFromLastYear = new DateTime((fromYear - 1), fromMonth, (fromDate-1));
-            }
-            try
-            {
-                dateTimeToLastYear = new DateTime((toYear - 1), toMonth, toDate);
-            }
-            catch (Exception ex)
-            {
-                dateTimeToLastYear = new DateTime((toYear - 1), toMonth, (toDate - 1));
-            }
+                DateTime dateTimeFromLastYear;
+                DateTime dateTimeToLastYear;
+                try
+                {
+                    dateTimeFromLastYear = new DateTime((fromYear - 1), fromMonth, fromDate);
+                }
+                catch (Exception ex)
+                {
+                    dateTimeFromLastYear = new DateTime((fromYear - 1), fromMonth, (fromDate - 1));
+                }
+                try
+                {
+                    dateTimeToLastYear = new DateTime((toYear - 1), toMonth, toDate);
+                }
+                catch (Exception ex)
+                {
+                    dateTimeToLastYear = new DateTime((toYear - 1), toMonth, (toDate - 1));
+                }
 
-            var listBudgetTY = ReportHelper.CalculateYearlyReport(new DateTime(fromYear, fromMonth, fromDate), new DateTime(toYear, toMonth, toDate), propertyId);
-            var listBudgetLY = ReportHelper.CalculateYearlyReport(dateTimeFromLastYear, dateTimeToLastYear, propertyId);
-            var budgetLY = listBudgetLY as List<HotelDataEntryLib.Helper.Report> ?? listBudgetLY.ToList();
-            if(listBudgetLY != null && budgetLY.Count()!=0)
-            {
-                var listRow = (from t in listBudgetTY
-                           from l in budgetLY
-                           where t.Type == l.Type && t.SubType == l.SubType
-                           select new HotelDataEntryLib.Helper.Report()
-                           {
-                               Type = t.Type,
-                               SubType = t.SubType,
-                               BudgetTY = t.BudgetTY,
-                               BudgetLY = l.BudgetTY
-                           }).ToList();
+                var listBudgetTY = ReportHelper.CalculateYearlyReport(new DateTime(fromYear, fromMonth, fromDate), new DateTime(toYear, toMonth, toDate), propertyId);
+                var listBudgetLY = ReportHelper.CalculateYearlyReport(dateTimeFromLastYear, dateTimeToLastYear, propertyId);
+                var budgetLY = listBudgetLY as List<HotelDataEntryLib.Helper.Report> ?? listBudgetLY.ToList();
+                if (listBudgetLY != null && budgetLY.Count() != 0)
+                {
+                    var listRow = (from t in listBudgetTY
+                                   from l in budgetLY
+                                   where t.Type == l.Type && t.SubType == l.SubType
+                                   select new HotelDataEntryLib.Helper.Report()
+                                   {
+                                       Type = t.Type,
+                                       SubType = t.SubType,
+                                       BudgetTY = t.BudgetTY,
+                                       BudgetLY = l.BudgetTY
+                                   }).ToList();
 
-                BindRowToDataTable(listRow);
-            }
-            else
-            {
-                var listRow = (from t in listBudgetTY
-                               select new HotelDataEntryLib.Helper.Report()
-                               {
-                                   Type = t.Type,
-                                   SubType = t.SubType,
-                                   BudgetTY = t.BudgetTY,
-                                   BudgetLY = 0.00
-                               }).ToList();
+                    BindRowToDataTable(listRow);
+                }
+                else
+                {
+                    var listRow = (from t in listBudgetTY
+                                   select new HotelDataEntryLib.Helper.Report()
+                                   {
+                                       Type = t.Type,
+                                       SubType = t.SubType,
+                                       BudgetTY = t.BudgetTY,
+                                       BudgetLY = 0.00
+                                   }).ToList();
 
-                BindRowToDataTable(listRow);
+                    BindRowToDataTable(listRow);
+                }
             }
 
         }

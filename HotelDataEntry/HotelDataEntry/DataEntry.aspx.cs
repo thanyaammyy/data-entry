@@ -12,6 +12,11 @@ namespace HotelDataEntry
         public string MonthYear;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Report
+            Session["monthly"] = null;
+            Session["property"] = null;
+            Session["dateFrom"] = null;
+            Session["dateTo"] = null;
             if (!IsPostBack)
             {
                 if (Session["propertyId"] == null || Session["dataEntryTypeId"] == null || Session["MonthYear"]==null) return;
