@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\Encryption.cs" />
+    <Compile Include="Helper\Report.cs" />
     <Compile Include="HotelDataEntry.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
