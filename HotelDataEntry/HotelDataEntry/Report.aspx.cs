@@ -98,24 +98,8 @@ namespace HotelDataEntry
                 var toMonth = Convert.ToInt32(strTo[1]);
                 var toYear = Convert.ToInt32(strTo[2]);
 
-                DateTime dateTimeFromLastYear;
-                DateTime dateTimeToLastYear;
-                try
-                {
-                    dateTimeFromLastYear = new DateTime((fromYear - 1), fromMonth, fromDate);
-                }
-                catch (Exception ex)
-                {
-                    dateTimeFromLastYear = new DateTime((fromYear - 1), fromMonth, (fromDate - 1));
-                }
-                try
-                {
-                    dateTimeToLastYear = new DateTime((toYear - 1), toMonth, toDate);
-                }
-                catch (Exception ex)
-                {
-                    dateTimeToLastYear = new DateTime((toYear - 1), toMonth, (toDate - 1));
-                }
+                var dateTimeFromLastYear = GetLastYearDateTime(fromYear, fromMonth, fromDate);
+                var dateTimeToLastYear = GetLastYearDateTime(toYear, toMonth, toDate);
 
                 var listBudgetTY = ReportHelper.CalculateYearlyReport(new DateTime(fromYear, fromMonth, fromDate), new DateTime(toYear, toMonth, toDate), propertyId);
                 var listBudgetLY = ReportHelper.CalculateYearlyReport(dateTimeFromLastYear, dateTimeToLastYear, propertyId);
@@ -286,6 +270,20 @@ namespace HotelDataEntry
                 lbCurrency2.Text = currency.CurrencyCode;
                 displayCurrency.Attributes["style"] = "";
             }
+        }
+
+        private static DateTime GetLastYearDateTime(int y, int m, int d)
+        {
+            DateTime lastYearDateTime;
+            try
+            {
+                lastYearDateTime = new DateTime((y - 1), m, d);
+            }
+            catch (Exception ex)
+            {
+                lastYearDateTime = new DateTime((y - 1), m, (d - 1));
+            }
+            return lastYearDateTime;
         }
     }
 }
