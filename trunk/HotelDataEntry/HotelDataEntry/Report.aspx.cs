@@ -28,6 +28,7 @@ namespace HotelDataEntry
             {
                 if (ReferenceEquals(Session["IsMonthly"], "false"))
                 {
+                    Session["monthly"] = null;
                     if (Session["property"] == null || Session["dateFrom"] == null ) return;
                     ShowYearlyReport(Session["dateFrom"].ToString(), Session["dateTo"].ToString(), Convert.ToInt32(Session["property"]));
                 }
