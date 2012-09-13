@@ -21,6 +21,9 @@ namespace HotelDataEntry
             Session["property"] = null;
             Session["dateFrom"] = null;
             Session["dateTo"] = null;
+            Session["monthly"] = null;
+            Session["property2"] = null;
+            Session["monthlyDate"] = null;
 
             var mainCompany = Request.QueryString["companyid"];
             var user = Request.QueryString["userid"];

@@ -58,9 +58,10 @@ namespace HotelDataEntryLib.Page
                     {
                         Type = g.Key.DataEntryTypeName,
                         SubType = g.Key.DataEntrySubTypeName,
-                        BudgetTY = g.Sum(item => item.dataEntry.Budget)
+                        Actual = g.Sum(item => item.dataEntry.ActualData)
                     }).ToList();
             return list;
         }
+    
     }
 }

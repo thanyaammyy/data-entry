@@ -202,13 +202,13 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbCompany2;
         
         /// <summary>
-        /// Label2 control.
+        /// lbMonthlyDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lbMonthlyDate;
         
         /// <summary>
         /// displayCurrency2 control.
@@ -238,22 +238,22 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Button btnMonthlyReport;
         
         /// <summary>
-        /// lbRequired2 control.
+        /// lbError2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbRequired2;
+        protected global::System.Web.UI.WebControls.Label lbError2;
         
         /// <summary>
-        /// div1 control.
+        /// divJqGridMonthlyReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divJqGridMonthlyReport;
         
         /// <summary>
         /// JqGridMonthlyReport control.
@@ -265,13 +265,13 @@ namespace HotelDataEntry {
         protected global::Trirand.Web.UI.WebControls.JQGrid JqGridMonthlyReport;
         
         /// <summary>
-        /// div2 control.
+        /// divExportData2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExportData2;
         
         /// <summary>
         /// btnCSV2 control.
