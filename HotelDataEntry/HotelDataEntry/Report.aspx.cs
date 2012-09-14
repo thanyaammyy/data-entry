@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -26,7 +27,7 @@ namespace HotelDataEntry
 
             if (!IsPostBack)
             {
-                if (ReferenceEquals(Session["IsMonthly"], "false"))
+                if (ReferenceEquals(Session["IsMonthly"], "false") || Session["IsMonthly"]==null)
                 {
                     Session["monthly"] = null;
                     if (Session["property"] == null || Session["dateFrom"] == null ) return;
@@ -43,6 +44,10 @@ namespace HotelDataEntry
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DateFrom = hiddenDateFrom.Value;
+            DateTo = hiddenDateTo.Value;
+            Session["dateFrom"] = DateFrom;
+            Session["dateTo"] = DateTo;
             if (((DropDownList)sender).SelectedValue != "")
             {
                 var propertyId = Convert.ToInt32(ddlCompany.SelectedValue);
@@ -74,7 +79,16 @@ namespace HotelDataEntry
             var propertyId = Convert.ToInt32(Session["property"]);
             var strDateFrom = Session["dateFrom"].ToString();
             var strDateTo = Session["dateTo"].ToString();
-            ShowYearlyReport(strDateFrom,strDateTo,propertyId);
+            ShowYearlyReport(strDateFrom, strDateTo, propertyId);
+             
+        }
+
+        private static bool IsValidDateFromTo(string dateFrom, string dateTo)
+        {
+            var from = DateTime.Parse(dateFrom, new System.Globalization.CultureInfo("en-US"));
+            var to = DateTime.Parse(dateTo, new System.Globalization.CultureInfo("en-US"));
+            var result = DateTime.Compare(to, from);
+            return result>=0;
         }
 
         private void ShowYearlyReport(string dateFrom, string dateTo, int propertyId)
@@ -320,6 +334,8 @@ namespace HotelDataEntry
 
         protected void ddlCompany2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            MonthlyDate = hiddenMonthYear.Value;
+            Session["monthlyDate"] = MonthlyDate;
             if (((DropDownList)sender).SelectedValue != "")
             {
                 var propertyId = Convert.ToInt32(ddlCompany2.SelectedValue);
@@ -338,13 +354,16 @@ namespace HotelDataEntry
         private static DateTime GetLastYearDateTime(int y, int m, int d)
         {
             DateTime lastYearDateTime;
+            string strDateTime;
             try
             {
-                lastYearDateTime = new DateTime((y - 1), m, d);
+                strDateTime = d + "/" + m + "/" + (y - 1);
+                lastYearDateTime = DateTime.Parse(strDateTime);
             }
             catch (Exception ex)
             {
-                lastYearDateTime = new DateTime((y - 1), m, (d - 1));
+                strDateTime = (d-1) + "/" + m + "/" + (y - 1);
+                lastYearDateTime = DateTime.Parse(strDateTime);
             }
             return lastYearDateTime;
         }
