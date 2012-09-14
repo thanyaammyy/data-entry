@@ -20,6 +20,7 @@ namespace HotelDataEntry
             Session["monthly"] = null;
             Session["property2"] = null;
             Session["monthlyDate"] = null;
+            Session["IsMonthly"] = null;
             if(!Page.IsPostBack)
             {
                 JqgridCompanyBinding();

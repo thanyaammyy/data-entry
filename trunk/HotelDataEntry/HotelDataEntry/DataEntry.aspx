@@ -9,7 +9,20 @@
             display: none;
         }
     </style>
-    <script type="text/javascript">
+    <script type="text/javascript" language="javascript">
+        function firstLogin() {
+            $(".fancybox").fancybox({
+                'width': 432,
+                'closeBtn': false,
+                'modal': true,
+                'height': 'auto',
+                scrolling: 'no',
+                helpers: {
+                    title: null
+                }
+            }).trigger('click');
+        }
+
         function validateCurrency(value, column) {
             var pattern = /(?:^\d{1,3}(?:\.?\d{3})*(?:,\d{2})?$)|(?:^\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$)/;
             if (pattern.test(value))

@@ -17,7 +17,26 @@
 
         $(document).ready(function () {
             var sessionMonthly = '<%= Session["monthly"] %>';
-            if (sessionMonthly != "monthly") {
+            if (sessionMonthly == "monthly") {
+                $("#divYearlyReport").hide();
+                $("#divMonthlyReport").show();
+                $('input[name="monthlyDate"]').blur();
+                $('input[name="monthlyDate"]').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'mm/yy',
+                    yearRange: "2008:2020",
+                    onClose: function (dateText, inst) {
+                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                        $(this).datepicker('setDate', new Date(year, month, 1));
+                        var intMonth = parseInt(month) + 1;
+                        var strMonth = intMonth > 10 ? intMonth : 0 + "" + intMonth;
+                        var my = strMonth + "/" + year;
+                        document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
+                    }
+                });
+            } else {
                 $("#divMonthlyReport").hide();
                 $("#divYearlyReport").show();
                 $('input[name="dateFrom"]').blur();
@@ -37,25 +56,6 @@
                     dateFormat: 'dd/mm/yy',
                     onClose: function (dateText, inst) {
                         document.getElementById("<%= hiddenDateTo.ClientID %>").value = dateText;
-                    }
-                });
-            } else {
-                $("#divYearlyReport").hide();
-                $("#divMonthlyReport").show();
-                $('input[name="monthlyDate"]').blur();
-                $('input[name="monthlyDate"]').datepicker({
-                    changeMonth: true,
-                    changeYear: true,
-                    dateFormat: 'mm/yy',
-                    yearRange: "2008:2020",
-                    onClose: function (dateText, inst) {
-                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                        $(this).datepicker('setDate', new Date(year, month, 1));
-                        var intMonth = parseInt(month) + 1;
-                        var strMonth = intMonth > 10 ? intMonth : 0 + "" + intMonth;
-                        var my = strMonth + "/" + year;
-                        document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
                     }
                 });
             }
@@ -136,6 +136,8 @@
                 <tr>
                     <td colspan="2" align="center">
                         <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select the required feilds"
+                            CssClass="redText"></asp:Label>
+                            <asp:Label Visible="False" runat="server" ID="lbErrorDate" Text="Date To must greater than Date From"
                             CssClass="redText"></asp:Label>
                     </td>
                 </tr>
