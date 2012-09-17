@@ -43,7 +43,7 @@
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                     $(this).datepicker('setDate', new Date(year, month, 1));
                     var intMonth = parseInt(month) + 1;
-                    var strMonth = intMonth > 10 ? intMonth : 0 + "" + intMonth;
+                    var strMonth = intMonth >= 10 ? intMonth : 0 + "" + intMonth;
                     var my = strMonth + "/" + year;
                     document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
                 }

@@ -122,10 +122,13 @@ namespace HotelDataEntry
                 var toMonth = Convert.ToInt32(strTo[1]);
                 var toYear = Convert.ToInt32(strTo[2]);
 
-                var dateTimeFromLastYear = GetLastYearDateTime(fromYear, fromMonth, fromDate);
-                var dateTimeToLastYear = GetLastYearDateTime(toYear, toMonth, toDate);
+                var dateTimeFrom = new DateTime(fromYear, fromMonth, fromDate);
+                var dateTimeTo = new DateTime(toYear, toMonth, toDate);
 
-                var listBudgetTY = ReportHelper.CalculateYearlyReport(new DateTime(fromYear, fromMonth, fromDate), new DateTime(toYear, toMonth, toDate), propertyId);
+                var dateTimeFromLastYear = dateTimeFrom.AddYears(-1);
+                var dateTimeToLastYear = dateTimeTo.AddYears(-1);
+
+                var listBudgetTY = ReportHelper.CalculateYearlyReport(dateTimeFrom, dateTimeTo, propertyId);
                 var listBudgetLY = ReportHelper.CalculateYearlyReport(dateTimeFromLastYear, dateTimeToLastYear, propertyId);
                 var budgetLY = listBudgetLY as List<HotelDataEntryLib.Helper.Report> ?? listBudgetLY.ToList();
                 if (listBudgetLY != null && budgetLY.Count() != 0)
@@ -351,22 +354,6 @@ namespace HotelDataEntry
             }
         }
 
-        private static DateTime GetLastYearDateTime(int y, int m, int d)
-        {
-            DateTime lastYearDateTime;
-            string strDateTime;
-            try
-            {
-                strDateTime = d + "/" + m + "/" + (y - 1);
-                lastYearDateTime = DateTime.Parse(strDateTime);
-            }
-            catch (Exception ex)
-            {
-                strDateTime = (d-1) + "/" + m + "/" + (y - 1);
-                lastYearDateTime = DateTime.Parse(strDateTime);
-            }
-            return lastYearDateTime;
-        }
 
         private void ShowMonthlyReport(string monthlyDate, int propertyId)
         {
@@ -389,23 +376,23 @@ namespace HotelDataEntry
                 var strFrom = sesseionDateFrom.Split('/');
                 var fromMonth = Convert.ToInt32(strFrom[0]);
                 var fromYear = Convert.ToInt32(strFrom[1]);
-                var endDate = DataEntryHelper.GetDates(fromMonth, fromYear);
+                var endDate = DataEntryHelper.GetLastDayOfMonth(fromMonth, fromYear);
 
                 //MTD
                 var dateTimeFromThisMonth = new DateTime(fromYear, fromMonth, 1);
                 var dateTimeToThisMonth = new DateTime(fromYear, fromMonth, endDate);
 
                 //MTD-LY
-                var dateTimeFromThisMonthLY = GetLastYearDateTime(fromYear, fromMonth, 1);
-                var dateTimeToThisMonthLY = GetLastYearDateTime(fromYear, fromMonth, endDate);
+                var dateTimeFromThisMonthLY = dateTimeFromThisMonth.AddYears(-1);
+                var dateTimeToThisMonthLY = dateTimeToThisMonth.AddYears(-1);
 
                 //YTD
                 var dateTimeFromYtd = new DateTime(fromYear, 1,1);
                 var dateTimeToYtd = new DateTime(fromYear, fromMonth, endDate);
 
                 //YTD-LY
-                var dateTimeFromYtdLY = GetLastYearDateTime(fromYear, 1, 1);
-                var dateTimeToTtdLY = GetLastYearDateTime(fromYear, fromMonth, endDate);
+                var dateTimeFromYtdLY = dateTimeFromYtd.AddYears(-1);
+                var dateTimeToTtdLY = dateTimeToYtd.AddYears(-1);
 
                 var listActualThisMonth = ReportHelper.CalculateMonthlyReport(dateTimeFromThisMonth, dateTimeToThisMonth, propertyId);
                 var listActualThisMonthLY = ReportHelper.CalculateMonthlyReport(dateTimeFromThisMonthLY, dateTimeToThisMonthLY, propertyId);
