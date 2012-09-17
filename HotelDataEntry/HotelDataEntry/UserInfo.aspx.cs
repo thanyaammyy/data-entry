@@ -19,8 +19,8 @@ namespace HotelDataEntry
             var decryptKey = Encryption.DecryptStringAES(Request.QueryString["key"], strSharedSecret);
             var strKey = decryptKey.Split('&');
 
-            var strUserId = Encryption.DecryptStringAES(strKey[0], strSharedSecret);
-            var strEmail = Encryption.DecryptStringAES(strKey[1], strSharedSecret);
+            var strUserId = strKey[0];
+            var strEmail = strKey[1];
            
 
             UserId = Convert.ToInt32(strUserId);
