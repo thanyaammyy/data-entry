@@ -44,7 +44,7 @@ namespace HotelDataEntry
 
                     var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
                     var encryptEmail = Encryption.EncryptStringAES(username + emailSuffix, strSharedSecret);
-                    Response.Redirect("~/DataEntry.aspx?email="+encryptEmail);
+                    Response.Redirect("~/DataEntry.aspx?key="+encryptEmail);
                 }
                 catch (Exception ex)
                 {

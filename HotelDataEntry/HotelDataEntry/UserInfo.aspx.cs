@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Web.UI.WebControls;
 using HotelDataEntryLib;
 using HotelDataEntryLib.Helper;
@@ -15,10 +16,14 @@ namespace HotelDataEntry
         {
             
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
-            var decryptUserId = Encryption.DecryptStringAES(Request.QueryString["UserId"], strSharedSecret);
-            var decryptEmail = Encryption.DecryptStringAES(Request.QueryString["Email"], strSharedSecret);
+            var decryptKey = Encryption.DecryptStringAES(Request.QueryString["key"], strSharedSecret);
+            var strKey = decryptKey.Split('&');
 
-            UserId = Convert.ToInt32(decryptUserId);
+            var strUserId = Encryption.DecryptStringAES(strKey[0], strSharedSecret);
+            var strEmail = Encryption.DecryptStringAES(strKey[1], strSharedSecret);
+           
+
+            UserId = Convert.ToInt32(strUserId);
             if (UserId != 0)
             {
                 var userInfo = UserHelper.GetUserInfo(UserId);
@@ -35,7 +40,7 @@ namespace HotelDataEntry
             }
             else
             {
-                lbEmail.Text = decryptEmail;
+                lbEmail.Text = strEmail;
             }
             
         }
