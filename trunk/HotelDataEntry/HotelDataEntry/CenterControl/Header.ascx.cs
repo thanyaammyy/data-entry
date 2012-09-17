@@ -18,9 +18,7 @@ namespace HotelDataEntry.CenterControl
             var decryptEmail = Encryption.DecryptStringAES(Email, strSharedSecret);
             var userInfo = UserHelper.GetUser(decryptEmail);
             UserId = userInfo.UserId;
-            var strUserId = Encryption.EncryptStringAES(UserId.ToString(), strSharedSecret);
-            var strKey = strUserId + "&" + Email;
-            Key = Encryption.EncryptStringAES(strKey, strSharedSecret);
+            Key = Encryption.EncryptStringAES(UserId + "&" + decryptEmail, strSharedSecret);
             if (!ReferenceEquals(Session["LoginSession"], "True"))
             {
                 Response.Redirect("Login.aspx");
