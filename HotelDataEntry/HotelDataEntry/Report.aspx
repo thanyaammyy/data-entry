@@ -16,8 +16,7 @@
         }
 
         $(document).ready(function () {
-            var sessionMonthly = '<%= Session["monthly"] %>';
-            if (sessionMonthly == "monthly") {
+            if (document.getElementById("<%= chkReportMonthly.ClientID %>").checked) {
                 $("#divYearlyReport").hide();
                 $("#divMonthlyReport").show();
                 $('input[name="monthlyDate"]').blur();

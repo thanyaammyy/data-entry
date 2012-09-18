@@ -23,8 +23,6 @@ namespace HotelDataEntry
             Session["propertyId"] = null;
             Session["dataEntryTypeId"] = null;
             Session["MonthYear"] = null;
-
-            Session["monthly"] = null;
         }
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
