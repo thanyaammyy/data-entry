@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -25,10 +24,7 @@ namespace HotelDataEntry
             Session["dataEntryTypeId"] = null;
             Session["MonthYear"] = null;
 
-            if (!IsPostBack)
-            {
-                
-            }
+            Session["monthly"] = null;
         }
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
