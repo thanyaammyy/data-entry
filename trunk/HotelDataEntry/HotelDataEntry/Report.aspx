@@ -147,7 +147,8 @@
             </asp:ObjectDataSource>
         </div>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqGridYearlyReport">
-            <cc1:JQGrid ID="JqGridYearlyReport" AutoWidth="True" runat="server" Height="80%">
+            <cc1:JQGrid ID="JqGridYearlyReport" AutoWidth="True" runat="server" 
+                Height="80%" oninit="JqGridYearlyReport_Init">
                 <Columns>
                     <cc1:JQGridColumn HeaderText="Type" DataField="Type" TextAlign="Center">
                     </cc1:JQGridColumn>
@@ -256,7 +257,8 @@
             </table>
         </div>
         <div style="display: none; padding-top: 20px; display: none" runat="server" id="divJqGridMonthlyReport">
-            <cc1:JQGrid ID="JqGridMonthlyReport" AutoWidth="True" runat="server" Height="80%">
+            <cc1:JQGrid ID="JqGridMonthlyReport" AutoWidth="True" runat="server" 
+                Height="80%" oninit="JqGridMonthlyReport_Init">
                 <Columns>
                     <cc1:JQGridColumn HeaderText="Type" DataField="Type" TextAlign="Center">
                     </cc1:JQGridColumn>

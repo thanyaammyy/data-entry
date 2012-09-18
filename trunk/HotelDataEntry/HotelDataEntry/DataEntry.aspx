@@ -170,9 +170,10 @@
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" />
                         <PagerSettings PageSize="32" />
-                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
+                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True"/> 
                         <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Data Entry"></EditDialogSettings>
+                          
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
