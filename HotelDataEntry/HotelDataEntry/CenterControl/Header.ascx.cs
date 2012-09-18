@@ -15,6 +15,7 @@ namespace HotelDataEntry.CenterControl
         {
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
             Email = Request.QueryString["key"];
+            if (string.IsNullOrEmpty(Email)) Response.Redirect("Login.aspx");
             var decryptEmail = Encryption.DecryptStringAES(Email, strSharedSecret);
             var userInfo = UserHelper.GetUser(decryptEmail);
             UserId = userInfo.UserId;

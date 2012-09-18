@@ -10,7 +10,7 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (Session["LoginSession"] == null) Response.Redirect("~/Login.aspx");
         }
     }
 }
