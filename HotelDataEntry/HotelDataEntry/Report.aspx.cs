@@ -27,18 +27,7 @@ namespace HotelDataEntry
 
             if (!IsPostBack)
             {
-                if (ReferenceEquals(Session["IsMonthly"], "false") || Session["IsMonthly"]==null)
-                {
-                    Session["monthly"] = null;
-                    if (Session["property"] == null || Session["dateFrom"] == null ) return;
-                    ShowYearlyReport(Session["dateFrom"].ToString(), Session["dateTo"].ToString(), Convert.ToInt32(Session["property"]));
-                }
-                else
-                {
-                    Session["monthly"] = "monthly";
-                    if (Session["property2"] == null || Session["monthlyDate"] == null) return;
-                    ShowMonthlyReport(Session["monthlyDate"].ToString(), Convert.ToInt32(Session["property2"]));
-                }
+                
             }
         }
 
@@ -306,17 +295,21 @@ namespace HotelDataEntry
 
         protected void btnCSV2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
-
+            JqGridMonthlyReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+            JqGridMonthlyReport.ExportToCSV("report.csv");
         }
 
         protected void btnExcel2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
-
+            JqGridMonthlyReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+            JqGridMonthlyReport.ExportToExcel("report.xls");
         }
 
         protected void btnPDF2_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
-
+            JqGridMonthlyReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+            var dt = JqGridMonthlyReport.GetExportData();
+            ExportToPDF(dt);
         }
 
         protected void chkReportMonthly_CheckedChanged(object sender, EventArgs e)
@@ -488,6 +481,20 @@ namespace HotelDataEntry
                                 ActualYtdLY = l.ActualYtdLY
                             }).ToList();
 
+        }
+
+        protected void JqGridYearlyReport_Init(object sender, EventArgs e)
+        {
+            Session["monthly"] = null;
+            if (Session["property"] == null || Session["dateFrom"] == null) return;
+            ShowYearlyReport(Session["dateFrom"].ToString(), Session["dateTo"].ToString(), Convert.ToInt32(Session["property"]));
+        }
+
+        protected void JqGridMonthlyReport_Init(object sender, EventArgs e)
+        {
+            Session["monthly"] = "monthly";
+            if (Session["property2"] == null || Session["monthlyDate"] == null) return;
+            ShowMonthlyReport(Session["monthlyDate"].ToString(), Convert.ToInt32(Session["property2"]));
         }
 
     }

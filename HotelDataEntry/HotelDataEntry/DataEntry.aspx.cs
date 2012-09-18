@@ -89,8 +89,8 @@ namespace HotelDataEntry
         {
             var dataEntryId = e.RowKey;
             var hotelEntryId = e.RowData["HotelEntryId"]==""?0:Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var actualData = e.RowData["ActualData"] == "" ? 0.00 : float.Parse(e.RowData["ActualData"]);
-            var budget = e.RowData["Budget"] == "" ? 0.00 : float.Parse(e.RowData["Budget"]);
+            var actualData = string.IsNullOrEmpty(e.RowData["ActualData"]) ? 0.00 : float.Parse(e.RowData["ActualData"]);
+            var budget = string.IsNullOrEmpty(e.RowData["Budget"]) ? 0.00 : float.Parse(e.RowData["Budget"]);
             var dataEntry = new HotelDataEntryLib.DataEntry()
                 {
                     DataEntryId = Convert.ToInt32(dataEntryId),
