@@ -16,22 +16,24 @@ namespace HotelDataEntry.CenterControl
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
             Email = Request.QueryString["key"];
             if (string.IsNullOrEmpty(Email)) Response.Redirect("Login.aspx");
-            var decryptEmail = Encryption.DecryptStringAES(Email, strSharedSecret);
-            var userInfo = UserHelper.GetUser(decryptEmail);
-            UserId = userInfo.UserId;
-            Key = Encryption.EncryptStringAES(UserId + "&" + decryptEmail, strSharedSecret);
-            if (!ReferenceEquals(Session["LoginSession"], "True"))
+            var decryptKey = Encryption.DecryptStringAES(Email, strSharedSecret);
+            if(!decryptKey.Contains("&"))
             {
-                Response.Redirect("Login.aspx");
-            }
-            else
-            {
-                lbUsername.Text = Session["UserSession"].ToString();
+                var userInfo = UserHelper.GetUser(decryptKey);
+                UserId = userInfo.UserId;
+                Key = Encryption.EncryptStringAES(UserId + "&" + decryptKey, strSharedSecret);
+
                 if (UserId == 0)
                 {
                     Page.ClientScript.RegisterStartupScript(GetType(), "Key", "firstLogin();", true);
                 }
+                
             }
+            else
+            {
+                Key = Encryption.EncryptStringAES(decryptKey, strSharedSecret);
+            }
+            lbUsername.Text = Session["UserSession"].ToString();
         }
     }
 }

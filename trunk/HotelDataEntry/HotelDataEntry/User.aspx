@@ -55,7 +55,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="headerMenuLabel">
-        Company Management</div>
+        User Management</div>
     <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
             <asp:DropDownList ID="ddlCompany" ToolTip="Company is required." DataSourceID="CompanyDataSource"
