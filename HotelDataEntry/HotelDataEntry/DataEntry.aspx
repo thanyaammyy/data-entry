@@ -79,7 +79,8 @@
                     Property
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource" AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
+                    <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
+                        AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
                         DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
                     </asp:DropDownList>
                     <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
@@ -101,8 +102,9 @@
                             <asp:UpdatePanel ID="updateRevenuePanel" UpdateMode="Conditional" runat="server">
                                 <ContentTemplate>
                                     <td>
-                                        <asp:DropDownList ID="ddlSubMenu" Width="150" runat="server" DataSourceID="SubRevenueDataSource" OnSelectedIndexChanged="ddlSubMenu_SelectedIndexChanged"
-                                            AutoPostBack="True" DataValueField="DataEntrySubTypeId" Enabled="False" DataTextField="DataEntrySubTypeName">
+                                        <asp:DropDownList ID="ddlSubMenu" Width="150" runat="server" DataSourceID="SubRevenueDataSource"
+                                            OnSelectedIndexChanged="ddlSubMenu_SelectedIndexChanged" AutoPostBack="True"
+                                            DataValueField="DataEntrySubTypeId" Enabled="False" DataTextField="DataEntrySubTypeName">
                                         </asp:DropDownList>
                                         <asp:Label ID="lbMenu" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                                     </td>
@@ -145,8 +147,11 @@
                             <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
-                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" DataType="DateTime" TextAlign="Center" DataFormatString="{0:dd/MM/yy}"
-                                FooterValue="Total:">
+                            <cc1:JQGridColumn HeaderText="" Width="10" TextAlign="Center" EditActionIconsEditDialogEnabled="True"
+                                EditActionIconsDeleteEnabled="False" EditActionIconsColumn="True">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" DataType="DateTime"
+                                TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
@@ -163,9 +168,9 @@
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
                         </Columns>
-                        <ToolBarSettings ShowRefreshButton="True" ShowSearchButton="True" ShowEditButton="True" />
+                        <ToolBarSettings ShowRefreshButton="True" />
                         <PagerSettings PageSize="32" />
-                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" />
+                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
                         <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Data Entry"></EditDialogSettings>
                     </cc1:JQGrid>
