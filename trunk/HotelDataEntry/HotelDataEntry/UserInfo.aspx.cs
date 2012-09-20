@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.Linq;
+using System.Net.Mail;
 using System.Web.UI.WebControls;
-using HotelDataEntryLib;
 using HotelDataEntryLib.Helper;
 using HotelDataEntryLib.Page;
 
@@ -17,13 +16,8 @@ namespace HotelDataEntry
             
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
             var decryptKey = Encryption.DecryptStringAES(Request.QueryString["key"], strSharedSecret);
-            var strKey = decryptKey.Split('&');
 
-            var strUserId = strKey[0];
-            var strEmail = strKey[1];
-           
-
-            UserId = Convert.ToInt32(strUserId);
+            UserId = Convert.ToInt32(decryptKey);
             if (UserId != 0)
             {
                 var userInfo = UserHelper.GetUserInfo(UserId);
@@ -36,11 +30,7 @@ namespace HotelDataEntry
                 
                 tbFirstName.Text = userInfo.FirstName;
                 tbLastName.Text = userInfo.LastName;
-                lbEmail.Text = userInfo.Email;
-            }
-            else
-            {
-                lbEmail.Text = strEmail;
+                tbEmail.Text = userInfo.Email;
             }
             
         }
@@ -59,36 +49,54 @@ namespace HotelDataEntry
             var fName = tbFirstName.Text;
             var lName = tbLastName.Text;
             var company = ddlCompany.SelectedValue;
-            var email = lbEmail.Text;
+            var email = tbEmail.Text;
             if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||company.Equals("0")))
             {
-                var user = new HotelDataEntryLib.User()
+                if(IsValidEmail(email))
                 {
-                    FirstName = fName,
-                    LastName = lName,
-                    Email = email,
-                    PropertyId = Convert.ToInt32(company),
-                    AlterPropertyId = Convert.ToInt32(ddlAlterCompany.SelectedValue),
-                    Status = 1,
-                    UpdateDateTime = DateTime.Now
-                };
-                if (UserId == 0)
-                {
-                    user.PermissionId = 0;
-                    UserHelper.AddUserProfile(user);
+                    var user = new HotelDataEntryLib.User()
+                    {
+                        FirstName = fName,
+                        LastName = lName,
+                        Email = email,
+                        PropertyId = Convert.ToInt32(company),
+                        AlterPropertyId = Convert.ToInt32(ddlAlterCompany.SelectedValue),
+                        Status = 1,
+                        UpdateDateTime = DateTime.Now
+                    };
+                    if (UserId == 0)
+                    {
+                        user.PermissionId = 3;
+                        user.Username = Session["UserSession"].ToString();
+                        UserHelper.AddUserProfile(user);
+                    }
+                    else
+                    {
+                        user.UserId = UserId;
+                        user.PermissionId = UserPermissionId;
+                        UserHelper.UpdateUserProfile(user);
+                    }
+                    Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close();</script>");
                 }
-                else
-                {
-                    user.UserId = UserId;
-                    user.PermissionId = UserPermissionId;
-                    UserHelper.UpdateUserProfile(user);
-                }
-                Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close();</script>");
+                
             }else
             {
                 lbRequired.Visible = true;
             }
 
+        }
+
+        public bool IsValidEmail(string emailaddress)
+        {
+            try
+            {
+                var m = new MailAddress(emailaddress);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }

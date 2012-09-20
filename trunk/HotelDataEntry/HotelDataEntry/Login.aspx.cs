@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.DirectoryServices;
 using System.Net;
 using System.Web.Configuration;
 using HotelDataEntryLib.Helper;
@@ -19,41 +20,29 @@ namespace HotelDataEntry
             lbUserRequired.Visible = false;
             lbPwdRequired.Visible = false;
             lbRequired.Visible = false;
-            lbBrand.Visible = false;
             lbError.Visible = false;
             Session["LoginSession"] = "False";
             Session["UserSession"] = "";
             var username = tbUsername.Text;
             var password = tbPassword.Text;
-            var emailSuffix = ddlBrand.SelectedValue;
-            if(!(string.IsNullOrEmpty(username)||string.IsNullOrEmpty(password)||string.IsNullOrEmpty(emailSuffix)))
+            if(!(string.IsNullOrEmpty(username)||string.IsNullOrEmpty(password)))
             {
-                
-                var exchangeService = new ExchangeService(ExchangeVersion.Exchange2010_SP1)
-                        {
-                            Credentials = new NetworkCredential(username, password, "onyx-hq"),
-                            Url = new Uri("https://owa.onyx-hospitality.com/ews/Exchange.asmx"),
-                            Timeout = 60
-                        };
-                try
+                btnLogin.Enabled = false;
+                if(AuthenticateActiveDirectory(username, password))
                 {
-                    btnLogin.Enabled = false;
-                    exchangeService.AutodiscoverUrl(username + emailSuffix);
                     Session["LoginSession"] = "True";
                     Session["UserSession"] = username;
-
                     var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
-                    var encryptEmail = Encryption.EncryptStringAES(username + emailSuffix, strSharedSecret);
-                    Response.Redirect("~/DataEntry.aspx?key="+encryptEmail);
+                    var encryptEmail = Encryption.EncryptStringAES(username, strSharedSecret);
+                    Response.Redirect("~/DataEntry.aspx?key=" + encryptEmail);
                 }
-                catch (Exception ex)
+                else
                 {
                     btnLogin.Enabled = true;
                     lbError.Visible = true;
                     lbUserRequired.Visible = false;
                     lbPwdRequired.Visible = false;
                     lbRequired.Visible = false;
-                    lbBrand.Visible = false;
                 }
             }
             else
@@ -62,7 +51,6 @@ namespace HotelDataEntry
                 lbUserRequired.Visible = true;
                 lbPwdRequired.Visible = true;
                 lbRequired.Visible = true;
-                lbBrand.Visible = true;
                 lbError.Visible = false;
             }
         }
@@ -71,6 +59,20 @@ namespace HotelDataEntry
         {
             tbPassword.Text = "";
             tbUsername.Text = "";
+        }
+
+        public bool AuthenticateActiveDirectory(string userName, string password)
+        {
+            try
+            {
+                var entry = new DirectoryEntry("LDAP://onyx-hq", userName, password);
+                var nativeObject = entry.NativeObject;
+                return true;
+            }
+            catch (DirectoryServicesCOMException)
+            {
+                return false;
+            }
         }
     }
 }

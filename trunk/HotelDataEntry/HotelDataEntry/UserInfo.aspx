@@ -52,7 +52,9 @@
                                 E-mail
                             </td>
                             <td>
-                                <asp:Label runat="server" ID="lbEmail" class="TextBlack12" Width="170"></asp:Label>
+                                <asp:TextBox runat="server" ID="tbEmail" ToolTip="Email is required" class="TextBlack12"
+                                    Width="170" MaxLength="50"></asp:TextBox>
+                                <asp:Label ID="lbEmailRequired" CssClass="asteric" runat="server">*</asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -92,6 +94,7 @@
                         <tr>
                             <td colspan="2" align="center">
                                 <asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Please fullfill the required information</asp:Label>
+                                <asp:Label ID="lbEmailError" CssClass="redText" Visible="False" runat="server">Please enter a valid email address</asp:Label>
                             </td>
                         </tr>
                     </table>

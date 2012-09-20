@@ -21,25 +21,10 @@
       <Column Name="CurrencyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="User_Property" Member="User" ThisKey="PropertyId" OtherKey="PropertyId" Type="User" IsForeignKey="true" />
       <Association Name="Currency_Property" Member="Currency" ThisKey="CurrencyId" OtherKey="CurrencyId" Type="Currency" IsForeignKey="true" />
       <Association Name="Brand_Property" Member="Brand" ThisKey="BrandId" OtherKey="BrandId" Type="Brand" IsForeignKey="true" />
       <Association Name="HotelEntry_Property" Member="HotelEntry" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelEntry" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.[User]" Member="Users">
-    <Type Name="User">
-      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AlterPropertyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="PermissionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="User_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
-      <Association Name="Permission_User" Member="Permission" ThisKey="PermissionId" OtherKey="PermissionId" Type="Permission" IsForeignKey="true" />
+      <Association Name="User_Property" Member="User" ThisKey="PropertyId" OtherKey="PropertyId" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Brand" Member="Brands">
@@ -110,6 +95,22 @@
       <Column Name="PositionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="HotelEntryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="HotelEntry_DataEntry" Member="HotelEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelEntry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AlterPropertyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PermissionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Association Name="User_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
+      <Association Name="Permission_User" Member="Permission" ThisKey="PermissionId" OtherKey="PermissionId" Type="Permission" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
