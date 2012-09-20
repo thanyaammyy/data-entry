@@ -29,10 +29,8 @@ namespace HotelDataEntry
             var user = Request.QueryString["userid"];
             if (!Page.IsPostBack)
             {
-                if (JqgridUser.AjaxCallBackMode == AjaxCallBackMode.RequestData)
-                {
-                    JqgridUserBinding();
-                }
+                   JqgridUserBinding();
+
             }
 
             if (!string.IsNullOrEmpty(mainCompany))

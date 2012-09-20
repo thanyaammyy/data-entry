@@ -14,7 +14,6 @@
             $("#lbRequired").hide();
             $("#lbError").hide();
             $("#lbPwdRequired").hide();
-            $("#lbBrand").hide();
             $("#lbUserRequired").hide();
         }
     </script>
@@ -56,17 +55,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align: right" class="TextBlack12">
-                        Brand
-                    </td>
-                    <td>
-                        <asp:DropDownList ID="ddlBrand" ToolTip="Brand is required." DataSourceID="BrandDataSource"
-                            DataTextField="BrandCodeWithName" DataValueField="Email" Width="120" runat="server">
-                        </asp:DropDownList>
-                        <asp:Label ID="lbBrand" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
-                    </td>
-                </tr>
-                <tr>
                     <td colspan="2" style="text-align: center; margin-top: 10px">
                         <asp:Button runat="server" ID="btnLogin" Text="Login" OnClientClick="clearLabel();"
                             OnClick="btnLogin_Click" />
@@ -85,13 +73,10 @@
                             </ProgressTemplate>
                         </asp:UpdateProgress>
                         <asp:Label ID="lbError" CssClass="redText" Visible="False" runat="server">Your login attempt was not successful. Please try again.</asp:Label>
-                        <asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Pleae enter username, password and select brand</asp:Label>
+                        <asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Pleae enter username and password</asp:Label>
                     </td>
                 </tr>
             </table>
-            <asp:ObjectDataSource ID="BrandDataSource" DataObjectTypeName="HotelDataEntryLib.Brand"
-                SelectMethod="ListBrandWithZeroId" TypeName="HotelDataEntryLib.Page.BrandHelper"
-                runat="server"></asp:ObjectDataSource>
         </ContentTemplate>
     </asp:UpdatePanel>
     </form>

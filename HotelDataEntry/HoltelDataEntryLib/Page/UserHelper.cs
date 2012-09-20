@@ -30,15 +30,15 @@ namespace HotelDataEntryLib.Page
             return listUser;
         }
 
-        public static User GetUser(string email)
+        public static User GetUser(string username)
         {
             var user = new User();
             using(var hdc = new HotelDataEntryDataContext())
             {
-                var count = hdc.Users.Count(item => item.Email == email);
+                var count = hdc.Users.Count(item => item.Username == username);
                 if(count !=0)
                 {
-                    user = hdc.Users.Single(item => item.Email == email);
+                    user = hdc.Users.Single(item => item.Username == username);
                 }
             }
             return user;
