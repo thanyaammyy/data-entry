@@ -9,6 +9,12 @@ namespace HotelDataEntryLib.Helper
     {
         private static byte[] _salt = Encoding.ASCII.GetBytes("ayinomoto");
 
+        /// <summary>
+        /// Encrypt the given string using AES.  The string can be decrypted using 
+        /// DecryptStringAES().  The sharedSecret parameters must match.
+        /// </summary>
+        /// <param name="plainText">The text to encrypt.</param>
+        /// <param name="sharedSecret">A password used to generate a key for encryption.</param>
         public static string EncryptStringAES(string plainText, string sharedSecret)
         {
             if (string.IsNullOrEmpty(plainText)) 
@@ -54,6 +60,12 @@ namespace HotelDataEntryLib.Helper
             return outStr; 
         }
 
+        /// <summary>
+        /// Decrypt the given string.  Assumes the string was encrypted using 
+        /// EncryptStringAES(), using an identical sharedSecret.
+        /// </summary>
+        /// <param name="cipherText">The text to decrypt.</param>
+        /// <param name="sharedSecret">A password used to generate a key for decryption.</param>
         public static string DecryptStringAES(string cipherText, string sharedSecret)
         {
             if (string.IsNullOrEmpty(cipherText))
