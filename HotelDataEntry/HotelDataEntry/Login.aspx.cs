@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.DirectoryServices;
-using System.Net;
-using System.Web.Configuration;
 using HotelDataEntryLib.Helper;
-using Microsoft.Exchange.WebServices.Data;
 
 namespace HotelDataEntry
 {

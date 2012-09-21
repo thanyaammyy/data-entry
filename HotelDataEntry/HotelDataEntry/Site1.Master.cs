@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using System.Globalization;
-using HotelDataEntryLib.Helper;
-using HotelDataEntryLib.Page;
 
 namespace HotelDataEntry
 {

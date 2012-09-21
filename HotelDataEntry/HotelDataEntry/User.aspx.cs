@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
-using HotelDataEntryLib;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
 

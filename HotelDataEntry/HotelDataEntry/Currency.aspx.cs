@@ -1,6 +1,5 @@
 ﻿using System;
 using HotelDataEntryLib.Page;
-using HotelDataEntryLib;
 
 namespace HotelDataEntry
 {
