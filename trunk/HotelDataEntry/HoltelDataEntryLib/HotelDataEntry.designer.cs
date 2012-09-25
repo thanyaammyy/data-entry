@@ -39,9 +39,6 @@ namespace HotelDataEntryLib
     partial void InsertBrand(Brand instance);
     partial void UpdateBrand(Brand instance);
     partial void DeleteBrand(Brand instance);
-    partial void InsertErrorLog(ErrorLog instance);
-    partial void UpdateErrorLog(ErrorLog instance);
-    partial void DeleteErrorLog(ErrorLog instance);
     partial void InsertPermission(Permission instance);
     partial void UpdatePermission(Permission instance);
     partial void DeletePermission(Permission instance);
@@ -113,14 +110,6 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		public System.Data.Linq.Table<ErrorLog> ErrorLogs
-		{
-			get
-			{
-				return this.GetTable<ErrorLog>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Permission> Permissions
 		{
 			get
@@ -166,6 +155,14 @@ namespace HotelDataEntryLib
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Log> Logs
+		{
+			get
+			{
+				return this.GetTable<Log>();
 			}
 		}
 	}
@@ -953,116 +950,6 @@ namespace HotelDataEntryLib
 		{
 			this.SendPropertyChanging();
 			entity.Brand = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ErrorLog")]
-	public partial class ErrorLog : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ErrorId;
-		
-		private System.Nullable<int> _ErrorMsg;
-		
-		private System.DateTime _ErrorDate;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnErrorIdChanging(int value);
-    partial void OnErrorIdChanged();
-    partial void OnErrorMsgChanging(System.Nullable<int> value);
-    partial void OnErrorMsgChanged();
-    partial void OnErrorDateChanging(System.DateTime value);
-    partial void OnErrorDateChanged();
-    #endregion
-		
-		public ErrorLog()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ErrorId
-		{
-			get
-			{
-				return this._ErrorId;
-			}
-			set
-			{
-				if ((this._ErrorId != value))
-				{
-					this.OnErrorIdChanging(value);
-					this.SendPropertyChanging();
-					this._ErrorId = value;
-					this.SendPropertyChanged("ErrorId");
-					this.OnErrorIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorMsg", DbType="Int")]
-		public System.Nullable<int> ErrorMsg
-		{
-			get
-			{
-				return this._ErrorMsg;
-			}
-			set
-			{
-				if ((this._ErrorMsg != value))
-				{
-					this.OnErrorMsgChanging(value);
-					this.SendPropertyChanging();
-					this._ErrorMsg = value;
-					this.SendPropertyChanged("ErrorMsg");
-					this.OnErrorMsgChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorDate", DbType="DateTime NOT NULL")]
-		public System.DateTime ErrorDate
-		{
-			get
-			{
-				return this._ErrorDate;
-			}
-			set
-			{
-				if ((this._ErrorDate != value))
-				{
-					this.OnErrorDateChanging(value);
-					this.SendPropertyChanging();
-					this._ErrorDate = value;
-					this.SendPropertyChanged("ErrorDate");
-					this.OnErrorDateChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -2272,6 +2159,141 @@ namespace HotelDataEntryLib
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Log]")]
+	public partial class Log
+	{
+		
+		private int _Id;
+		
+		private System.DateTime _Date;
+		
+		private string _Thread;
+		
+		private string _Level;
+		
+		private string _Logger;
+		
+		private string _Message;
+		
+		private string _Exception;
+		
+		public Log()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this._Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thread", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Thread
+		{
+			get
+			{
+				return this._Thread;
+			}
+			set
+			{
+				if ((this._Thread != value))
+				{
+					this._Thread = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Level]", Storage="_Level", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Level
+		{
+			get
+			{
+				return this._Level;
+			}
+			set
+			{
+				if ((this._Level != value))
+				{
+					this._Level = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Logger", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Logger
+		{
+			get
+			{
+				return this._Logger;
+			}
+			set
+			{
+				if ((this._Logger != value))
+				{
+					this._Logger = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this._Message = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Exception", DbType="NVarChar(2000)")]
+		public string Exception
+		{
+			get
+			{
+				return this._Exception;
+			}
+			set
+			{
+				if ((this._Exception != value))
+				{
+					this._Exception = value;
+				}
+			}
 		}
 	}
 }
