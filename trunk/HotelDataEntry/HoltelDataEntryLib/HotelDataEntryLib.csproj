@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +54,7 @@
     <Compile Include="Page\DataEntryHelper.cs" />
     <Compile Include="Page\DataEntryTypeHelper.cs" />
     <Compile Include="Page\HotelEntryHelper.cs" />
+    <Compile Include="Page\LogHelper.cs" />
     <Compile Include="Page\PropertyHelper.cs" />
     <Compile Include="Page\ReportHelper.cs" />
     <Compile Include="Page\UserHelper.cs" />

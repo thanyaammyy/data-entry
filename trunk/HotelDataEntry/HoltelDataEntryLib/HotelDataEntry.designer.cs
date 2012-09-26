@@ -2166,22 +2166,52 @@ namespace HotelDataEntryLib
 	public partial class Log
 	{
 		
-		private int _Id;
-		
-		private System.DateTime _Date;
-		
-		private string _Thread;
-		
-		private string _Level;
-		
-		private string _Logger;
+		private System.Nullable<System.DateTime> _ErrorDate;
 		
 		private string _Message;
 		
-		private string _Exception;
+		private int _Id;
+		
+		private string _Detail;
+		
+		private string _ClientIP;
+		
+		private string _Url;
 		
 		public Log()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ErrorDate
+		{
+			get
+			{
+				return this._ErrorDate;
+			}
+			set
+			{
+				if ((this._ErrorDate != value))
+				{
+					this._ErrorDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(MAX)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this._Message = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
@@ -2200,98 +2230,50 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
-		public System.DateTime Date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Detail", DbType="NVarChar(MAX)")]
+		public string Detail
 		{
 			get
 			{
-				return this._Date;
+				return this._Detail;
 			}
 			set
 			{
-				if ((this._Date != value))
+				if ((this._Detail != value))
 				{
-					this._Date = value;
+					this._Detail = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thread", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string Thread
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientIP", DbType="NVarChar(1000)")]
+		public string ClientIP
 		{
 			get
 			{
-				return this._Thread;
+				return this._ClientIP;
 			}
 			set
 			{
-				if ((this._Thread != value))
+				if ((this._ClientIP != value))
 				{
-					this._Thread = value;
+					this._ClientIP = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Level]", Storage="_Level", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Level
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Url", DbType="NVarChar(2000)")]
+		public string Url
 		{
 			get
 			{
-				return this._Level;
+				return this._Url;
 			}
 			set
 			{
-				if ((this._Level != value))
+				if ((this._Url != value))
 				{
-					this._Level = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Logger", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string Logger
-		{
-			get
-			{
-				return this._Logger;
-			}
-			set
-			{
-				if ((this._Logger != value))
-				{
-					this._Logger = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(4000) NOT NULL", CanBeNull=false)]
-		public string Message
-		{
-			get
-			{
-				return this._Message;
-			}
-			set
-			{
-				if ((this._Message != value))
-				{
-					this._Message = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Exception", DbType="NVarChar(2000)")]
-		public string Exception
-		{
-			get
-			{
-				return this._Exception;
-			}
-			set
-			{
-				if ((this._Exception != value))
-				{
-					this._Exception = value;
+					this._Url = value;
 				}
 			}
 		}
