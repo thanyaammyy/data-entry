@@ -67,6 +67,7 @@
     <Content Include="Company.aspx" />
     <Content Include="Currency.aspx" />
     <Content Include="DataEntry.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="Report.aspx" />
@@ -163,6 +164,9 @@
     </Compile>
     <Compile Include="DataEntry.aspx.designer.cs">
       <DependentUpon>DataEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

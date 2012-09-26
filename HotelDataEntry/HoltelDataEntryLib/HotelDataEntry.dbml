@@ -108,13 +108,12 @@
   </Table>
   <Table Name="dbo.[Log]" Member="Logs">
     <Type Name="Log">
+      <Column Name="ErrorDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Thread" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="[Level]" Member="Level" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Logger" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Message" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
-      <Column Name="Exception" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClientIP" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
