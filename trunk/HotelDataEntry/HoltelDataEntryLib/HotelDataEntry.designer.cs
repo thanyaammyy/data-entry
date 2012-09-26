@@ -54,6 +54,9 @@ namespace HotelDataEntryLib
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertLog(Log instance);
+    partial void UpdateLog(Log instance);
+    partial void DeleteLog(Log instance);
     #endregion
 		
 		public HotelDataEntryDataContext() : 
@@ -2163,8 +2166,10 @@ namespace HotelDataEntryLib
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Log]")]
-	public partial class Log
+	public partial class Log : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private System.Nullable<System.DateTime> _ErrorDate;
 		
@@ -2178,8 +2183,27 @@ namespace HotelDataEntryLib
 		
 		private string _Url;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnErrorDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnErrorDateChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDetailChanging(string value);
+    partial void OnDetailChanged();
+    partial void OnClientIPChanging(string value);
+    partial void OnClientIPChanged();
+    partial void OnUrlChanging(string value);
+    partial void OnUrlChanged();
+    #endregion
+		
 		public Log()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorDate", DbType="DateTime")]
@@ -2193,7 +2217,11 @@ namespace HotelDataEntryLib
 			{
 				if ((this._ErrorDate != value))
 				{
+					this.OnErrorDateChanging(value);
+					this.SendPropertyChanging();
 					this._ErrorDate = value;
+					this.SendPropertyChanged("ErrorDate");
+					this.OnErrorDateChanged();
 				}
 			}
 		}
@@ -2209,12 +2237,16 @@ namespace HotelDataEntryLib
 			{
 				if ((this._Message != value))
 				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
 					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int Id
 		{
 			get
@@ -2225,7 +2257,11 @@ namespace HotelDataEntryLib
 			{
 				if ((this._Id != value))
 				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
 					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
@@ -2241,7 +2277,11 @@ namespace HotelDataEntryLib
 			{
 				if ((this._Detail != value))
 				{
+					this.OnDetailChanging(value);
+					this.SendPropertyChanging();
 					this._Detail = value;
+					this.SendPropertyChanged("Detail");
+					this.OnDetailChanged();
 				}
 			}
 		}
@@ -2257,7 +2297,11 @@ namespace HotelDataEntryLib
 			{
 				if ((this._ClientIP != value))
 				{
+					this.OnClientIPChanging(value);
+					this.SendPropertyChanging();
 					this._ClientIP = value;
+					this.SendPropertyChanged("ClientIP");
+					this.OnClientIPChanged();
 				}
 			}
 		}
@@ -2273,8 +2317,32 @@ namespace HotelDataEntryLib
 			{
 				if ((this._Url != value))
 				{
+					this.OnUrlChanging(value);
+					this.SendPropertyChanging();
 					this._Url = value;
+					this.SendPropertyChanged("Url");
+					this.OnUrlChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

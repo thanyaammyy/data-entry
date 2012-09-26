@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.125, 8.5" name="HotelDataEntry">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="HotelDataEntry">
   <DataContextMoniker Name="/HotelDataEntryDataContext" />
   <nestedChildShapes>
     <classShape Id="00a5b422-5f65-4647-9c54-75e9779fce14" absoluteBounds="8.5, 0.5, 2, 2.1554996744791666">
@@ -112,10 +112,10 @@
         <classShapeMoniker Id="b5805a90-704c-46ec-9e3b-f0fc5ff41e0f" />
       </nodes>
     </associationConnector>
-    <classShape Id="7ded89e8-e135-4331-bf61-61cc934a1955" absoluteBounds="8.875, 5.375, 2, 1.9631982421875">
+    <classShape Id="aa8048b5-2048-48a6-b77f-faa68cb3fdae" absoluteBounds="9, 5.5, 2, 1.9631982421875">
       <DataClassMoniker Name="/HotelDataEntryDataContext/Log" />
       <nestedChildShapes>
-        <elementListCompartment Id="1f9aac05-52b2-4156-ae2b-686df397339d" absoluteBounds="8.89, 5.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="127b90f2-824e-425b-9ae4-1c0b6069a7b5" absoluteBounds="9.015, 5.96, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
