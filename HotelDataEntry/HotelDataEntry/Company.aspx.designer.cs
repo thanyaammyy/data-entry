@@ -22,24 +22,6 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.UpdatePanel updatepanel1;
         
         /// <summary>
-        /// ddlBrand control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBrand;
-        
-        /// <summary>
-        /// BrandDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource BrandDataSource;
-        
-        /// <summary>
         /// ddlCurrency control.
         /// </summary>
         /// <remarks>

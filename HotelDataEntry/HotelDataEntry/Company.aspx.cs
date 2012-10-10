@@ -29,7 +29,7 @@ namespace HotelDataEntry
 
         private void JqgridCompanyBinding()
         {
-            var companyList = PropertyHelper.ListAllCompany();
+            var companyList = PropertyHelper.ListAllProperties();
             JqgridCompany.DataSource = companyList;
             JqgridCompany.DataBind();
         }
@@ -48,7 +48,7 @@ namespace HotelDataEntry
                                        PropertyName = e.RowData["PropertyName"],
                                        Status = Convert.ToInt32(status),
                                        UpdateDateTime = DateTime.Now,
-                                       BrandId = Convert.ToInt32(brand),
+                                       //BrandId = Convert.ToInt32(brand),
                                        CurrencyId = Convert.ToInt32(currency)                                   
                                    };
                 PropertyHelper.AddProperty(property);
@@ -70,7 +70,7 @@ namespace HotelDataEntry
                                        PropertyCode = e.RowData["PropertyCode"],
                                        Status = Convert.ToInt32(status),
                                        UpdateDateTime = DateTime.Now,
-                                       BrandId = Convert.ToInt32(brand),
+                                       //BrandId = Convert.ToInt32(brand),
                                        CurrencyId = Convert.ToInt32(currency)
                                    };
                 PropertyHelper.UpdateProperty(property);

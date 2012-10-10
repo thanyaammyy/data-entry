@@ -58,65 +58,65 @@ namespace HotelDataEntry
                 lbCompany.Visible = false;
                 lbMenu.Visible = false;
                 divJqgrid.Attributes["style"] = "";
-                var hotelEntry = new HotelEntry()
-                {
-                    PropertyId = propertyId,
-                    DataEntrySubTypeId = dataEntrySubTypeId,
-                    MonthYear = my
-                };
+                //var hotelEntry = new HotelEntry()
+                //{
+                //    PropertyId = propertyId,
+                //    DataEntrySubTypeId = dataEntrySubTypeId,
+                //    MonthYear = my
+                //};
 
-                if (HotelEntryHelper.ExistMothYear(hotelEntry))
-                {
-                    var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
-                    BindDataEntryJqgrid(exsitEntry);
-                }
-                else
-                {
-                    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
-                    DataEntryHelper.AddDataEntryListByMonthYear(newEntry);
-                    BindDataEntryJqgrid(newEntry);
-                }
+                //if (HotelEntryHelper.ExistMothYear(hotelEntry))
+                //{
+                //    var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
+                //    BindDataEntryJqgrid(exsitEntry);
+                //}
+                //else
+                //{
+                //    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
+                //    DataEntryHelper.AddDataEntryListByMonthYear(newEntry);
+                //    BindDataEntryJqgrid(newEntry);
+                //}
             }
         }
-        private void BindDataEntryJqgrid(HotelEntry hotelEntry)
-        {
-            var dataEntryList = DataEntryHelper.ListDataEntryByMonthYear(hotelEntry);
-            JqGridDataEntry.DataSource = dataEntryList;
-            CalculateTotal(dataEntryList);
-            JqGridDataEntry.DataBind();
-        }
-        protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
-        {
-            var dataEntryId = e.RowKey;
-            var hotelEntryId = e.RowData["HotelEntryId"]==""?0:Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var actualData = string.IsNullOrEmpty(e.RowData["ActualData"]) ? 0.00 : float.Parse(e.RowData["ActualData"]);
-            var budget = string.IsNullOrEmpty(e.RowData["Budget"]) ? 0.00 : float.Parse(e.RowData["Budget"]);
-            var dataEntry = new HotelDataEntryLib.DataEntry()
-                {
-                    DataEntryId = Convert.ToInt32(dataEntryId),
-                    ActualData =actualData,
-                    Budget = budget,
-                };
-            DataEntryHelper.UpdateDataEntry(dataEntry);
-            var hotelEntry = new HotelEntry()
-                                 {
-                                     HotelEntryId = hotelEntryId
-                                 };
-            BindDataEntryJqgrid(hotelEntry);
-        }
+        //private void BindDataEntryJqgrid(HotelEntry hotelEntry)
+        //{
+        //    var dataEntryList = DataEntryHelper.ListDataEntryByMonthYear(hotelEntry);
+        //    JqGridDataEntry.DataSource = dataEntryList;
+        //    CalculateTotal(dataEntryList);
+        //    JqGridDataEntry.DataBind();
+        //}
+        //protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
+        //{
+        //    var dataEntryId = e.RowKey;
+        //    var hotelEntryId = e.RowData["HotelEntryId"]==""?0:Convert.ToInt32(e.RowData["HotelEntryId"]);
+        //    var actualData = string.IsNullOrEmpty(e.RowData["ActualData"]) ? 0.00 : float.Parse(e.RowData["ActualData"]);
+        //    var budget = string.IsNullOrEmpty(e.RowData["Budget"]) ? 0.00 : float.Parse(e.RowData["Budget"]);
+        //    var dataEntry = new HotelDataEntryLib.DataEntry()
+        //        {
+        //            DataEntryId = Convert.ToInt32(dataEntryId),
+        //            ActualData =actualData,
+        //            Budget = budget,
+        //        };
+        //    DataEntryHelper.UpdateDataEntry(dataEntry);
+        //    var hotelEntry = new HotelEntry()
+        //                         {
+        //                             HotelEntryId = hotelEntryId
+        //                         };
+        //    BindDataEntryJqgrid(hotelEntry);
+        //}
 
-        protected void CalculateTotal(List<HotelDataEntryLib.DataEntry> listDataEntry)
+        protected void CalculateTotal()//List<HotelDataEntryLib.DataEntry> listDataEntry)
         {
             var actualTotal = 0.00;       
             var budgetTotal = 0.00;
-            foreach (var dataEntry in listDataEntry)
-            {
-                var actualValue = dataEntry.ActualData;
-                actualTotal += actualValue;
+            //foreach (var dataEntry in listDataEntry)
+            //{
+            //    var actualValue = dataEntry.ActualData;
+            //    actualTotal += actualValue;
 
-                var budgetValue = dataEntry.Budget;
-                budgetTotal += budgetValue;
-            }
+            //    var budgetValue = dataEntry.Budget;
+            //    budgetTotal += budgetValue;
+            //}
 
             JqGridDataEntry.Columns.FromDataField("ActualData").FooterValue = actualTotal.ToString("#,##0.00");
             JqGridDataEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");

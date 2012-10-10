@@ -22,22 +22,40 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.UpdatePanel updatepanel1;
         
         /// <summary>
-        /// ddlCompany control.
+        /// ddlProperty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCompany;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProperty;
         
         /// <summary>
-        /// CompanyDataSource control.
+        /// PropertyDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource CompanyDataSource;
+        protected global::System.Web.UI.WebControls.ObjectDataSource PropertyDataSource;
+        
+        /// <summary>
+        /// ddlPermission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPermission;
+        
+        /// <summary>
+        /// PermissionDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource PermissionDataSource;
         
         /// <summary>
         /// JqgridUser control.

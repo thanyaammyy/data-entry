@@ -40,8 +40,8 @@ namespace HotelDataEntry
                     return;
                 }
                 var curr = PropertyHelper.GetProperty(propertyId);
-                var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
-                lbCurerncy.Text = currency.CurrencyCode;
+                //var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                //lbCurerncy.Text = currency.CurrencyCode;
                 displayCurrency.Attributes["style"] = "";
             }
         }
@@ -335,8 +335,8 @@ namespace HotelDataEntry
                     return;
                 }
                 var curr = PropertyHelper.GetProperty(propertyId);
-                var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
-                lbCurrency2.Text = currency.CurrencyCode;
+                //var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                //lbCurrency2.Text = currency.CurrencyCode;
                 displayCurrency2.Attributes["style"] = "";
             }
         }
