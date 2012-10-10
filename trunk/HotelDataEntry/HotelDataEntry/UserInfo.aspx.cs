@@ -34,7 +34,7 @@ namespace HotelDataEntry
                 if(!Page.IsPostBack)
                 {
                     ddlCompany.SelectedValue = userInfo.PropertyId.ToString();
-                    if (userInfo.AlterPropertyId != 0) ddlAlterCompany.SelectedValue = userInfo.AlterPropertyId.ToString();
+                    //if (userInfo.AlterPropertyId != 0) ddlAlterCompany.SelectedValue = userInfo.AlterPropertyId.ToString();
                 }
                 
                 tbFirstName.Text = userInfo.FirstName;
@@ -69,7 +69,7 @@ namespace HotelDataEntry
                         LastName = lName,
                         Email = email,
                         PropertyId = Convert.ToInt32(company),
-                        AlterPropertyId = Convert.ToInt32(ddlAlterCompany.SelectedValue),
+                        //AlterPropertyId = Convert.ToInt32(ddlAlterCompany.SelectedValue),
                         Status = 1,
                         UpdateDateTime = DateTime.Now
                     };

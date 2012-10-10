@@ -13,20 +13,19 @@ namespace HotelDataEntryLib.Page
             IEnumerable<object> listUser= null;
 
             listUser = (from user in hdc.Users
-                           join property1 in hdc.Properties on user.PropertyId equals property1.PropertyId
-                           join property2 in hdc.Properties on user.AlterPropertyId equals property2.PropertyId
-                           join permission in hdc.Permissions on user.PermissionId equals permission.PermissionId
-                           select new
-                           {
-                               user.UserId,
-                               property1.PropertyCode, 
-                               AlterCompany = property2.PropertyCode,
-                               user.FirstName,
-                               user.LastName,
-                               user.Email,
-                               permission.PermissionId,
-                               user.StatusLabel
-                           }).ToList();
+                        join property in hdc.Properties on user.PropertyId equals property.PropertyId
+                        join permission in hdc.Permissions on user.PermissionId equals permission.PermissionId
+                        select new
+                        {
+                            user.UserId,
+                            property.PropertyCode,
+                            user.AccessProperties,
+                            user.FirstName,
+                            user.LastName,
+                            user.Email,
+                            permission.PermissionName,
+                            user.StatusLabel
+                        }).ToList();
             return listUser;
         }
 
@@ -80,9 +79,10 @@ namespace HotelDataEntryLib.Page
                 getUser.LastName = user.LastName;
                 getUser.Email = user.Email;
                 getUser.PropertyId = user.PropertyId;
-                getUser.AlterPropertyId = user.AlterPropertyId;
                 getUser.UpdateDateTime = DateTime.Now;
                 getUser.PermissionId = user.PermissionId;
+                getUser.Status = user.Status;
+                getUser.AccessProperties = user.AccessProperties;
                 try
                 {
                     hdc.SubmitChanges();
@@ -117,15 +117,15 @@ namespace HotelDataEntryLib.Page
             }
         }
 
-        public static string GetAlterCompany(int id, int userId)
-        {
-            string selected;
-            using (var hdc = new HotelDataEntryDataContext())
-            {
-                var propertyId = hdc.Users.Single(item => item.UserId == userId).AlterPropertyId;
-                selected = propertyId == id ? "selected" : "";
-            }
-            return selected;
-        }
+        //public static string GetAlterCompany(int id, int userId)
+        //{
+        //    string selected;
+        //    using (var hdc = new HotelDataEntryDataContext())
+        //    {
+        //        //var propertyId = hdc.Users.Single(item => item.UserId == userId).AlterPropertyId;
+        //        selected = propertyId == id ? "selected" : "";
+        //    }
+        //    return selected;
+        //}
     }
 }

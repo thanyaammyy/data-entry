@@ -4,53 +4,73 @@
 <%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        function populateAlterCompany() {
-            updateCompanyCallBack($("#PropertyCode").val());
-            $("#PropertyCode").bind("change", function (e) { updateCompanyCallBack($("#PropertyCode").val()); });
-        }
-
-        function updateCompanyCallBack(mainCompany) {
-            $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
-            var grid = $("#<%= JqgridUser.ClientID %>");
-            var userid = grid.getGridParam("selrow");
+        function populateAccessProperty(value, editOptions) {
+            var grid = jQuery("#<%= JqgridUser.ClientID %>");
+            var rowKey = grid.getGridParam("selrow");
+            var userId = rowKey==null?0:rowKey;
+            var table = "";
             $.ajax({
-                url: "User.aspx?companyid=" + mainCompany + "&userid=" + userid,
+                url: "User.aspx?userid=" + userId,
                 type: "GET",
+                async:false,
                 success: function (altercompany) {
                     var company = altercompany.split("|");
                     var alterCompanyHtml = "";
                     for (var i = 0; i < company.length; i++) {
                         var str = company[i].split(",");
-                        if (str[2]=="selected") alterCompanyHtml += '<option selected="' + str[2] + '" value="' + str[0] + '">' + str[1] + '</option>';
-                        else alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
+                        if(i!=0) alterCompanyHtml += "|";
+                        if(str[2]=="checked") {
+                            alterCompanyHtml += '<span><input type="checkbox" name="chkAccessProperty" checked=checked value="' + str[1] + '"/>' + str[1]+"</span>";
+                        }
+                        else {
+                            alterCompanyHtml += '<span><input type="checkbox" name="chkAccessProperty" value="' + str[1] + '"/>' + str[1]+"</span>";
+                        }
                     }
-                    $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
-                }
+                    table = createDynamicTable(alterCompanyHtml);
+                },
+                error: function () {
+                    table = "";
+                }                
             });
+            return table;
+        }
+        function beforeAddDialogShown() {
+            var grid = jQuery("#<%= JqgridUser.ClientID %>");
+            grid.jqGrid('resetSelection');
         }
 
-        function populateAddAlterCompany() {
-            addCompanyCallBack($("#PropertyCode").val());
-            $("#PropertyCode").bind("change", function (e) { addCompanyCallBack($("#PropertyCode").val()); });
+        function getAccessPropertyValue(elem) {
+            var element = $(elem).find("input:checkbox:checked");
+            var checked = "";
+            for(var i=0; i<element.length;i++)
+            {
+                if(i!=0) checked += ",";
+                checked += element[i].value;
+            }
+            return checked;
         }
-
-        function addCompanyCallBack(mainCompany) {
-            $("#AlterCompany").html("<option value=''>Loading Company...</option>").attr("disabled", "disabled");
-            $.ajax({
-                url: "User.aspx?companyid=" + mainCompany + "&userid=-1",
-                type: "GET",
-                success: function (altercompany) {
-                    var company = altercompany.split("|");
-                    var alterCompanyHtml = "";
-                    for (var i = 0; i < company.length; i++) {
-                        var str = company[i].split(",");
-                        alterCompanyHtml += '<option value="' + str[0] + '">' + str[1] + '</option>';
+        
+        function createDynamicTable(data) {
+            var tbody = $("<table>");
+            if (tbody == null || tbody.length < 1) return "";
+            if(data.indexOf("|")!= -1) {
+                var str = data.split("|");
+                var rows = Math.ceil(str.length/5);
+                var cols = 5;
+                var colsRows = 0;
+                for (var r = 1; r <= rows; r++) {
+                    var trow = $("<tr>");
+                    for (var c = 1; c <= cols; c++) {
+                        var cellText = colsRows<=str.length?str[++colsRows]:"";
+                        $("<td>")
+                                .html(cellText)
+                                .appendTo(trow);
                     }
-                    $("#AlterCompany").removeAttr("disabled").html(alterCompanyHtml);
-                }
-            });
-        }
-
+                    trow.appendTo(tbody);
+                }    
+            }   
+            return tbody;
+      }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -58,17 +78,24 @@
         User Management</div>
     <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
-            <asp:DropDownList ID="ddlCompany" ToolTip="Company is required." DataSourceID="CompanyDataSource"
+            <asp:DropDownList ID="ddlProperty" ToolTip="Property is required." DataSourceID="PropertyDataSource"
                 DataValueField="PropertyId" DataTextField="PropertyCode" Width="90" runat="server">
             </asp:DropDownList>
-            <asp:ObjectDataSource ID="CompanyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
-                SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
-            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
+                SelectMethod="ListProperites" TypeName="HotelDataEntryLib.Page.PropertyHelper"
+                runat="server"></asp:ObjectDataSource>
+            <asp:DropDownList ID="ddlPermission" ToolTip="Permission is required." DataSourceID="PermissionDataSource"
+                DataValueField="PermissionId" DataTextField="PermissionName" Width="90" runat="server">
+            </asp:DropDownList>
+            <asp:ObjectDataSource ID="PermissionDataSource" DataObjectTypeName="HotelDataEntryLib.Permission"
+                SelectMethod="ListPermissions" TypeName="HotelDataEntryLib.Page.PermissionHelper"
+                runat="server"></asp:ObjectDataSource>
             <cc1:JQGrid ID="JqgridUser" AutoWidth="True" runat="server" Height="80%" OnRowAdding="JqgridUser_RowAdding"
                 OnRowDeleting="JqgridUser_RowDeleting" OnRowEditing="JqgridUser_RowEditing">
                 <Columns>
-                    <cc1:JQGridColumn DataField="UserId" Searchable="False" PrimaryKey="True" Width="55" Visible="False" />
-                    <cc1:JQGridColumn HeaderText="Company" DataField="PropertyCode" EditorControlID="ddlCompany"
+                    <cc1:JQGridColumn DataField="UserId" Searchable="False" PrimaryKey="True" Width="55"
+                        Visible="False" />
+                    <cc1:JQGridColumn HeaderText="Property" DataField="PropertyCode" EditorControlID="ddlProperty"
                         EditType="DropDown" Editable="True" TextAlign="Center">
                         <EditClientSideValidators>
                             <cc1:RequiredValidator />
@@ -83,13 +110,14 @@
                             <cc1:EmailValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Alternative Company" DataField="AlterCompany" Editable="true"
-                        EditType="DropDown" EditValues="Select a company" TextAlign="Center" />
-                    <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionId" Editable="True"
-                        EditType="DropDown" EditValues="1:Admin" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Access Properties" DataField="AccessProperties" Editable="true"
+                        TextAlign="Center" EditType="Custom" EditTypeCustomCreateElement="populateAccessProperty"
+                        EditTypeCustomGetValue="getAccessPropertyValue" />
+                    <cc1:JQGridColumn HeaderText="Permission" DataField="PermissionName" Editable="True"
+                        EditType="DropDown" EditorControlID="ddlPermission" TextAlign="Center">
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Status" DataField="StatusLabel" EditType="DropDown"
-                        EditValues="0:InActive;1:Active" Editable="True" TextAlign="Center" />
+                        EditValues="1:Active;0:InActive" Editable="True" TextAlign="Center" />
                 </Columns>
                 <AddDialogSettings CloseAfterAdding="False" />
                 <EditDialogSettings CloseAfterEditing="True" />
@@ -98,11 +126,11 @@
                 <AppearanceSettings ShowRowNumbers="true" />
                 <PagerSettings PageSize="20" />
                 <DeleteDialogSettings LeftOffset="497" TopOffset="241"></DeleteDialogSettings>
-                <AddDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
-                    CloseAfterAdding="True" Caption="Add Season" ClearAfterAdding="True"></AddDialogSettings>
-                <EditDialogSettings Width="300" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
-                    CloseAfterEditing="True" Caption="Edit Season"></EditDialogSettings>
-                <ClientSideEvents AfterEditDialogShown="populateAlterCompany" AfterAddDialogShown="populateAddAlterCompany" />
+                <AddDialogSettings Width="400" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
+                    CloseAfterAdding="True" Caption="Add User" ClearAfterAdding="True"></AddDialogSettings>
+                <EditDialogSettings Width="400" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
+                    CloseAfterEditing="True" ReloadAfterSubmit="True"  Caption="Edit User"></EditDialogSettings>
+                <%--<ClientSideEvents BeforeAddDialogShown="beforeAddDialogShown"></ClientSideEvents>--%>
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>

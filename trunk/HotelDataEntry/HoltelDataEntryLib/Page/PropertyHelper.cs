@@ -12,7 +12,7 @@ namespace HotelDataEntryLib.Page
             return new HotelDataEntryDataContext().Properties.Single(item => item.PropertyId == propId);
         }
 
-        public static IEnumerable<Property> ListCompany()
+        public static List<Property> ListProperites()
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
@@ -22,23 +22,12 @@ namespace HotelDataEntryLib.Page
             }
         }
 
-        public static List<Property> ListAlterCompany(int propertyid)
-        {
-            using (var hdc = new HotelDataEntryDataContext())
-            {
-                var listAlterCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select a Company", PropertyCode = "Select a Company"} };
-                listAlterCompany.AddRange(hdc.Properties.Where(item => item.PropertyId != propertyid).ToList());
-                return listAlterCompany;
-            }
-        }
-
-        public static IEnumerable<object> ListAllCompany()
+        public static IEnumerable<object> ListAllProperties()
         {
             var hdc = new HotelDataEntryDataContext();
             IEnumerable<object> listCompany = null;
 
             listCompany = (from company in hdc.Properties
-                           join brand in hdc.Brands on company.BrandId equals brand.BrandId
                            join currency in hdc.Currencies on company.CurrencyId equals currency.CurrencyId
                            select new
                            {
@@ -46,7 +35,6 @@ namespace HotelDataEntryLib.Page
                                company.PropertyName,
                                company.PropertyCode,
                                company.StatusLabel,
-                               brand.BrandName,
                                currency.CurrencyCode
                            }).ToList();
             return listCompany;
@@ -60,7 +48,7 @@ namespace HotelDataEntryLib.Page
                 {
                     PropertyCode = property.PropertyCode,
                     PropertyName = property.PropertyName,
-                    BrandId = property.BrandId,
+                    //BrandId = property.BrandId,
                     CurrencyId = property.CurrencyId,
                     UpdateDateTime = DateTime.Now,
                     Status = property.Status
@@ -88,7 +76,7 @@ namespace HotelDataEntryLib.Page
 
                 prop.PropertyName =property.PropertyName;
                 prop.PropertyCode = property.PropertyCode;
-                prop.BrandId = property.BrandId;
+                //prop.BrandId = property.BrandId;
                 prop.CurrencyId = property.CurrencyId;
                 prop.Status = property.Status;
                 prop.UpdateDateTime = DateTime.Now;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
@@ -23,7 +24,7 @@ namespace HotelDataEntry
             Session["property2"] = null;
             Session["monthlyDate"] = null;
             Session["IsMonthly"] = null;
-            var mainCompany = Request.QueryString["companyid"];
+
             var user = Request.QueryString["userid"];
             if (!Page.IsPostBack)
             {
@@ -31,19 +32,11 @@ namespace HotelDataEntry
 
             }
 
-            if (!string.IsNullOrEmpty(mainCompany))
+            if (!string.IsNullOrEmpty(user))
             {
-                var companyid = Convert.ToInt32(mainCompany);
+                var userId = Convert.ToInt32(user);
                 Response.Clear();
-                if (!(string.IsNullOrEmpty(user)||user=="null"))
-                {
-                    var userId = Convert.ToInt32(user);
-                    Response.Write(CompanyToJSON(companyid, userId));
-                }
-                else
-                {
-                    Response.Write(CompanyToJSON(companyid, 0));
-                }
+                Response.Write(PropertiesToJson(userId));
                 try
                 {
                     Response.End();
@@ -54,22 +47,36 @@ namespace HotelDataEntry
             }
         }
 
-        private string CompanyToJSON(int companyId, int userId)
+        private static string PropertiesToJson(int userId)
         {
             var dropdownHtml = new StringBuilder();
-            var listCompany = PropertyHelper.ListAlterCompany(companyId);
-            for (var i = 0; i < listCompany.Count; i++)
+            var user = UserHelper.GetUserInfo(userId);
+            var accessProperties = user.AccessProperties;
+
+            var listProperties = PropertyHelper.ListProperites();
+            for (var i = 0; i < listProperties.Count; i++)
             {
                 if (i != 0) dropdownHtml.Append("|");
-                dropdownHtml.Append(userId <= 0 ? listCompany[i].PropertyId + "," + listCompany[i].PropertyCode : listCompany[i].PropertyId + "," + listCompany[i].PropertyCode + "," + UserHelper.GetAlterCompany(listCompany[i].PropertyId, userId));
+                dropdownHtml.Append(listProperties[i].PropertyId + "," + listProperties[i].PropertyCode+","+CheckAccessProperty(accessProperties,listProperties[i].PropertyCode));
             }
             return dropdownHtml.ToString();
         }
 
+        private static string CheckAccessProperty(string accessProperty, string propertyCode)
+        {
+            var result = "";
+            var str = accessProperty.Split(',');
+            foreach (var s in str.Where(s => propertyCode.Equals(s)))
+            {
+                result = "checked";
+            }
+            return result;
+        }
+
         private void JqgridUserBinding()
         {
-            var currencyList = UserHelper.ListUser();
-            JqgridUser.DataSource = currencyList;
+            var userList = UserHelper.ListUser();
+            JqgridUser.DataSource = userList;
             JqgridUser.DataBind();
         }
 
@@ -77,7 +84,7 @@ namespace HotelDataEntry
         {
             var status = e.RowData["StatusLabel"];
             var mainCompany = e.RowData["PropertyCode"];
-            var alterCompany = e.RowData["AlterCompany"];
+            var accessProperties = e.RowData["AccessProperties"];
             var permissionId = e.RowData["PermissionId"];
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
             {
@@ -89,7 +96,7 @@ namespace HotelDataEntry
                     Email = e.RowData["Email"],
                     Status = Convert.ToInt32(status),
                     UpdateDateTime = DateTime.Now,
-                    AlterPropertyId = Convert.ToInt32(alterCompany),
+                    AccessProperties = accessProperties,
                     PermissionId = Convert.ToInt32(permissionId)
                 };
                 UserHelper.AddUserProfile(user);
@@ -100,7 +107,7 @@ namespace HotelDataEntry
         {
             var status = e.RowData["StatusLabel"];
             var mainCompany = e.RowData["PropertyCode"];
-            var alterCompany = e.RowData["AlterCompany"];
+            var accessProperties = e.RowData["AccessProperties"];
             var permissionId = e.RowData["PermissionId"];
             var userId = e.RowKey;
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
@@ -113,8 +120,7 @@ namespace HotelDataEntry
                     LastName = e.RowData["LastName"],
                     Email = e.RowData["Email"],
                     Status = Convert.ToInt32(status),
-                    UpdateDateTime = DateTime.Now,
-                    AlterPropertyId = Convert.ToInt32(alterCompany),
+                    AccessProperties = accessProperties,
                     PermissionId = Convert.ToInt32(permissionId)
                 };
                 UserHelper.UpdateUserProfile(user);
