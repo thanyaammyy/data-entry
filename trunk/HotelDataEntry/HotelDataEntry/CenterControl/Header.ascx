@@ -12,7 +12,7 @@
             <a href="DataEntry.aspx?key=<%=Key %>" id="inputForm">Data
                 Input Form</a> <span style="color: black; padding: 2px">l </span><a href="Report.aspx?key=<%=Key %>"
                     id="report">Report</a> <span style="color: black; padding: 2px">l</span>
-            <a href="Company.aspx?key=<%=Key %>" id="compMa">Company Maintenance</a>
+            <a href="Property.aspx?key=<%=Key %>" id="compMa">Company Maintenance</a>
             <span style="color: black; padding: 2px">l</span> <a href="User.aspx?key=<%=Key %>"
                 id="userMa">User Maintenance</a> <span style="color: black; padding: 2px">l</span>
             <a href="Currency.aspx?key=<%=Key %>" id="currencyMa">Currency

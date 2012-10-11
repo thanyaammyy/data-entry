@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        function populateAccessProperty(value, editOptions) {
+        function populateAccessProperty(value, editOptions,a,b,c) {
             var grid = jQuery("#<%= JqgridUser.ClientID %>");
             var rowKey = grid.getGridParam("selrow");
             var userId = rowKey==null?0:rowKey;
@@ -34,7 +34,7 @@
             });
             return table;
         }
-        function beforeAddDialogShown() {
+        function afterAddDialogShown() {
             var grid = jQuery("#<%= JqgridUser.ClientID %>");
             grid.jqGrid('resetSelection');
         }
@@ -63,14 +63,14 @@
                     for (var c = 1; c <= cols; c++) {
                         var cellText = colsRows<=str.length?str[++colsRows]:"";
                         $("<td>")
-                                .html(cellText)
-                                .appendTo(trow);
+                            .html(cellText)
+                            .appendTo(trow);
                     }
                     trow.appendTo(tbody);
                 }    
             }   
             return tbody;
-      }
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -130,7 +130,7 @@
                     CloseAfterAdding="True" Caption="Add User" ClearAfterAdding="True"></AddDialogSettings>
                 <EditDialogSettings Width="400" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterEditing="True" ReloadAfterSubmit="True"  Caption="Edit User"></EditDialogSettings>
-                <%--<ClientSideEvents BeforeAddDialogShown="beforeAddDialogShown"></ClientSideEvents>--%>
+                <ClientSideEvents AfterEditDialogShown="afterAddDialogShown"></ClientSideEvents>
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>

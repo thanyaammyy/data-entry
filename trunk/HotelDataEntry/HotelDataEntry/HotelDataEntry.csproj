@@ -64,7 +64,7 @@
   <ItemGroup>
     <Content Include="CenterControl\Footer.ascx" />
     <Content Include="CenterControl\Header.ascx" />
-    <Content Include="Company.aspx" />
+    <Content Include="Property.aspx" />
     <Content Include="Currency.aspx" />
     <Content Include="DataEntry.aspx" />
     <Content Include="Global.asax" />
@@ -144,12 +144,12 @@
     <Compile Include="CenterControl\Header.ascx.designer.cs">
       <DependentUpon>Header.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Company.aspx.cs">
-      <DependentUpon>Company.aspx</DependentUpon>
+    <Compile Include="Property.aspx.cs">
+      <DependentUpon>Property.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Company.aspx.designer.cs">
-      <DependentUpon>Company.aspx</DependentUpon>
+    <Compile Include="Property.aspx.designer.cs">
+      <DependentUpon>Property.aspx</DependentUpon>
     </Compile>
     <Compile Include="Currency.aspx.cs">
       <DependentUpon>Currency.aspx</DependentUpon>
