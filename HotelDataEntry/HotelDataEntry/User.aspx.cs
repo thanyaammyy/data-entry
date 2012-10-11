@@ -94,7 +94,7 @@ namespace HotelDataEntry
             var status = e.RowData["StatusLabel"];
             var mainCompany = e.RowData["PropertyCode"];
             var accessProperties = e.RowData["AccessProperties"];
-            var permissionId = e.RowData["PermissionId"];
+            var permissionId = e.RowData["PermissionName"];
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
             {
                 var user = new HotelDataEntryLib.User()
@@ -117,7 +117,7 @@ namespace HotelDataEntry
             var status = e.RowData["StatusLabel"];
             var mainCompany = e.RowData["PropertyCode"];
             var accessProperties = e.RowData["AccessProperties"];
-            var permissionId = e.RowData["PermissionId"];
+            var permissionId = e.RowData["PermissionName"];
             var userId = e.RowKey;
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
             {

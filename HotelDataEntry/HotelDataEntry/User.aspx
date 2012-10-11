@@ -27,9 +27,6 @@
                         }
                     }
                     table = createDynamicTable(alterCompanyHtml);
-                },
-                error: function () {
-                    table = "";
                 }                
             });
             return table;
