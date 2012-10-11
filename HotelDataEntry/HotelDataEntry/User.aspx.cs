@@ -50,8 +50,16 @@ namespace HotelDataEntry
         private static string PropertiesToJson(int userId)
         {
             var dropdownHtml = new StringBuilder();
-            var user = UserHelper.GetUserInfo(userId);
-            var accessProperties = user.AccessProperties;
+            string accessProperties;
+            if(userId==0)
+            {
+                accessProperties = "";
+            }
+            else
+            {
+                var user = UserHelper.GetUserInfo(userId);
+                accessProperties = user.AccessProperties;
+            }
 
             var listProperties = PropertyHelper.ListProperites();
             for (var i = 0; i < listProperties.Count; i++)
@@ -66,6 +74,7 @@ namespace HotelDataEntry
         {
             var result = "";
             var str = accessProperty.Split(',');
+
             foreach (var s in str.Where(s => propertyCode.Equals(s)))
             {
                 result = "checked";

@@ -79,20 +79,29 @@
       <Association Name="HotelDataEntry_RevenueEntry" Member="HotelDataEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelDataEntry" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.BudgetEntry" Member="BudgetEntries">
-    <Type Name="BudgetEntry">
-      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="HotelEntryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="HotelDataEntry_BudgetEntry" Member="HotelDataEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelDataEntry" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Permission" Member="Permissions">
     <Type Name="Permission">
       <Column Name="PermissionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PermissionName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PermissionCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Permission_User" Member="Users" ThisKey="PermissionId" OtherKey="PermissionId" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BudgetEntry" Member="BudgetEntries">
+    <Type Name="BudgetEntry">
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HotelEntryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PositionDate" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OccupiedRoom" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalRevenues" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Food" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Beverage" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Service" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Spa" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Others" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="HotelDataEntry_BudgetEntry" Member="HotelDataEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelDataEntry" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
