@@ -7,7 +7,7 @@ namespace HotelDataEntryLib.Page
 {
     public static class PermissionHelper
     {
-        public static IEnumerable<Permission> ListPermissions()
+        public static List<Permission> ListPermissions()
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
