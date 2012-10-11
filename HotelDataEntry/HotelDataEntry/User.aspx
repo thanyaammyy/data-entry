@@ -12,7 +12,8 @@
             $.ajax({
                 url: "User.aspx?userid=" + userId,
                 type: "GET",
-                async:false,
+                async: false,
+                cache:false,
                 success: function (altercompany) {
                     var company = altercompany.split("|");
                     var alterCompanyHtml = "";
