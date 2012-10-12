@@ -7,17 +7,9 @@
         var userId = null;
         var mode = "onLoad";
         function populateAccessProperty(value, editOptions) {
-            var grid = jQuery("#<%= JqgridUser.ClientID %>");
-            if (mode == "onAdd" || mode == "onLoad") {
-                userId = 0;
-            }
-            else if (mode == "onEdit") {
-                var rowKey = grid.getGridParam("selrow");
-                userId =  rowKey;
-            }
             var table = "";
             $.ajax({
-                url: "User.aspx?userid=" + userId+"&mode=onLoad",
+                url: "User.aspx?userid=" + 0,
                 type: "GET",
                 async: false,
                 cache:false,
@@ -27,12 +19,7 @@
                     for (var i = 0; i < company.length; i++) {
                         var str = company[i].split(",");
                         if(i!=0) alterCompanyHtml += "|";
-                        if(str[2]=="checked") {
-                            alterCompanyHtml += '<span><input type="checkbox" name="chkAccessProperty" checked=checked value="' + str[1] + '"/>' + str[1]+"</span>";
-                        }
-                        else {
-                            alterCompanyHtml += '<span><input type="checkbox" name="chkAccessProperty" value="' + str[1] + '"/>' + str[1]+"</span>";
-                        }
+                        alterCompanyHtml += '<span><input type="checkbox" name="chkAccessProperty" value="' + str[1] + '" id ="' + str[1] + '"/>' + str[1] + "</span>";
                     }
                     table = createDynamicTable(alterCompanyHtml);
                 }                
@@ -74,14 +61,14 @@
         }
 
         function populateAddAccessProperties() {
-            mode = "onAdd";
-            AddAccessPropertyCallBack($("#PropertyCode").val());
+            userId = 0;
+            accessPropertyCallBack($("#PropertyCode").val());
             $("#PropertyCode").bind("change", function (e) {
-                AddAccessPropertyCallBack($("#PropertyCode").val());
+                accessPropertyCallBack($("#PropertyCode").val());
             });
         }
 
-        function AddAccessPropertyCallBack(property) {
+        function accessPropertyCallBack(property) {
             $.ajax({
                 url: "User.aspx?userid=" + userId,
                 type: "GET",
@@ -101,24 +88,18 @@
         }
 
         function populateEditAccessProperties() {
-            mode = "onEdit";
-            EditAccessPropertyCallBack($("#PropertyCode").val());
-            $("#PropertyCode").bind("change", function (e) {
-                EditAccessPropertyCallBack($("#PropertyCode").val());
-            });
-        }
-
-        function EditAccessPropertyCallBack(property) {
-            if (property == 15) {
-                $.ajax({
-                    url: "User.aspx?userid=" + userId,
-                    type: "GET",
-                    success: function (citiesHtml) {
-                        $("#AccessProperties")
-                        .attr("disabled", "disabled");
-                    }
-                });
+            var grid = jQuery("#<%= JqgridUser.ClientID %>");
+            userId = grid.getGridParam("selrow");
+            
+            var accessedProperty = grid.jqGrid('getCell', userId, 'AccessProperties');
+            var str = accessedProperty.split(',');
+            for (var i = 0; i < str.length; i++) {
+                $('#' + str[i]).attr('checked', true);
             }
+            
+            $("#PropertyCode").bind("change", function (e) {
+                accessPropertyCallBack($("#PropertyCode").val());
+            });
         }
     </script>
 </asp:Content>
