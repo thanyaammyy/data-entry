@@ -4,13 +4,20 @@
 <%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        function populateAccessProperty(value, editOptions,a,b,c) {
+        var userId = null;
+        var mode = "onLoad";
+        function populateAccessProperty(value, editOptions) {
             var grid = jQuery("#<%= JqgridUser.ClientID %>");
-            var rowKey = grid.getGridParam("selrow");
-            var userId = rowKey==null?0:rowKey;
+            if (mode == "onAdd" || mode == "onLoad") {
+                userId = 0;
+            }
+            else if (mode == "onEdit") {
+                var rowKey = grid.getGridParam("selrow");
+                userId =  rowKey;
+            }
             var table = "";
             $.ajax({
-                url: "User.aspx?userid=" + userId,
+                url: "User.aspx?userid=" + userId+"&mode=onLoad",
                 type: "GET",
                 async: false,
                 cache:false,
@@ -31,10 +38,6 @@
                 }                
             });
             return table;
-        }
-        function afterAddDialogShown() {
-            var grid = jQuery("#<%= JqgridUser.ClientID %>");
-            grid.jqGrid('resetSelection');
         }
 
         function getAccessPropertyValue(elem) {
@@ -59,7 +62,7 @@
                 for (var r = 1; r <= rows; r++) {
                     var trow = $("<tr>");
                     for (var c = 1; c <= cols; c++) {
-                        var cellText = colsRows<=str.length?str[++colsRows]:"";
+                        var cellText = colsRows <= str.length ? str[colsRows++] : "";
                         $("<td>")
                             .html(cellText)
                             .appendTo(trow);
@@ -68,6 +71,54 @@
                 }    
             }   
             return tbody;
+        }
+
+        function populateAddAccessProperties() {
+            mode = "onAdd";
+            AddAccessPropertyCallBack($("#PropertyCode").val());
+            $("#PropertyCode").bind("change", function (e) {
+                AddAccessPropertyCallBack($("#PropertyCode").val());
+            });
+        }
+
+        function AddAccessPropertyCallBack(property) {
+            $.ajax({
+                url: "User.aspx?userid=" + userId,
+                type: "GET",
+                success: function () {
+                    if (property == 15) {
+                        $('input[name=chkAccessProperty]').attr('checked', true);
+                        $("#AccessProperties")
+                            .attr("disabled", "disabled");
+                    }
+                    else {
+                        $('input[name=chkAccessProperty]').attr('checked', false);
+                        $("#AccessProperties")
+                            .removeAttr("disabled");
+                    }
+                }
+            });
+        }
+
+        function populateEditAccessProperties() {
+            mode = "onEdit";
+            EditAccessPropertyCallBack($("#PropertyCode").val());
+            $("#PropertyCode").bind("change", function (e) {
+                EditAccessPropertyCallBack($("#PropertyCode").val());
+            });
+        }
+
+        function EditAccessPropertyCallBack(property) {
+            if (property == 15) {
+                $.ajax({
+                    url: "User.aspx?userid=" + userId,
+                    type: "GET",
+                    success: function (citiesHtml) {
+                        $("#AccessProperties")
+                        .attr("disabled", "disabled");
+                    }
+                });
+            }
         }
     </script>
 </asp:Content>
@@ -128,7 +179,7 @@
                     CloseAfterAdding="True" Caption="Add User" ClearAfterAdding="True"></AddDialogSettings>
                 <EditDialogSettings Width="400" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterEditing="True" ReloadAfterSubmit="True"  Caption="Edit User"></EditDialogSettings>
-                <ClientSideEvents AfterEditDialogShown="afterAddDialogShown"></ClientSideEvents>
+                <ClientSideEvents  AfterEditDialogShown="populateEditAccessProperties" AfterAddDialogShown="populateAddAccessProperties"></ClientSideEvents>
             </cc1:JQGrid>
         </ContentTemplate>
     </asp:UpdatePanel>

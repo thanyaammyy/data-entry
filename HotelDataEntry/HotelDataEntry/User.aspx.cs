@@ -61,7 +61,7 @@ namespace HotelDataEntry
                 accessProperties = user.AccessProperties;
             }
 
-            var listProperties = PropertyHelper.ListProperites();
+            var listProperties = PropertyHelper.Properites();
             for (var i = 0; i < listProperties.Count; i++)
             {
                 if (i != 0) dropdownHtml.Append("|");
