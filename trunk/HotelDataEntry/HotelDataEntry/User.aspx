@@ -61,7 +61,6 @@
 
         function populateAddAccessProperties() {
             userId = 0;
-            accessPropertyCallBack($("#PropertyCode").val());
             $("#PropertyCode").bind("change", function (e) {
                 accessPropertyCallBack($("#PropertyCode").val());
             });
