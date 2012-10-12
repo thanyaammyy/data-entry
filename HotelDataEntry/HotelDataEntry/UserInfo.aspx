@@ -59,31 +59,29 @@
                         </tr>
                         <tr>
                             <td style="text-align: right" class="TextBlack12">
-                                Company
+                                Property
                             </td>
                             <td>
-                                <asp:UpdatePanel ID="updateCompanyPanel" UpdateMode="Conditional" runat="server">
-                                    <ContentTemplate>
-                                        <asp:DropDownList runat="server" ID="ddlCompany" ToolTip="Company is required" class="TextBlack12"
-                                            DataSourceID="CompanyDataSource" DataTextField="PropertyCodeWithName" DataValueField="PropertyId"
-                                            Width="175px" AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged1" />
-                                        <asp:Label ID="lbCompanyRequired" CssClass="asteric" runat="server">*</asp:Label>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                                <asp:DropDownList runat="server" ID="ddlProperty" ToolTip="Property is required"
+                                    class="TextBlack12" DataSourceID="PropertyDataSource" DataTextField="PropertyCodeWithName"
+                                    DataValueField="PropertyId" Width="175px" />
+                                <asp:Label ID="lbPropertyRequired" CssClass="asteric" runat="server">*</asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td style="text-align: right" class="TextBlack12">
-                                Alternative Company
+                                Access Property
                             </td>
                             <td>
-                                <asp:UpdatePanel ID="updateAlterPanel" UpdateMode="Conditional" runat="server">
-                                    <ContentTemplate>
-                                        <asp:DropDownList runat="server" ID="ddlAlterCompany" class="TextBlack12" Width="175px"
-                                            AutoPostBack="True" DataSourceID="AlterCompanyDataSource" DataTextField="PropertyCodeWithName"
-                                            DataValueField="PropertyId" />
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                                <asp:Label runat="server" ID="lbAccessProperty" Text="N/A" class="TextBlack12"></asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right" class="TextBlack12">
+                                Permission
+                            </td>
+                            <td>
+                                <asp:Label runat="server" ID="lbUserPermission" Text="N/A" class="TextBlack12"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -100,16 +98,9 @@
                     </table>
         </table>
     </div>
-    <asp:ObjectDataSource ID="CompanyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
-        SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
-    </asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="AlterCompanyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
-        SelectMethod="ListAlterCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper"
-        runat="server">
-        <SelectParameters>
-            <asp:SessionParameter Name="PropertyId" SessionField="PropertyId" Type="Int32" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
+        SelectMethod="ListProperites" TypeName="HotelDataEntryLib.Page.PropertyHelper"
+        runat="server"></asp:ObjectDataSource>
     </form>
 </body>
 </html>

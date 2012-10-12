@@ -85,49 +85,40 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbEmailRequired;
         
         /// <summary>
-        /// updateCompanyPanel control.
+        /// ddlProperty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updateCompanyPanel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProperty;
         
         /// <summary>
-        /// ddlCompany control.
+        /// lbPropertyRequired control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCompany;
+        protected global::System.Web.UI.WebControls.Label lbPropertyRequired;
         
         /// <summary>
-        /// lbCompanyRequired control.
+        /// lbAccessProperty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbCompanyRequired;
+        protected global::System.Web.UI.WebControls.Label lbAccessProperty;
         
         /// <summary>
-        /// updateAlterPanel control.
+        /// lbUserPermission control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updateAlterPanel;
-        
-        /// <summary>
-        /// ddlAlterCompany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAlterCompany;
+        protected global::System.Web.UI.WebControls.Label lbUserPermission;
         
         /// <summary>
         /// btnUpdateProfile control.
@@ -157,21 +148,12 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbEmailError;
         
         /// <summary>
-        /// CompanyDataSource control.
+        /// PropertyDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource CompanyDataSource;
-        
-        /// <summary>
-        /// AlterCompanyDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource AlterCompanyDataSource;
+        protected global::System.Web.UI.WebControls.ObjectDataSource PropertyDataSource;
     }
 }

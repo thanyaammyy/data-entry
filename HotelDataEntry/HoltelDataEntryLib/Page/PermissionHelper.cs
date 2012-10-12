@@ -16,5 +16,19 @@ namespace HotelDataEntryLib.Page
                 return listPermissions;
             }
         }
+
+        public static Permission GetPermission(int permissionId)
+        {
+            var permission = new Permission();
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var count = hdc.Permissions.Count(item => item.PermissionId == permissionId);
+                if (count != 0)
+                {
+                    permission = hdc.Permissions.Single(item => item.PermissionId == permissionId);
+                }
+            }
+            return permission;
+        }
     }
 }

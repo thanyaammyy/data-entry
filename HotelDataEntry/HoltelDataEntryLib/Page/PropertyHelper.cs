@@ -16,7 +16,7 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var listCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select a Company", PropertyCode = "Select a Company"} };
+                var listCompany = new List<Property> { new Property() { PropertyId = 0, PropertyName = "Select a Property", PropertyCode = "Select a Property"} };
                 listCompany.AddRange(hdc.Properties.ToList());
                 return listCompany;
             }
