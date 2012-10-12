@@ -11,6 +11,9 @@ namespace HotelDataEntry
     {
         public int UserId;
         public int UserPermissionId;
+        public int UserPropertyId;
+        public string UserName;
+        public string AccessProperty;
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -30,36 +33,33 @@ namespace HotelDataEntry
             if (UserId != 0)
             {
                 var userInfo = UserHelper.GetUserInfo(UserId);
-                UserPermissionId = userInfo.PermissionId;
+                UserPermissionId = userInfo.PermissionId;/*Do something*/
+                UserPropertyId = userInfo.PropertyId;
+                UserName = userInfo.Username;
+                AccessProperty = userInfo.AccessProperties;
+
+                ddlProperty.SelectedValue = userInfo.PropertyId.ToString();
+                ddlProperty.Enabled = false;
                 if(!Page.IsPostBack)
                 {
-                    ddlCompany.SelectedValue = userInfo.PropertyId.ToString();
-                    //if (userInfo.AlterPropertyId != 0) ddlAlterCompany.SelectedValue = userInfo.AlterPropertyId.ToString();
+                    tbFirstName.Text = userInfo.FirstName;
+                    tbLastName.Text = userInfo.LastName;
+                    tbEmail.Text = userInfo.Email;
                 }
                 
-                tbFirstName.Text = userInfo.FirstName;
-                tbLastName.Text = userInfo.LastName;
-                tbEmail.Text = userInfo.Email;
+                lbAccessProperty.Text = userInfo.AccessProperties;
+                lbUserPermission.Text = PermissionHelper.GetPermission(userInfo.PermissionId).PermissionName;
             }
             
-        }
-
-        protected void ddlCompany_SelectedIndexChanged1(object sender, EventArgs e)
-        {
-            if (((DropDownList)sender).SelectedValue != "")
-            {
-                Session["propertyid"] = ddlCompany.SelectedValue;
-            }
-            updateAlterPanel.Update();
         }
 
         protected void btnUpdateProfile_Click(object sender, EventArgs e)
         {
             var fName = tbFirstName.Text;
             var lName = tbLastName.Text;
-            var company = ddlCompany.SelectedValue;
             var email = tbEmail.Text;
-            if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||company.Equals("0")))
+            var propertyId = string.IsNullOrEmpty(ddlProperty.SelectedValue)?0:Convert.ToInt32(ddlProperty.SelectedValue);
+            if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||propertyId==0))
             {
                 if(IsValidEmail(email))
                 {
@@ -67,29 +67,38 @@ namespace HotelDataEntry
                     {
                         FirstName = fName,
                         LastName = lName,
-                        Email = email,
-                        PropertyId = Convert.ToInt32(company),
-                        //AlterPropertyId = Convert.ToInt32(ddlAlterCompany.SelectedValue),
-                        Status = 1,
-                        UpdateDateTime = DateTime.Now
+                        Email = email
                     };
                     if (UserId == 0)
                     {
-                        user.PermissionId = 3;
+                        user.Status = 0;
+                        user.PermissionId = 1;
+                        user.PropertyId = Convert.ToInt32(ddlProperty.SelectedValue);
                         user.Username = Session["UserSession"].ToString();
+                        user.AccessProperties = "N/A";
                         UserHelper.AddUserProfile(user);
                     }
                     else
                     {
                         user.UserId = UserId;
+                        user.Status = 1;
+                        user.PropertyId = UserPropertyId;
                         user.PermissionId = UserPermissionId;
+                        user.Username = UserName;
+                        user.AccessProperties = AccessProperty;
                         UserHelper.UpdateUserProfile(user);
                     }
                     Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close();</script>");
                 }
-                
+                else
+                {
+                    lbEmailError.Visible = true;
+                    lbRequired.Visible = false;
+                }
+
             }else
             {
+                lbEmailError.Visible = false;
                 lbRequired.Visible = true;
             }
 

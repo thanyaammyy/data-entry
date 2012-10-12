@@ -53,6 +53,7 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
+                user.UpdateDateTime = DateTime.Now;
                 hdc.Users.InsertOnSubmit(user);
                 try
                 {
