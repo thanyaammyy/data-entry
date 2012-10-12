@@ -22,6 +22,14 @@ namespace HotelDataEntryLib.Page
             }
         }
 
+        public static List<Property> Properites()
+        {
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                return hdc.Properties.OrderBy(item=>item.PropertyCode).ToList();
+            }
+        }
+
         public static IEnumerable<object> ListAllProperties()
         {
             var hdc = new HotelDataEntryDataContext();

@@ -116,16 +116,5 @@ namespace HotelDataEntryLib.Page
                 }
             }
         }
-
-        //public static string GetAlterCompany(int id, int userId)
-        //{
-        //    string selected;
-        //    using (var hdc = new HotelDataEntryDataContext())
-        //    {
-        //        //var propertyId = hdc.Users.Single(item => item.UserId == userId).AlterPropertyId;
-        //        selected = propertyId == id ? "selected" : "";
-        //    }
-        //    return selected;
-        //}
     }
 }
