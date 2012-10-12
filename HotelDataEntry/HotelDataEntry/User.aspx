@@ -5,7 +5,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         var userId = null;
-        var mode = "onLoad";
         function populateAccessProperty(value, editOptions) {
             var table = "";
             $.ajax({
