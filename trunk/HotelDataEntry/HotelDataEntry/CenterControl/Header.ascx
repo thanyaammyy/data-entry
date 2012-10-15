@@ -9,9 +9,9 @@
     </div>
     <div style="padding-left: 50px; padding-bottom: 20px; padding-right: 20px; padding-top: 20px; margin: auto;">
         <p align="center" style="font-size: 12px; font-family: Helvetica;">
-            <div style="float: left; ">
-                <a href="Revenue.aspx?key=<%=Key %>" id="inputForm">Reveneu Entry</a> <span style="color: black; padding: 2px">l </span>
-                <a href="Report.aspx?key=<%=Key %>" id="report">Budget Entry</a>
+            <div style="float: left; padding-left: 240px">
+                <a href="Revenue.aspx?key=<%=Key %>" id="revenue">Reveneu Entry</a> <span style="color: black; padding: 2px">l </span>
+                <a href="Budget.aspx?key=<%=Key %>" id="budget">Budget Entry</a>
             </div>
             <div id="divAdmin" style="padding-left: 10px; float: left; display: none" runat="server">
                 <span style="color: black; padding: 2px">l</span> 
