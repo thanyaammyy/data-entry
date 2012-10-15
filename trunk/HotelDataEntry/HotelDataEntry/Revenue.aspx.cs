@@ -78,10 +78,19 @@ namespace HotelDataEntry
         }
         private void BindDataEntryJqgrid(HotelDataEntryLib.HotelDataEntry hotelEntry)
         {
+            var userPermission = Session["permission"].ToString();
             var dataEntryList = RevenueHelper.ListRevenueEntryByMonthYear(hotelEntry);
             JqGridDataEntry.DataSource = dataEntryList;
             CalculateTotal(dataEntryList);
             JqGridDataEntry.DataBind();
+            if (!string.IsNullOrEmpty(userPermission))
+            {
+                if(Convert.ToInt32(userPermission)<2)
+                {
+                    JqGridDataEntry.ToolBarSettings.ShowEditButton = false;
+                    
+                }
+            }
         }
         protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
         {
