@@ -21,6 +21,20 @@ namespace HotelDataEntry
             Session["property2"] = null;
             Session["monthlyDate"] = null;
             Session["IsMonthly"] = null;
+
+            if (!string.IsNullOrEmpty(Session["permission"].ToString()))
+            {
+                if (Convert.ToInt32(Session["permission"]) != 3)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+
+
             if(!Page.IsPostBack)
             {
                 JqgridCompanyBinding();

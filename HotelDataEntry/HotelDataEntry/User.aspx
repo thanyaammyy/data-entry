@@ -4,18 +4,6 @@
 <%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        function firstLogin() {
-            $(".fancybox").fancybox({
-                'width': 432,
-                'closeBtn': false,
-                'modal': true,
-                'height': 'auto',
-                scrolling: 'no',
-                helpers: {
-                    title: null
-                }
-            }).trigger('click');
-        }
         var userId = null;
         function populateAccessProperty(value, editOptions) {
             var table = "";
