@@ -65,7 +65,7 @@ namespace HotelDataEntryLib.Page
             return revenueEntryList;
         }
 
-        public static void UpdateDataEntry(RevenueEntry revenueEntry)
+        public static void UpdateRevenueEntry(RevenueEntry revenueEntry)
         {
             using (var hdc = new HotelDataEntryDataContext())
             {

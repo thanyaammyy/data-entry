@@ -116,7 +116,7 @@ namespace HotelDataEntry
                     Others = others,
                     Total = occupiedRoom+roomRevenue+food+beverage+service+spa+others
                 };
-            RevenueHelper.UpdateDataEntry(revenueEntry);
+            RevenueHelper.UpdateRevenueEntry(revenueEntry);
             var hotelEntry = new HotelDataEntryLib.HotelDataEntry()
                                  {
                                      HotelEntryId = hotelEntryId
