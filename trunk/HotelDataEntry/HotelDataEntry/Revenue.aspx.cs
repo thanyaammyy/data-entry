@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.UI.WebControls;
 using HotelDataEntryLib;
+using HotelDataEntryLib.Helper;
 using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
 
@@ -10,6 +12,7 @@ namespace HotelDataEntry
     public partial class DataEntry : System.Web.UI.Page
     {
         public string MonthYear;
+        public int UserId ;
         protected void Page_Load(object sender, EventArgs e)
         {
             //Report
@@ -21,43 +24,40 @@ namespace HotelDataEntry
             Session["property2"] = null;
             Session["monthlyDate"] = null;
             Session["IsMonthly"] = null;
+
+
             if (!IsPostBack)
             {
-                if (Session["propertyId"] == null || Session["dataEntryTypeId"] == null || Session["MonthYear"]==null) return;
-                ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntrySubTypeId"]), Session["MonthYear"].ToString());
+                if (Session["propertyId"] == null || Session["MonthYear"]==null) return;
+                ShowData(Convert.ToInt32(Session["propertyId"]), Session["MonthYear"].ToString());
             }
         }
 
         protected void btnCreateForm_Click(object sender, EventArgs e)
         {
             var propertyId = ddlCompany.SelectedValue;
-            var dataEntrySubTypeId = ddlSubMenu.SelectedValue;
-            var dataEntryTypeId = ddlMenu.SelectedValue;
             MonthYear = hiddenMonthYear.Value;
-            if (string.IsNullOrEmpty(propertyId) || string.IsNullOrEmpty(dataEntrySubTypeId) || string.IsNullOrEmpty(MonthYear))
+            if (string.IsNullOrEmpty(propertyId) ||  string.IsNullOrEmpty(MonthYear))
                 return;
             Session["propertyId"] = propertyId;
-            Session["dataEntrySubTypeId"] = Convert.ToInt32(dataEntryTypeId) == 4 ? "7" : dataEntrySubTypeId;//7 subtype of Others DataEntryType(id=4)
             Session["MonthYear"] = MonthYear;
-            ShowData(Convert.ToInt32(Session["propertyId"]), Convert.ToInt32(Session["dataEntrySubTypeId"]), Session["MonthYear"].ToString());
+            ShowData(Convert.ToInt32(Session["propertyId"]),  Session["MonthYear"].ToString());
         }
 
-        private void ShowData(int propertyId, int dataEntrySubTypeId, string my)
+        private void ShowData(int propertyId,  string my)
         {
-            if (string.IsNullOrEmpty(my) || propertyId <= 0 || dataEntrySubTypeId <= 0)
+            if (string.IsNullOrEmpty(my) || propertyId <= 0 )
             {
                 lbError.Visible = true;
                 lbCalendar.Visible = true;
                 lbCompany.Visible = true;
-                lbMenu.Visible = true;
             }
             else
             {
                 lbError.Visible = false;
                 lbCalendar.Visible = false;
                 lbCompany.Visible = false;
-                lbMenu.Visible = false;
-                divJqgrid.Attributes["style"] = "";
+                //divJqgrid.Attributes["style"] = "";
                 //var hotelEntry = new HotelEntry()
                 //{
                 //    PropertyId = propertyId,
@@ -105,58 +105,73 @@ namespace HotelDataEntry
         //    BindDataEntryJqgrid(hotelEntry);
         //}
 
-        protected void CalculateTotal()//List<HotelDataEntryLib.DataEntry> listDataEntry)
-        {
-            var actualTotal = 0.00;       
-            var budgetTotal = 0.00;
-            //foreach (var dataEntry in listDataEntry)
-            //{
-            //    var actualValue = dataEntry.ActualData;
-            //    actualTotal += actualValue;
+        //protected void CalculateTotal()//List<HotelDataEntryLib.DataEntry> listDataEntry)
+        //{
+        //    var actualTotal = 0.00;       
+        //    var budgetTotal = 0.00;
+        //    //foreach (var dataEntry in listDataEntry)
+        //    //{
+        //    //    var actualValue = dataEntry.ActualData;
+        //    //    actualTotal += actualValue;
 
-            //    var budgetValue = dataEntry.Budget;
-            //    budgetTotal += budgetValue;
-            //}
+        //    //    var budgetValue = dataEntry.Budget;
+        //    //    budgetTotal += budgetValue;
+        //    //}
 
-            JqGridDataEntry.Columns.FromDataField("ActualData").FooterValue = actualTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
-        }
+        //    JqGridDataEntry.Columns.FromDataField("ActualData").FooterValue = actualTotal.ToString("#,##0.00");
+        //    JqGridDataEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");
+        //    JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
+        //}
 
-        protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var selectedValue = ddlMenu.SelectedValue;
-            MonthYear = hiddenMonthYear.Value;
-            Session["MonthYear"] = MonthYear;
-            divJqgrid.Attributes["style"] = "display:none";
-            if (Convert.ToInt32(selectedValue) < 4)
-            {
-                ddlSubMenu.Enabled = true;
-                if (((DropDownList)sender).SelectedValue != "")
-                {
-                    Session["DataEntryTypeId"] = selectedValue;
-                }
-                updateRevenuePanel.Update();
-            }
-            else
-            {
-                Session["dataEntrySubTypeId"] = 7;
-                ddlSubMenu.SelectedIndex = 0;
-                ddlSubMenu.Enabled = false;
-            }
-        }
-        protected void ddlSubMenu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            MonthYear = hiddenMonthYear.Value;
-            Session["MonthYear"] = MonthYear;
-            divJqgrid.Attributes["style"] = "display:none";
-        }
+        //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    var selectedValue = ddlMenu.SelectedValue;
+        //    MonthYear = hiddenMonthYear.Value;
+        //    Session["MonthYear"] = MonthYear;
+        //    divJqgrid.Attributes["style"] = "display:none";
+        //    if (Convert.ToInt32(selectedValue) < 4)
+        //    {
+        //        ddlSubMenu.Enabled = true;
+        //        if (((DropDownList)sender).SelectedValue != "")
+        //        {
+        //            Session["DataEntryTypeId"] = selectedValue;
+        //        }
+        //        updateRevenuePanel.Update();
+        //    }
+        //    else
+        //    {
+        //        Session["dataEntrySubTypeId"] = 7;
+        //        ddlSubMenu.SelectedIndex = 0;
+        //        ddlSubMenu.Enabled = false;
+        //    }
+        //}
+        //protected void ddlSubMenu_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    MonthYear = hiddenMonthYear.Value;
+        //    Session["MonthYear"] = MonthYear;
+        //    divJqgrid.Attributes["style"] = "display:none";
+        //}
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
             MonthYear = hiddenMonthYear.Value;
             Session["MonthYear"] = MonthYear;
             divJqgrid.Attributes["style"] = "display:none";
+            var selectedValue = ddlCompany.SelectedValue;
+            if (((DropDownList)sender).SelectedValue != "")
+            {
+                var property = Convert.ToInt32(selectedValue);
+                if (property != 0)
+                {
+                    var curr = PropertyHelper.GetProperty(property);
+                    var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                    lbCurerncy.Text = currency.CurrencyCode;
+                }
+                else
+                {
+                    lbCurerncy.Text = "";
+                }
+            }
         }
     }
 }

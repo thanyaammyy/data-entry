@@ -22,15 +22,6 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hiddenMonthYear;
         
         /// <summary>
-        /// lbCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbCalendar;
-        
-        /// <summary>
         /// ddlCompany control.
         /// </summary>
         /// <remarks>
@@ -49,40 +40,22 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbCompany;
         
         /// <summary>
-        /// ddlMenu control.
+        /// lbCalendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
+        protected global::System.Web.UI.WebControls.Label lbCalendar;
         
         /// <summary>
-        /// updateRevenuePanel control.
+        /// lbCurerncy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updateRevenuePanel;
-        
-        /// <summary>
-        /// ddlSubMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubMenu;
-        
-        /// <summary>
-        /// lbMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbMenu;
+        protected global::System.Web.UI.WebControls.Label lbCurerncy;
         
         /// <summary>
         /// btnCreateForm control.
@@ -112,24 +85,6 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.ObjectDataSource PropertyDataSource;
         
         /// <summary>
-        /// RevenueDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource RevenueDataSource;
-        
-        /// <summary>
-        /// SubRevenueDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource SubRevenueDataSource;
-        
-        /// <summary>
         /// divJqgrid control.
         /// </summary>
         /// <remarks>
@@ -137,23 +92,5 @@ namespace HotelDataEntry {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divJqgrid;
-        
-        /// <summary>
-        /// updatepanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatepanel1;
-        
-        /// <summary>
-        /// JqGridDataEntry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Trirand.Web.UI.WebControls.JQGrid JqGridDataEntry;
     }
 }
