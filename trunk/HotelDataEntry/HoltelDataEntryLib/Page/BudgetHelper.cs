@@ -9,15 +9,11 @@ namespace HotelDataEntryLib.Page
     {
          public static void AddBudgetEntryListByMonthYear(HotelDataEntry hotelEntry)
          {
-             var monthYear = hotelEntry.MonthYear;
-             var str = monthYear.Split('/');
-             if (string.IsNullOrEmpty(str[0]) || string.IsNullOrEmpty(str[1])) return;
-             var dates = GetLastDayOfMonth((Convert.ToInt32(str[0])), Convert.ToInt32(str[1]));
+             var year = hotelEntry.MonthYear;
+             if (string.IsNullOrEmpty(year)) return;
              using (var hdc = new HotelDataEntryDataContext())
              {
-                 var month = Convert.ToInt32(str[0]);
-                 var year = Convert.ToInt32(str[1]);
-                 for (var i = 0; i < dates; i++)
+                 for (var i = 0; i < 11; i++)
                  {
                      hdc.BudgetEntries.InsertOnSubmit(new BudgetEntry()
                      {
@@ -31,7 +27,7 @@ namespace HotelDataEntryLib.Page
                          Others = 0.00,
                          Total = 0.00,
                          UpdateDateTime = DateTime.Now,
-                         PositionDate = new DateTime(year, month, (i + 1))
+                         PositionMonth = (i+1)+"/"+year
 
                      });
 
@@ -49,12 +45,6 @@ namespace HotelDataEntryLib.Page
                  }
              }
 
-         }
-         public static int GetLastDayOfMonth(int month, int year)
-         {
-             var n = new DateTime(year, month, 1);
-             var dates = n.AddMonths(1).AddDays(-1).Day;
-             return dates;
          }
          public static List<BudgetEntry> ListBudgetEntryByMonthYear(HotelDataEntry hotelEntry)
          {

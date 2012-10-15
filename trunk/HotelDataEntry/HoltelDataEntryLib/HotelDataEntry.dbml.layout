@@ -26,7 +26,7 @@
         <elementListCompartment Id="c449dd9a-0498-4618-9cfb-963d3d6a897f" absoluteBounds="0.51500000000000012, 4.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.5 : 4.125); (1.5 : 3.23240397135417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.5 : 4.125); (1.5 : 3.23240397135417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/HotelDataEntryDataContext/Permission/Permission_User" />
       <nodes>
         <classShapeMoniker Id="992699b2-8fbd-40f9-a671-fe794c71a40f" />
@@ -59,37 +59,37 @@
         <elementListCompartment Id="14c2c7b0-881d-415a-bc90-5834580d0590" absoluteBounds="3.5149999999999997, 6.5850000000000009, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bfd5b445-029b-4712-ad85-87c821c9335b" absoluteBounds="5.75, 6.125, 2, 3.1170068359375">
-      <DataClassMoniker Name="/HotelDataEntryDataContext/BudgetEntry" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a0055cdd-0f1c-4f56-ba00-4115ec7653f1" absoluteBounds="5.765, 6.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="f9608f29-8120-48ff-81ef-af57fe03c210" absoluteBounds="4.625, 3.375, 2, 1.7708968098958331">
       <DataClassMoniker Name="/HotelDataEntryDataContext/HotelDataEntry" />
       <nestedChildShapes>
         <elementListCompartment Id="7c028ecc-a09f-4ddc-9d1b-7d26c99c8511" absoluteBounds="4.64, 3.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.0625 : 5.14589680989583); (5.0625 : 6.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.0625 : 5.14589680989583); (5.0625 : 6.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/HotelDataEntry/HotelDataEntry_RevenueEntry" />
       <nodes>
         <classShapeMoniker Id="f9608f29-8120-48ff-81ef-af57fe03c210" />
         <classShapeMoniker Id="18d10eca-2982-45df-b9ab-3db31c6a5b7d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.1875 : 5.14589680989583); (6.1875 : 6.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/HotelDataEntryDataContext/HotelDataEntry/HotelDataEntry_BudgetEntry" />
-      <nodes>
-        <classShapeMoniker Id="f9608f29-8120-48ff-81ef-af57fe03c210" />
-        <classShapeMoniker Id="bfd5b445-029b-4712-ad85-87c821c9335b" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.625 : 2.4631982421875); (5.625 : 3.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.625 : 2.4631982421875); (5.625 : 3.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/HotelDataEntryDataContext/Property/Property_HotelDataEntry" />
       <nodes>
         <classShapeMoniker Id="fa23abf3-d1e2-40d1-b5a1-fef3e1e371b9" />
         <classShapeMoniker Id="f9608f29-8120-48ff-81ef-af57fe03c210" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b6291b56-b493-4c32-81d6-1cd93506fba8" absoluteBounds="5.875, 6.125, 2, 3.1170068359375">
+      <DataClassMoniker Name="/HotelDataEntryDataContext/BudgetEntry" />
+      <nestedChildShapes>
+        <elementListCompartment Id="374dd327-9f81-4254-ba9f-8017d579edb9" absoluteBounds="5.89, 6.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.25 : 5.14589680989583); (6.25 : 6.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/HotelDataEntryDataContext/HotelDataEntry/HotelDataEntry_BudgetEntry" />
+      <nodes>
+        <classShapeMoniker Id="f9608f29-8120-48ff-81ef-af57fe03c210" />
+        <classShapeMoniker Id="b6291b56-b493-4c32-81d6-1cd93506fba8" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
