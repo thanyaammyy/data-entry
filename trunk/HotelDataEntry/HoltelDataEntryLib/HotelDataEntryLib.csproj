@@ -50,8 +50,7 @@
       <DependentUpon>HotelDataEntry.dbml</DependentUpon>
     </Compile>
     <Compile Include="Page\CurrencyHelper.cs" />
-    <Compile Include="Page\DataEntryHelper.cs" />
-    <Compile Include="Page\DataEntryTypeHelper.cs" />
+    <Compile Include="Page\RevenueHelper.cs" />
     <Compile Include="Page\HotelEntryHelper.cs" />
     <Compile Include="Page\LogHelper.cs" />
     <Compile Include="Page\PermissionHelper.cs" />

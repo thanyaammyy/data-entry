@@ -54,7 +54,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <input type="hidden" id="hiddenMonthYear" runat="server" />
     <div class="headerMenuLabel">
-        Data Entry</div>
+        Revenue Entry</div>
     <div>
         <table class="TextBlack12" cellpadding="3" cellspacing="3">
             <tr>
@@ -113,42 +113,80 @@
             </SelectParameters>
         </asp:ObjectDataSource>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
-            <%--<asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
+            <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
-                            <cc1:JQGridColumn DataField="DataEntryId" Searchable="False" PrimaryKey="True" Width="55"
+                            <cc1:JQGridColumn DataField="RevenueId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
-                            <cc1:JQGridColumn HeaderText="" Width="10" TextAlign="Center" EditActionIconsEditDialogEnabled="True"
+                            <cc1:JQGridColumn HeaderText="" Width="30" TextAlign="Center" EditActionIconsEditDialogEnabled="True"
                                 EditActionIconsDeleteEnabled="False" EditActionIconsColumn="True">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" DataType="DateTime"
                                 TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Actual" DataField="ActualData" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn HeaderText="Occupied Rooms" DataField="OccupiedRoom" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn HeaderText="Total Room Revenues" DataField="TotalRoomRevenues" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Food" DataField="Food" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Beverage" DataField="Beverage" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Service" DataField="Service" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Spa" DataField="Spa" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Others" DataField="Others" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Total" DataField="Total" Editable="False" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
                             </cc1:JQGridColumn>
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" />
+                        <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
+                            Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
-                        <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
-                            Caption="Edit Data Entry"></EditDialogSettings>
                     </cc1:JQGrid>
                 </ContentTemplate>
-            </asp:UpdatePanel>--%>
+            </asp:UpdatePanel>
         </div>
     </div>
 </asp:Content>
