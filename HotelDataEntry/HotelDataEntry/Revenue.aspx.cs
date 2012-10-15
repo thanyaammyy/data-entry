@@ -37,8 +37,6 @@ namespace HotelDataEntry
         {
             var propertyId = ddlCompany.SelectedValue;
             MonthYear = hiddenMonthYear.Value;
-            if (string.IsNullOrEmpty(propertyId) ||  string.IsNullOrEmpty(MonthYear))
-                return;
             Session["propertyId"] = propertyId;
             Session["MonthYear"] = MonthYear;
             ShowData(Convert.ToInt32(Session["propertyId"]),  Session["MonthYear"].ToString());
@@ -57,100 +55,113 @@ namespace HotelDataEntry
                 lbError.Visible = false;
                 lbCalendar.Visible = false;
                 lbCompany.Visible = false;
-                //divJqgrid.Attributes["style"] = "";
-                //var hotelEntry = new HotelEntry()
-                //{
-                //    PropertyId = propertyId,
-                //    DataEntrySubTypeId = dataEntrySubTypeId,
-                //    MonthYear = my
-                //};
+                divJqgrid.Attributes["style"] = "";
+                var hotelEntry = new HotelDataEntryLib.HotelDataEntry()  
+                {
+                    PropertyId = propertyId,
+                    MonthYear = my,
+                    EntryType = 1
+                };
 
-                //if (HotelEntryHelper.ExistMothYear(hotelEntry))
-                //{
-                //    var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
-                //    BindDataEntryJqgrid(exsitEntry);
-                //}
-                //else
-                //{
-                //    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
-                //    DataEntryHelper.AddDataEntryListByMonthYear(newEntry);
-                //    BindDataEntryJqgrid(newEntry);
-                //}
+                if (HotelEntryHelper.ExistMothYear(hotelEntry))
+                {
+                    var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
+                    BindDataEntryJqgrid(exsitEntry);
+                }
+                else
+                {
+                    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
+                    RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
+                    BindDataEntryJqgrid(newEntry);
+                }
             }
         }
-        //private void BindDataEntryJqgrid(HotelEntry hotelEntry)
-        //{
-        //    var dataEntryList = DataEntryHelper.ListDataEntryByMonthYear(hotelEntry);
-        //    JqGridDataEntry.DataSource = dataEntryList;
-        //    CalculateTotal(dataEntryList);
-        //    JqGridDataEntry.DataBind();
-        //}
-        //protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
-        //{
-        //    var dataEntryId = e.RowKey;
-        //    var hotelEntryId = e.RowData["HotelEntryId"]==""?0:Convert.ToInt32(e.RowData["HotelEntryId"]);
-        //    var actualData = string.IsNullOrEmpty(e.RowData["ActualData"]) ? 0.00 : float.Parse(e.RowData["ActualData"]);
-        //    var budget = string.IsNullOrEmpty(e.RowData["Budget"]) ? 0.00 : float.Parse(e.RowData["Budget"]);
-        //    var dataEntry = new HotelDataEntryLib.DataEntry()
-        //        {
-        //            DataEntryId = Convert.ToInt32(dataEntryId),
-        //            ActualData =actualData,
-        //            Budget = budget,
-        //        };
-        //    DataEntryHelper.UpdateDataEntry(dataEntry);
-        //    var hotelEntry = new HotelEntry()
-        //                         {
-        //                             HotelEntryId = hotelEntryId
-        //                         };
-        //    BindDataEntryJqgrid(hotelEntry);
-        //}
+        private void BindDataEntryJqgrid(HotelDataEntryLib.HotelDataEntry hotelEntry)
+        {
+            var dataEntryList = RevenueHelper.ListRevenueEntryByMonthYear(hotelEntry);
+            JqGridDataEntry.DataSource = dataEntryList;
+            CalculateTotal(dataEntryList);
+            JqGridDataEntry.DataBind();
+        }
+        protected void JqGridDataEntry_RowEditing(object sender, JQGridRowEditEventArgs e)
+        {
+            var revenueEntryId = e.RowKey;
+            var hotelEntryId = e.RowData["HotelEntryId"] == "" ? 0 : Convert.ToInt32(e.RowData["HotelEntryId"]);
+            var occupiedRoom = string.IsNullOrEmpty(e.RowData["OccupiedRoom"]) ? 0.00 : float.Parse(e.RowData["OccupiedRoom"]);
+            var roomRevenue = string.IsNullOrEmpty(e.RowData["TotalRoomRevenues"]) ? 0.00 : float.Parse(e.RowData["TotalRoomRevenues"]);
+            var food = string.IsNullOrEmpty(e.RowData["Food"]) ? 0.00 : float.Parse(e.RowData["Food"]);
+            var beverage = string.IsNullOrEmpty(e.RowData["Beverage"]) ? 0.00 : float.Parse(e.RowData["Beverage"]);
+            var service = string.IsNullOrEmpty(e.RowData["Service"]) ? 0.00 : float.Parse(e.RowData["Service"]);
+            var spa = string.IsNullOrEmpty(e.RowData["Spa"]) ? 0.00 : float.Parse(e.RowData["Spa"]);
+            var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : float.Parse(e.RowData["Others"]);
+            var revenueEntry = new RevenueEntry()
+                {
+                    RevenueId = Convert.ToInt32(revenueEntryId),
+                    HotelEntryId = hotelEntryId,
+                    OccupiedRoom = occupiedRoom,
+                    TotalRoomRevenues = roomRevenue,
+                    Food = food,
+                    Beverage = beverage,
+                    Service = service,
+                    Spa = spa,
+                    Others = others,
+                    Total = occupiedRoom+roomRevenue+food+beverage+service+spa+others
+                };
+            RevenueHelper.UpdateDataEntry(revenueEntry);
+            var hotelEntry = new HotelDataEntryLib.HotelDataEntry()
+                                 {
+                                     HotelEntryId = hotelEntryId
+                                 };
+            BindDataEntryJqgrid(hotelEntry);
+        }
 
-        //protected void CalculateTotal()//List<HotelDataEntryLib.DataEntry> listDataEntry)
-        //{
-        //    var actualTotal = 0.00;       
-        //    var budgetTotal = 0.00;
-        //    //foreach (var dataEntry in listDataEntry)
-        //    //{
-        //    //    var actualValue = dataEntry.ActualData;
-        //    //    actualTotal += actualValue;
+        protected void CalculateTotal(List<HotelDataEntryLib.RevenueEntry> listRevenueEntry)
+        {
+            var occupiedRoomTotal = 0.00;
+            var roomRevenuesTotal = 0.00;
+            var foodTotal = 0.00;
+            var beverageTotal = 0.00;
+            var serviceTotal = 0.00;
+            var spaTotal = 0.00;
+            var othersTotal = 0.00;
+            var total = 0.00;
+            foreach (var revenueEntry in listRevenueEntry)
+            {
+                var occupiedRoom = revenueEntry.OccupiedRoom;
+                occupiedRoomTotal += occupiedRoom;
 
-        //    //    var budgetValue = dataEntry.Budget;
-        //    //    budgetTotal += budgetValue;
-        //    //}
+                var totalRoomRevenues = revenueEntry.TotalRoomRevenues;
+                roomRevenuesTotal += totalRoomRevenues;
 
-        //    JqGridDataEntry.Columns.FromDataField("ActualData").FooterValue = actualTotal.ToString("#,##0.00");
-        //    JqGridDataEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");
-        //    JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
-        //}
+                var food = revenueEntry.Food;
+                foodTotal += food;
 
-        //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    var selectedValue = ddlMenu.SelectedValue;
-        //    MonthYear = hiddenMonthYear.Value;
-        //    Session["MonthYear"] = MonthYear;
-        //    divJqgrid.Attributes["style"] = "display:none";
-        //    if (Convert.ToInt32(selectedValue) < 4)
-        //    {
-        //        ddlSubMenu.Enabled = true;
-        //        if (((DropDownList)sender).SelectedValue != "")
-        //        {
-        //            Session["DataEntryTypeId"] = selectedValue;
-        //        }
-        //        updateRevenuePanel.Update();
-        //    }
-        //    else
-        //    {
-        //        Session["dataEntrySubTypeId"] = 7;
-        //        ddlSubMenu.SelectedIndex = 0;
-        //        ddlSubMenu.Enabled = false;
-        //    }
-        //}
-        //protected void ddlSubMenu_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    MonthYear = hiddenMonthYear.Value;
-        //    Session["MonthYear"] = MonthYear;
-        //    divJqgrid.Attributes["style"] = "display:none";
-        //}
+                var beverage = revenueEntry.Beverage;
+                beverageTotal += beverage;
+
+                var service = revenueEntry.Service;
+                serviceTotal += service;
+
+                var spa = revenueEntry.Spa;
+                spaTotal += spa;
+
+                var others = revenueEntry.Others;
+                othersTotal += others;
+
+                var tmd = revenueEntry.Total;
+                total += tmd;
+            }
+
+            JqGridDataEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("TotalRoomRevenues").FooterValue = roomRevenuesTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Food").FooterValue = foodTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Beverage").FooterValue = beverageTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Service").FooterValue = serviceTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Spa").FooterValue = spaTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Others").FooterValue = othersTotal.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("Total").FooterValue = total.ToString("#,##0.00");
+            JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
+        }
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
         {

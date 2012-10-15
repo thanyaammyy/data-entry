@@ -363,7 +363,7 @@ namespace HotelDataEntry
                 var strFrom = sesseionDateFrom.Split('/');
                 var fromMonth = Convert.ToInt32(strFrom[0]);
                 var fromYear = Convert.ToInt32(strFrom[1]);
-                var endDate = DataEntryHelper.GetLastDayOfMonth(fromMonth, fromYear);
+                var endDate = RevenueHelper.GetLastDayOfMonth(fromMonth, fromYear);
 
                 //MTD
                 var dateTimeFromThisMonth = new DateTime(fromYear, fromMonth, 1);
