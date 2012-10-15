@@ -59,6 +59,18 @@
         <table class="TextBlack12" cellpadding="3" cellspacing="3">
             <tr>
                 <td>
+                    Property
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
+                        AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
+                        DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
+                    </asp:DropDownList>
+                    <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Position Date
                 </td>
                 <td>
@@ -76,42 +88,10 @@
             </tr>
             <tr>
                 <td>
-                    Property
+                    Currency
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
-                        AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
-                        DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
-                    </asp:DropDownList>
-                    <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Revenue
-                </td>
-                <td>
-                    <table border="0" cellspacing="0">
-                        <tr>
-                            <td>
-                                <asp:DropDownList ID="ddlMenu" ToolTip="Select a revenue" Width="150" runat="server"
-                                    AutoPostBack="True" DataSourceID="RevenueDataSource" DataValueField="DataEntryTypeId"
-                                    DataTextField="DataEntryTypeName" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>
-                            <asp:UpdatePanel ID="updateRevenuePanel" UpdateMode="Conditional" runat="server">
-                                <ContentTemplate>
-                                    <td>
-                                        <asp:DropDownList ID="ddlSubMenu" Width="150" runat="server" DataSourceID="SubRevenueDataSource"
-                                            OnSelectedIndexChanged="ddlSubMenu_SelectedIndexChanged" AutoPostBack="True"
-                                            DataValueField="DataEntrySubTypeId" Enabled="False" DataTextField="DataEntrySubTypeName">
-                                        </asp:DropDownList>
-                                        <asp:Label ID="lbMenu" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
-                                    </td>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </tr>
-                    </table>
+                    <asp:Label runat="server" ID="lbCurerncy"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -127,20 +107,13 @@
             </tr>
         </table>
         <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
-            SelectMethod="ListCompany" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
-        </asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="RevenueDataSource" DataObjectTypeName="HotelDataEntryLib.DataEntryType"
-            SelectMethod="ListDataEntryType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
-            runat="server"></asp:ObjectDataSource>
-        <asp:ObjectDataSource ID="SubRevenueDataSource" DataObjectTypeName="HotelDataEntryLib.DataEntrySubType"
-            SelectMethod="ListDataEntrySubType" TypeName="HotelDataEntryLib.Page.DataEntryTypeHelper"
-            runat="server">
+            SelectMethod="AccessProperty" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
             <SelectParameters>
-                <asp:SessionParameter Name="DataEntryTypeId" SessionField="DataEntryTypeId" Type="Int32" />
+                <asp:SessionParameter Name="userId" SessionField="userId" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
-            <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
+            <%--<asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
@@ -170,13 +143,12 @@
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" />
                         <PagerSettings PageSize="32" />
-                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True"/> 
+                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
                         <EditDialogSettings Width="300" Modal="True" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Data Entry"></EditDialogSettings>
-                          
                     </cc1:JQGrid>
                 </ContentTemplate>
-            </asp:UpdatePanel>
+            </asp:UpdatePanel>--%>
         </div>
     </div>
 </asp:Content>

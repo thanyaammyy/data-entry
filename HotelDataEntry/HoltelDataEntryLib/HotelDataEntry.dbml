@@ -26,19 +26,6 @@
       <Association Name="Permission_User" Member="Permission" ThisKey="PermissionId" OtherKey="PermissionId" Type="Permission" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Property" Member="Properties">
-    <Type Name="Property">
-      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PropertyCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PropertyName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="CurrencyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="User_Property" Member="User" ThisKey="PropertyId" OtherKey="PropertyId" Type="User" IsForeignKey="true" />
-      <Association Name="HotelDataEntry_Property" Member="HotelDataEntry" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelDataEntry" IsForeignKey="true" />
-      <Association Name="Currency_Property" Member="Currency" ThisKey="CurrencyId" OtherKey="CurrencyId" Type="Currency" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Currency" Member="Currencies">
     <Type Name="Currency">
       <Column Name="CurrencyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -57,9 +44,9 @@
       <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MonthYear" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="HotelDataEntry_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
       <Association Name="HotelDataEntry_RevenueEntry" Member="RevenueEntries" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="RevenueEntry" />
       <Association Name="HotelDataEntry_BudgetEntry" Member="BudgetEntries" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="BudgetEntry" />
+      <Association Name="HotelDataEntry_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
     </Type>
   </Table>
   <Table Name="dbo.RevenueEntry" Member="RevenueEntries">
@@ -102,6 +89,19 @@
       <Column Name="Others" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Association Name="HotelDataEntry_BudgetEntry" Member="HotelDataEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelDataEntry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Property" Member="Properties">
+    <Type Name="Property">
+      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PropertyCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PropertyName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CurrencyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Property" Member="User" ThisKey="PropertyId" OtherKey="PropertyId" Type="User" IsForeignKey="true" />
+      <Association Name="Currency_Property" Member="Currency" ThisKey="CurrencyId" OtherKey="CurrencyId" Type="Currency" IsForeignKey="true" />
+      <Association Name="HotelDataEntry_Property" Member="HotelDataEntry" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelDataEntry" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

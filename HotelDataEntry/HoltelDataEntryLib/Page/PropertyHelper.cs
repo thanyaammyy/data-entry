@@ -12,6 +12,11 @@ namespace HotelDataEntryLib.Page
             return new HotelDataEntryDataContext().Properties.Single(item => item.PropertyId == propId);
         }
 
+        public static Property GetProperty(string propCode)
+        {
+            return new HotelDataEntryDataContext().Properties.Single(item => item.PropertyCode == propCode);
+        }
+
         public static List<Property> ListProperites()
         {
             using (var hdc = new HotelDataEntryDataContext())
@@ -20,6 +25,24 @@ namespace HotelDataEntryLib.Page
                 listCompany.AddRange(hdc.Properties.ToList());
                 return listCompany;
             }
+        }
+
+        public static List<Property> AccessProperty(int userId)
+        {
+            var listAccessProperty = new List<Property>();
+            var user = UserHelper.GetUserInfo(userId);
+            var str = user.AccessProperties;
+            listAccessProperty.Add(new Property() { PropertyId = 0, PropertyName = "Select a Property", PropertyCode = "Select a Property" });
+            if(str.Contains("N/A")||string.IsNullOrEmpty(str))
+            {
+                return listAccessProperty;
+            }
+            else
+            {
+                var prop = str.Split(',');
+                listAccessProperty.AddRange(prop.Select(GetProperty));
+            }
+            return listAccessProperty;
         }
 
         public static List<Property> Properites()
@@ -56,7 +79,6 @@ namespace HotelDataEntryLib.Page
                 {
                     PropertyCode = property.PropertyCode,
                     PropertyName = property.PropertyName,
-                    //BrandId = property.BrandId,
                     CurrencyId = property.CurrencyId,
                     UpdateDateTime = DateTime.Now,
                     Status = property.Status
@@ -84,7 +106,6 @@ namespace HotelDataEntryLib.Page
 
                 prop.PropertyName =property.PropertyName;
                 prop.PropertyCode = property.PropertyCode;
-                //prop.BrandId = property.BrandId;
                 prop.CurrencyId = property.CurrencyId;
                 prop.Status = property.Status;
                 prop.UpdateDateTime = DateTime.Now;

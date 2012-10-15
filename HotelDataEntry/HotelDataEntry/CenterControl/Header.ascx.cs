@@ -22,14 +22,10 @@ namespace HotelDataEntry.CenterControl
                 UserId = userInfo.UserId;
                 Key = Encryption.EncryptStringAES(UserId + "&" + decryptKey, strSharedSecret);
                 Session["permission"] = userInfo.PermissionId;
-                if(userInfo.PermissionId<3)
+                Session["userId"] = userInfo.UserId;
+                if(userInfo.PermissionId==3)
                 {
-                    spProp.Style["display"] = "none";
-                    propMa.Style["display"] = "none";
-                    spCurrency.Style["display"] = "none";
-                    currencyMa.Style["display"] = "none";
-                    spUser.Style["display"] = "none";
-                    userMa.Style["display"] = "none";
+                    divAdmin.Style["display"] = "";
                 }
 
                 if (UserId <= 0)

@@ -7,15 +7,19 @@
         </a>[<asp:HyperLink ID="hplLogout" runat="server" ToolTip="Log out of system" NavigateUrl="~/Logout.aspx"
             Text="logout"></asp:HyperLink>]
     </div>
-    <div style="padding: 20px">
+    <div style="padding-left: 50px; padding-bottom: 20px; padding-right: 20px; padding-top: 20px; margin: auto;">
         <p align="center" style="font-size: 12px; font-family: Helvetica;">
-            <a href="DataEntry.aspx?key=<%=Key %>" id="inputForm">Reveneu Entry</a> <span
-                style="color: black; padding: 2px">l </span><a href="Report.aspx?key=<%=Key %>" id="report">
-                    Budget Entry</a> <span id="spProp" runat="server" style="color: black; padding: 2px">l</span> <a href="Property.aspx?key=<%=Key %>"
-                        id="propMa" runat="server">Company Maintenance</a> <span id="spUser" runat="server" style="color: black; padding: 2px">l</span>
-            <a href="User.aspx?key=<%=Key %>" id="userMa" runat="server">User Maintenance</a> <span id="spCurrency" runat="server" style="color: black;
-                padding: 2px">l</span> <a href="Currency.aspx?key=<%=Key %>" id="currencyMa" runat="server">Currency
-                    Maintenance</a>
+            <div style="float: left; ">
+                <a href="Revenue.aspx?key=<%=Key %>" id="inputForm">Reveneu Entry</a> <span style="color: black; padding: 2px">l </span>
+                <a href="Report.aspx?key=<%=Key %>" id="report">Budget Entry</a>
+            </div>
+            <div id="divAdmin" style="padding-left: 10px; float: left; display: none" runat="server">
+                <span style="color: black; padding: 2px">l</span> 
+                <a href="Property.aspx?key=<%=Key %>" id="propMa">Property Maintenance</a> <span style="color: black; padding: 2px">l</span> 
+                <a href="User.aspx?key=<%=Key %>" id="userMa">User Maintenance</a> <span  style="color: black;padding: 2px">l</span> 
+                <a href="Currency.aspx?key=<%=Key %>" id="currencyMa">Currency Maintenance</a>
+            </div>
+            
         </p>
     </div>
     <hr style="height: 0px; border-bottom: 2px solid #ba9963;">
