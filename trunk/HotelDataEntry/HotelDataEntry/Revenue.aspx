@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true"
-    CodeBehind="DataEntry.aspx.cs" Inherits="HotelDataEntry.DataEntry" %>
+    CodeBehind="Revenue.aspx.cs" Inherits="HotelDataEntry.DataEntry" %>
 
 <%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

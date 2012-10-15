@@ -31,7 +31,7 @@ namespace HotelDataEntry
                     Session["UserSession"] = username;
                     var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
                     var encryptEmail = Encryption.EncryptStringAES(username, strSharedSecret);
-                    Response.Redirect("~/User.aspx?key=" + encryptEmail);
+                    Response.Redirect("~/Revenue.aspx?key=" + encryptEmail);
                 }
                 else
                 {

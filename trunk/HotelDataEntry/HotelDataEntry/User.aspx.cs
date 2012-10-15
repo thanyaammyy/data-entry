@@ -25,6 +25,18 @@ namespace HotelDataEntry
             Session["monthlyDate"] = null;
             Session["IsMonthly"] = null;
 
+            if (!string.IsNullOrEmpty(Session["permission"].ToString()))
+            {
+                if (Convert.ToInt32(Session["permission"]) != 3)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             var user = Request.QueryString["userid"];
             if (!Page.IsPostBack)
             {

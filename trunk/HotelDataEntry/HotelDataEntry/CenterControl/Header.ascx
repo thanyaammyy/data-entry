@@ -9,14 +9,13 @@
     </div>
     <div style="padding: 20px">
         <p align="center" style="font-size: 12px; font-family: Helvetica;">
-            <a href="DataEntry.aspx?key=<%=Key %>" id="inputForm">Data
-                Input Form</a> <span style="color: black; padding: 2px">l </span><a href="Report.aspx?key=<%=Key %>"
-                    id="report">Report</a> <span style="color: black; padding: 2px">l</span>
-            <a href="Property.aspx?key=<%=Key %>" id="compMa">Company Maintenance</a>
-            <span style="color: black; padding: 2px">l</span> <a href="User.aspx?key=<%=Key %>"
-                id="userMa">User Maintenance</a> <span style="color: black; padding: 2px">l</span>
-            <a href="Currency.aspx?key=<%=Key %>" id="currencyMa">Currency
-                Maintenance</a>
+            <a href="DataEntry.aspx?key=<%=Key %>" id="inputForm">Reveneu Entry</a> <span
+                style="color: black; padding: 2px">l </span><a href="Report.aspx?key=<%=Key %>" id="report">
+                    Budget Entry</a> <span id="spProp" runat="server" style="color: black; padding: 2px">l</span> <a href="Property.aspx?key=<%=Key %>"
+                        id="propMa" runat="server">Company Maintenance</a> <span id="spUser" runat="server" style="color: black; padding: 2px">l</span>
+            <a href="User.aspx?key=<%=Key %>" id="userMa" runat="server">User Maintenance</a> <span id="spCurrency" runat="server" style="color: black;
+                padding: 2px">l</span> <a href="Currency.aspx?key=<%=Key %>" id="currencyMa" runat="server">Currency
+                    Maintenance</a>
         </p>
     </div>
     <hr style="height: 0px; border-bottom: 2px solid #ba9963;">
