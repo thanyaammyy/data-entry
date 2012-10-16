@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using HotelDataEntryLib.Helper;
 
 namespace HotelDataEntryLib.Page
 {
@@ -9,14 +11,9 @@ namespace HotelDataEntryLib.Page
     {
         public static void AddRevenueEntryListByMonthYear(HotelDataEntry hotelEntry)
         {
-            var monthYear = hotelEntry.MonthYear;
-            var str = monthYear.Split('/');
-            if (string.IsNullOrEmpty(str[0]) || string.IsNullOrEmpty(str[1])) return;
-            var dates = GetLastDayOfMonth((Convert.ToInt32(str[0])), Convert.ToInt32(str[1]));
+            var dates = GetLastDayOfMonth(hotelEntry.Month,hotelEntry.Year);
             using (var hdc = new HotelDataEntryDataContext())
             {
-                var month = Convert.ToInt32(str[0]);
-                var year = Convert.ToInt32(str[1]);
                 for (var i = 0; i < dates; i++)
                 {
                     hdc.RevenueEntries.InsertOnSubmit(new RevenueEntry()
@@ -31,7 +28,7 @@ namespace HotelDataEntryLib.Page
                             Others = 0.00,
                             Total = 0.00,
                             UpdateDateTime = DateTime.Now,
-                            PositionDate = new DateTime(year, month, (i + 1))
+                            PositionDate = new DateTime(hotelEntry.Year, hotelEntry.Month, (i + 1))
 
                         });
 
@@ -58,11 +55,31 @@ namespace HotelDataEntryLib.Page
             return dates;
         }
 
-        public static List<RevenueEntry> ListRevenueEntryByMonthYear(HotelDataEntry hotelEntry)
+        public static List<HotelDataEntryLib.Helper.Revenue> ListRevenueEntryByMonthYear(HotelDataEntry hotelEntry)
         {
+            var dates = GetLastDayOfMonth(hotelEntry.Month, hotelEntry.Year);
+            List<HotelDataEntryLib.Helper.Revenue> list = null;
             var hdc = new HotelDataEntryDataContext();
-            var revenueEntryList = hdc.RevenueEntries.Where(item => item.HotelEntryId == hotelEntry.HotelEntryId).ToList();
-            return revenueEntryList;
+            list = (from revenueEntry in hdc.RevenueEntries
+                    join budgetEntry in hdc.BudgetEntries on revenueEntry.HotelEntryId equals budgetEntry.HotelEntryId
+                    where revenueEntry.HotelEntryId == hotelEntry.HotelEntryId
+                    && budgetEntry.PositionMonth==hotelEntry.Month+"/"+hotelEntry.Year
+                    select new Revenue()
+                    {
+                        RevenueId = revenueEntry.RevenueId,
+                        PositionDate = revenueEntry.PositionDate,
+                        HotelEntryId = revenueEntry.HotelEntryId,
+                        OccupiedRoom = revenueEntry.OccupiedRoom,
+                        TotalRoomRevenues = revenueEntry.TotalRoomRevenues,
+                        Food = revenueEntry.Food,
+                        Beverage = revenueEntry.Beverage,
+                        Service = revenueEntry.Service,
+                        Spa = revenueEntry.Spa,
+                        Others = revenueEntry.Others,
+                        Total = revenueEntry.Total,
+                        Budget = budgetEntry.Total/dates
+                    }).ToList();
+            return list;
         }
 
         public static void UpdateRevenueEntry(RevenueEntry revenueEntry)

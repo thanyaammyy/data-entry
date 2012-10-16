@@ -103,12 +103,12 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.UpdatePanel updatepanel1;
         
         /// <summary>
-        /// JqGridDataEntry control.
+        /// JqGridRevenueEntry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Trirand.Web.UI.WebControls.JQGrid JqGridDataEntry;
+        protected global::Trirand.Web.UI.WebControls.JQGrid JqGridRevenueEntry;
     }
 }

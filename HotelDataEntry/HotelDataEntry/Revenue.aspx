@@ -115,7 +115,7 @@
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
-                    <cc1:JQGrid ID="JqGridDataEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
+                    <cc1:JQGrid ID="JqGridRevenueEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
                             <cc1:JQGridColumn DataField="RevenueId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
@@ -178,7 +178,15 @@
                             <cc1:JQGridColumn HeaderText="Total" DataField="Total" Editable="False" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="False" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                                TextAlign="Right">
+                            </cc1:JQGridColumn>
                         </Columns>
+                        <HeaderGroups>
+                            <cc1:JQGridHeaderGroup StartColumnName="OccupiedRoom" TitleText="Room" NumberOfColumns="2"/>
+                            <cc1:JQGridHeaderGroup StartColumnName="Food" TitleText="Food & Beverage" NumberOfColumns="2"/>
+                            <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Room" NumberOfColumns="2"/>
+                        </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
                         <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Revenue Entry"></EditDialogSettings>

@@ -7,13 +7,11 @@ namespace HotelDataEntryLib.Page
 {
      public static class BudgetHelper
     {
-         public static void AddBudgetEntryListByMonthYear(HotelDataEntry hotelEntry)
+         public static void AddBudgetEntryListByYear(HotelDataEntry hotelEntry)
          {
-             var year = hotelEntry.MonthYear;
-             if (string.IsNullOrEmpty(year)) return;
              using (var hdc = new HotelDataEntryDataContext())
              {
-                 for (var i = 0; i < 11; i++)
+                 for (var i = 0; i < 12; i++)
                  {
                      hdc.BudgetEntries.InsertOnSubmit(new BudgetEntry()
                      {
@@ -27,7 +25,7 @@ namespace HotelDataEntryLib.Page
                          Others = 0.00,
                          Total = 0.00,
                          UpdateDateTime = DateTime.Now,
-                         PositionMonth = (i+1)+"/"+year
+                         PositionMonth = (i+1)+"/"+hotelEntry.Year
 
                      });
 
@@ -46,28 +44,28 @@ namespace HotelDataEntryLib.Page
              }
 
          }
-         public static List<BudgetEntry> ListBudgetEntryByMonthYear(HotelDataEntry hotelEntry)
+         public static List<BudgetEntry> ListBudgetEntryByYear(HotelDataEntry hotelEntry)
          {
              var hdc = new HotelDataEntryDataContext();
              var revenueEntryList = hdc.BudgetEntries.Where(item => item.HotelEntryId == hotelEntry.HotelEntryId).ToList();
              return revenueEntryList;
          }
-         public static void UpdateBudgetEntry(RevenueEntry revenueEntry)
+         public static void UpdateBudgetEntry(BudgetEntry budgetEntry)
          {
              using (var hdc = new HotelDataEntryDataContext())
              {
                  try
                  {
-                     var entry = hdc.BudgetEntries.Single(item => item.BudgetId == revenueEntry.RevenueId);
+                     var entry = hdc.BudgetEntries.Single(item => item.BudgetId == budgetEntry.BudgetId);
 
-                     entry.OccupiedRoom = revenueEntry.OccupiedRoom;
-                     entry.TotalRoomRevenues = revenueEntry.TotalRoomRevenues;
-                     entry.Food = revenueEntry.Food;
-                     entry.Beverage = revenueEntry.Beverage;
-                     entry.Spa = revenueEntry.Spa;
-                     entry.Service = revenueEntry.Service;
-                     entry.Others = revenueEntry.Others;
-                     entry.Total = revenueEntry.Total;
+                     entry.OccupiedRoom = budgetEntry.OccupiedRoom;
+                     entry.TotalRoomRevenues = budgetEntry.TotalRoomRevenues;
+                     entry.Food = budgetEntry.Food;
+                     entry.Beverage = budgetEntry.Beverage;
+                     entry.Spa = budgetEntry.Spa;
+                     entry.Service = budgetEntry.Service;
+                     entry.Others = budgetEntry.Others;
+                     entry.Total = budgetEntry.Total;
                      entry.UpdateDateTime = DateTime.Now;
 
 
