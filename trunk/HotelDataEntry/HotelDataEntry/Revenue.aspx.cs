@@ -25,11 +25,14 @@ namespace HotelDataEntry
             Session["monthlyDate"] = null;
             Session["IsMonthly"] = null;
 
+            //Budget
+            Session["bPropertyId"] = null;
+            Session["year"] = null;
 
             if (!IsPostBack)
             {
-                if (Session["propertyId"] == null || Session["MonthYear"]==null) return;
-                ShowData(Convert.ToInt32(Session["propertyId"]), Session["MonthYear"].ToString());
+                if (Session["rPropertyId"] == null || Session["MonthYear"]==null) return;
+                ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
             }
         }
 
@@ -37,9 +40,9 @@ namespace HotelDataEntry
         {
             var propertyId = ddlCompany.SelectedValue;
             MonthYear = hiddenMonthYear.Value;
-            Session["propertyId"] = propertyId;
+            Session["rPropertyId"] = propertyId;
             Session["MonthYear"] = MonthYear;
-            ShowData(Convert.ToInt32(Session["propertyId"]),  Session["MonthYear"].ToString());
+            ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
         }
 
         private void ShowData(int propertyId,  string my)
@@ -56,23 +59,28 @@ namespace HotelDataEntry
                 lbCalendar.Visible = false;
                 lbCompany.Visible = false;
                 divJqgrid.Attributes["style"] = "";
-                var hotelEntry = new HotelDataEntryLib.HotelDataEntry()  
+                var str = my.Split('/');
+                if(!string.IsNullOrEmpty(str[0])&&!string.IsNullOrEmpty(str[1]))
                 {
-                    PropertyId = propertyId,
-                    MonthYear = my,
-                    EntryType = 1
-                };
+                    var hotelEntry = new HotelDataEntryLib.HotelDataEntry()
+                    {
+                        PropertyId = propertyId,
+                        Month = Convert.ToInt32(str[0]),
+                        Year = Convert.ToInt32(str[1])
+                    };
 
-                if (HotelEntryHelper.ExistMothYear(hotelEntry))
-                {
-                    var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
-                    BindDataEntryJqgrid(exsitEntry);
-                }
-                else
-                {
-                    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
-                    RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
-                    BindDataEntryJqgrid(newEntry);
+                    if (HotelEntryHelper.ExistMothYear(hotelEntry))
+                    {
+                        var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
+                        BindDataEntryJqgrid(exsitEntry);
+                    }
+                    else
+                    {
+                        var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
+                        RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
+                        BudgetHelper.AddBudgetEntryListByYear(newEntry);
+                        BindDataEntryJqgrid(newEntry);
+                    }
                 }
             }
         }
@@ -80,14 +88,14 @@ namespace HotelDataEntry
         {
             var userPermission = Session["permission"].ToString();
             var dataEntryList = RevenueHelper.ListRevenueEntryByMonthYear(hotelEntry);
-            JqGridDataEntry.DataSource = dataEntryList;
+            JqGridRevenueEntry.DataSource = dataEntryList;
             CalculateTotal(dataEntryList);
-            JqGridDataEntry.DataBind();
+            JqGridRevenueEntry.DataBind();
             if (!string.IsNullOrEmpty(userPermission))
             {
                 if(Convert.ToInt32(userPermission)<2)
                 {
-                    JqGridDataEntry.ToolBarSettings.ShowEditButton = false;
+                    JqGridRevenueEntry.ToolBarSettings.ShowEditButton = false;
                     
                 }
             }
@@ -117,14 +125,9 @@ namespace HotelDataEntry
                     Total = occupiedRoom+roomRevenue+food+beverage+service+spa+others
                 };
             RevenueHelper.UpdateRevenueEntry(revenueEntry);
-            var hotelEntry = new HotelDataEntryLib.HotelDataEntry()
-                                 {
-                                     HotelEntryId = hotelEntryId
-                                 };
-            BindDataEntryJqgrid(hotelEntry);
         }
 
-        protected void CalculateTotal(List<HotelDataEntryLib.RevenueEntry> listRevenueEntry)
+        protected void CalculateTotal(List<HotelDataEntryLib.Helper.Revenue> listRevenueEntry)
         {
             var occupiedRoomTotal = 0.00;
             var roomRevenuesTotal = 0.00;
@@ -134,6 +137,7 @@ namespace HotelDataEntry
             var spaTotal = 0.00;
             var othersTotal = 0.00;
             var total = 0.00;
+            var budgetTotal = 0.00;
             foreach (var revenueEntry in listRevenueEntry)
             {
                 var occupiedRoom = revenueEntry.OccupiedRoom;
@@ -159,17 +163,21 @@ namespace HotelDataEntry
 
                 var tmd = revenueEntry.Total;
                 total += tmd;
+
+                var budget = revenueEntry.Budget;
+                budgetTotal += budget;
             }
 
-            JqGridDataEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("TotalRoomRevenues").FooterValue = roomRevenuesTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Food").FooterValue = foodTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Beverage").FooterValue = beverageTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Service").FooterValue = serviceTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Spa").FooterValue = spaTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Others").FooterValue = othersTotal.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("Total").FooterValue = total.ToString("#,##0.00");
-            JqGridDataEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
+            JqGridRevenueEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("TotalRoomRevenues").FooterValue = roomRevenuesTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Food").FooterValue = foodTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Beverage").FooterValue = beverageTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Service").FooterValue = serviceTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Spa").FooterValue = spaTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Others").FooterValue = othersTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Total").FooterValue = total.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("Budget").FooterValue = budgetTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("PositionDate").FooterValue = "Total";
         }
 
         protected void ddlCompany_SelectedIndexChanged(object sender, EventArgs e)
