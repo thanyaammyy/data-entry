@@ -23,10 +23,6 @@ namespace HotelDataEntry.CenterControl
                 Key = Encryption.EncryptStringAES(UserId + "&" + decryptKey, strSharedSecret);
                 Session["permission"] = userInfo.PermissionId;
                 Session["userId"] = userInfo.UserId;
-                if(userInfo.PermissionId==3)
-                {
-                    divAdmin.Style["display"] = "";
-                }
 
                 if (UserId <= 0)
                 {
@@ -38,6 +34,15 @@ namespace HotelDataEntry.CenterControl
             {
                 Key = Encryption.EncryptStringAES(decryptKey, strSharedSecret);
             }
+
+            if (!string.IsNullOrEmpty(Session["permission"].ToString()))
+            {
+                if (Convert.ToInt32(Session["permission"].ToString()) == 3)
+                {
+                    divAdmin.Style["display"] = "";
+                } 
+            }
+            
             lbUsername.Text = Session["UserSession"].ToString();
         }
     }
