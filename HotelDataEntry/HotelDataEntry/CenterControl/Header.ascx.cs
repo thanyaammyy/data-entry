@@ -23,7 +23,7 @@ namespace HotelDataEntry.CenterControl
                 Key = Encryption.EncryptStringAES(UserId + "&" + decryptKey, strSharedSecret);
                 Session["permission"] = userInfo.PermissionId;
                 Session["userId"] = userInfo.UserId;
-                if (Convert.ToInt32(Session["permission"]) == 3)
+                if(userInfo.PermissionId==3)
                 {
                     divAdmin.Style["display"] = "";
                 }
