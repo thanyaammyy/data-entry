@@ -56,27 +56,27 @@ namespace HotelDataEntry
                 lbCalendar.Visible = false;
                 lbCompany.Visible = false;
                 divJqgrid.Attributes["style"] = "";
-                var hotelEntry = new HotelDataEntryLib.HotelDataEntry()
+                var hotelEntry = new HotelDataEntryLib.HotelBudget()
                 {
                     PropertyId = propertyId,
                     Year = Convert.ToInt32(y)
                 };
 
-                if (HotelEntryHelper.ExistYear(hotelEntry))
-                {
-                    var exsitEntry = HotelEntryHelper.GetHotelEntryByYear(hotelEntry);
-                    BindBudgetEntryJqgrid(exsitEntry);
-                }
-                else
-                {
-                    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
-                    BudgetHelper.AddBudgetEntryListByYear(newEntry);
-                    RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
-                    BindBudgetEntryJqgrid(newEntry);
-                }
+                //if (HotelEntryHelper.ExistYear(hotelEntry))
+                //{
+                //    var exsitEntry = HotelEntryHelper.GetHotelEntryByYear(hotelEntry);
+                //    BindBudgetEntryJqgrid(exsitEntry);
+                //}
+                //else
+                //{
+                //    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
+                //    BudgetHelper.AddBudgetEntryListByYear(newEntry);
+                //    RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
+                //    BindBudgetEntryJqgrid(newEntry);
+                //}
             }
         }
-        private void BindBudgetEntryJqgrid(HotelDataEntryLib.HotelDataEntry hotelEntry)
+        private void BindBudgetEntryJqgrid(HotelDataEntryLib.HotelBudget hotelEntry)
         {
             var userPermission = Session["permission"].ToString();
             var dataEntryList = BudgetHelper.ListBudgetEntryByYear(hotelEntry);
@@ -106,7 +106,7 @@ namespace HotelDataEntry
             var revenueEntry = new BudgetEntry()
             {
                 BudgetId  = Convert.ToInt32(budgetEntryId),
-                HotelEntryId = hotelEntryId,
+                HotelBudgetId = hotelEntryId,
                 OccupiedRoom = occupiedRoom,
                 TotalRoomRevenues = roomRevenue,
                 Food = food,

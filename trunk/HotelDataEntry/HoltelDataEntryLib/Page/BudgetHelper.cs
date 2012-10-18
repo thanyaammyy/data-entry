@@ -7,7 +7,7 @@ namespace HotelDataEntryLib.Page
 {
      public static class BudgetHelper
     {
-         public static void AddBudgetEntryListByYear(HotelDataEntry hotelEntry)
+         public static void AddBudgetEntryListByYear(HotelBudget hotelEntry)
          {
              using (var hdc = new HotelDataEntryDataContext())
              {
@@ -15,7 +15,7 @@ namespace HotelDataEntryLib.Page
                  {
                      hdc.BudgetEntries.InsertOnSubmit(new BudgetEntry()
                      {
-                         HotelEntryId = hotelEntry.HotelEntryId,
+                         HotelBudgetId = hotelEntry.HotelBudgetId,
                          OccupiedRoom = 0.00,
                          TotalRoomRevenues = 0.00,
                          Food = 0.00,
@@ -44,10 +44,10 @@ namespace HotelDataEntryLib.Page
              }
 
          }
-         public static List<BudgetEntry> ListBudgetEntryByYear(HotelDataEntry hotelEntry)
+         public static List<BudgetEntry> ListBudgetEntryByYear(HotelBudget hotelEntry)
          {
              var hdc = new HotelDataEntryDataContext();
-             var revenueEntryList = hdc.BudgetEntries.Where(item => item.HotelEntryId == hotelEntry.HotelEntryId).ToList();
+             var revenueEntryList = hdc.BudgetEntries.Where(item => item.HotelBudgetId == hotelEntry.HotelBudgetId).ToList();
              return revenueEntryList;
          }
          public static void UpdateBudgetEntry(BudgetEntry budgetEntry)
