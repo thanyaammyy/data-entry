@@ -52,8 +52,9 @@
     </Compile>
     <Compile Include="Page\BudgetHelper.cs" />
     <Compile Include="Page\CurrencyHelper.cs" />
+    <Compile Include="Page\HotelBudgetHelper.cs" />
     <Compile Include="Page\RevenueHelper.cs" />
-    <Compile Include="Page\HotelEntryHelper.cs" />
+    <Compile Include="Page\HotelRevenueHelper.cs" />
     <Compile Include="Page\LogHelper.cs" />
     <Compile Include="Page\PermissionHelper.cs" />
     <Compile Include="Page\PropertyHelper.cs" />

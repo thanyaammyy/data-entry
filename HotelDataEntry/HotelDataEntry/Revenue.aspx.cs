@@ -62,29 +62,29 @@ namespace HotelDataEntry
                 var str = my.Split('/');
                 if(!string.IsNullOrEmpty(str[0])&&!string.IsNullOrEmpty(str[1]))
                 {
-                    var hotelEntry = new HotelDataEntryLib.HotelDataEntry()
+                    var hotelEntry = new HotelDataEntryLib.HotelRevenue()
                     {
                         PropertyId = propertyId,
                         Month = Convert.ToInt32(str[0]),
                         Year = Convert.ToInt32(str[1])
                     };
 
-                    if (HotelEntryHelper.ExistMothYear(hotelEntry))
+                    if (HotelRevenueHelper.ExistMothYear(hotelEntry))
                     {
-                        var exsitEntry = HotelEntryHelper.GetHotelEntry(hotelEntry);
+                        var exsitEntry = HotelRevenueHelper.GetHotelEntry(hotelEntry);
                         BindDataEntryJqgrid(exsitEntry);
                     }
                     else
                     {
-                        var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
+                        var newEntry = HotelRevenueHelper.AddHotelEntryListByMonthYear(hotelEntry);
                         RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
-                        BudgetHelper.AddBudgetEntryListByYear(newEntry);
+                        //BudgetHelper.AddBudgetEntryListByYear(newEntry);
                         BindDataEntryJqgrid(newEntry);
                     }
                 }
             }
         }
-        private void BindDataEntryJqgrid(HotelDataEntryLib.HotelDataEntry hotelEntry)
+        private void BindDataEntryJqgrid(HotelDataEntryLib.HotelRevenue hotelEntry)
         {
             var userPermission = Session["permission"].ToString();
             var dataEntryList = RevenueHelper.ListRevenueEntryByMonthYear(hotelEntry);
@@ -114,7 +114,7 @@ namespace HotelDataEntry
             var revenueEntry = new RevenueEntry()
                 {
                     RevenueId = Convert.ToInt32(revenueEntryId),
-                    HotelEntryId = hotelEntryId,
+                    HotelRevenueId = hotelEntryId,
                     OccupiedRoom = occupiedRoom,
                     TotalRoomRevenues = roomRevenue,
                     Food = food,

@@ -56,14 +56,26 @@
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="User_Property" Member="User" ThisKey="PropertyId" OtherKey="PropertyId" Type="User" IsForeignKey="true" />
       <Association Name="Currency_Property" Member="Currency" ThisKey="CurrencyId" OtherKey="CurrencyId" Type="Currency" IsForeignKey="true" />
-      <Association Name="HotelDataEntry_Property" Member="HotelDataEntry" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelDataEntry" IsForeignKey="true" />
+      <Association Name="HotelRevenue_Property" Member="HotelRevenue" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelRevenue" IsForeignKey="true" />
+      <Association Name="HotelBudget_Property" Member="HotelBudget" ThisKey="PropertyId" OtherKey="PropertyId" Type="HotelBudget" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HotelRevenue" Member="HotelRevenues">
+    <Type Name="HotelRevenue">
+      <Column Name="HotelRevenueId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="HotelRevenue_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
+      <Association Name="HotelRevenue_RevenueEntry" Member="RevenueEntries" ThisKey="HotelRevenueId" OtherKey="HotelRevenueId" Type="RevenueEntry" />
     </Type>
   </Table>
   <Table Name="dbo.RevenueEntry" Member="RevenueEntries">
     <Type Name="RevenueEntry">
       <Column Name="RevenueId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PositionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="HotelEntryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HotelRevenueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OccupiedRoom" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="TotalRoomRevenues" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Food" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
@@ -73,13 +85,13 @@
       <Column Name="Others" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="HotelDataEntry_RevenueEntry" Member="HotelDataEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelDataEntry" IsForeignKey="true" />
+      <Association Name="HotelRevenue_RevenueEntry" Member="HotelRevenue" ThisKey="HotelRevenueId" OtherKey="HotelRevenueId" Type="HotelRevenue" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BudgetEntry" Member="BudgetEntries">
     <Type Name="BudgetEntry">
       <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="HotelEntryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HotelBudgetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PositionMonth" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="OccupiedRoom" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
@@ -90,19 +102,17 @@
       <Column Name="Spa" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Others" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="Total" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Association Name="HotelDataEntry_BudgetEntry" Member="HotelDataEntry" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="HotelDataEntry" IsForeignKey="true" />
+      <Association Name="HotelBudget_BudgetEntry" Member="HotelBudget" ThisKey="HotelBudgetId" OtherKey="HotelBudgetId" Type="HotelBudget" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.HotelDataEntry" Member="HotelDataEntries">
-    <Type Name="HotelDataEntry">
-      <Column Name="HotelEntryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+  <Table Name="dbo.HotelBudget" Member="HotelBudgets">
+    <Type Name="HotelBudget">
+      <Column Name="HotelBudgetId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Month" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="HotelDataEntry_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
-      <Association Name="HotelDataEntry_RevenueEntry" Member="RevenueEntries" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="RevenueEntry" />
-      <Association Name="HotelDataEntry_BudgetEntry" Member="BudgetEntries" ThisKey="HotelEntryId" OtherKey="HotelEntryId" Type="BudgetEntry" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="HotelBudget_Property" Member="Properties" ThisKey="PropertyId" OtherKey="PropertyId" Type="Property" />
+      <Association Name="HotelBudget_BudgetEntry" Member="BudgetEntries" ThisKey="HotelBudgetId" OtherKey="HotelBudgetId" Type="BudgetEntry" />
     </Type>
   </Table>
 </Database>
