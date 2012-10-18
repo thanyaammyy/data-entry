@@ -76,9 +76,18 @@ namespace HotelDataEntry
                     }
                     else
                     {
+                        var budgetEntry = new HotelBudget()
+                        {
+                             PropertyId = hotelEntry.PropertyId,
+                             Year = hotelEntry.Year
+                        };
+                        if(!HotelBudgetHelper.ExistYear(budgetEntry))
+                        {
+                            var newBudgetEntry = HotelBudgetHelper.AddHotelEntryListByYear(budgetEntry);
+                            BudgetHelper.AddBudgetEntryListByYear(newBudgetEntry);
+                        }
                         var newEntry = HotelRevenueHelper.AddHotelEntryListByMonthYear(hotelEntry);
                         RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
-                        //BudgetHelper.AddBudgetEntryListByYear(newEntry);
                         BindDataEntryJqgrid(newEntry);
                     }
                 }

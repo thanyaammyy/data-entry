@@ -23,7 +23,7 @@ namespace HotelDataEntryLib.Page
             return hEntry;
         }
 
-        public static HotelDataEntryLib.HotelBudget AddHotelEntryListByMonthYear(HotelBudget hotelEntry)
+        public static HotelDataEntryLib.HotelBudget AddHotelEntryListByYear(HotelBudget hotelEntry)
         {
             HotelBudget hotelEntrySubmit;
             using (var hdc = new HotelDataEntryDataContext())
@@ -50,6 +50,5 @@ namespace HotelDataEntryLib.Page
             }
             return hotelEntrySubmit;
         }
-    }
     }
 }

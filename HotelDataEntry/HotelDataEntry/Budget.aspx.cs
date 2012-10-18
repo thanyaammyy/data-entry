@@ -62,18 +62,17 @@ namespace HotelDataEntry
                     Year = Convert.ToInt32(y)
                 };
 
-                //if (HotelEntryHelper.ExistYear(hotelEntry))
-                //{
-                //    var exsitEntry = HotelEntryHelper.GetHotelEntryByYear(hotelEntry);
-                //    BindBudgetEntryJqgrid(exsitEntry);
-                //}
-                //else
-                //{
-                //    var newEntry = HotelEntryHelper.AddHotelEntryListByMonthYear(hotelEntry);
-                //    BudgetHelper.AddBudgetEntryListByYear(newEntry);
-                //    RevenueHelper.AddRevenueEntryListByMonthYear(newEntry);
-                //    BindBudgetEntryJqgrid(newEntry);
-                //}
+                if (HotelBudgetHelper.ExistYear(hotelEntry))
+                {
+                    var exsitEntry = HotelBudgetHelper.GetHotelEntry(hotelEntry);
+                    BindBudgetEntryJqgrid(exsitEntry);
+                }
+                else
+                {
+                    var newEntry = HotelBudgetHelper.AddHotelEntryListByYear(hotelEntry);
+                    BudgetHelper.AddBudgetEntryListByYear(newEntry);
+                    BindBudgetEntryJqgrid(newEntry);
+                }
             }
         }
         private void BindBudgetEntryJqgrid(HotelDataEntryLib.HotelBudget hotelEntry)
