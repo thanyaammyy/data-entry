@@ -119,7 +119,7 @@
                         <Columns>
                             <cc1:JQGridColumn DataField="RevenueId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
-                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
+                            <cc1:JQGridColumn DataField="HotelRevenueId" Searchable="False" Width="55" Visible="False" />
                             <%--<cc1:JQGridColumn HeaderText="" Width="30" TextAlign="Center" EditActionIconsEditDialogEnabled="True"
                             EditActionIconsDeleteEnabled="False" EditActionIconsColumn="True" EditActionIconsEditEnabled="True">
                             </cc1:JQGridColumn>--%>

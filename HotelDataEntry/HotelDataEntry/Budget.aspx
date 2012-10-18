@@ -102,7 +102,7 @@
                         <Columns>
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
-                            <cc1:JQGridColumn DataField="HotelEntryId" Searchable="False" Width="55" Visible="False" />
+                            <cc1:JQGridColumn DataField="HotelBudgetId" Searchable="False" Width="55" Visible="False" />
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionMonth" Editable="False" 
                                 TextAlign="Center" FooterValue="Total:">
                             </cc1:JQGridColumn>
