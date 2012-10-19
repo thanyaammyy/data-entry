@@ -59,29 +59,28 @@ namespace HotelDataEntryLib.Page
         {
             var dates = GetLastDayOfMonth(hotelEntry.Month, hotelEntry.Year);
             var positionMonth = hotelEntry.Month + "/" + hotelEntry.Year;
-            List<HotelDataEntryLib.Helper.Revenue> list = null;
             var hdc = new HotelDataEntryDataContext();
-            list = (from revenueEntry in hdc.RevenueEntries
-                    join hotelRevenue in hdc.HotelRevenues on revenueEntry.HotelRevenueId equals hotelRevenue.HotelRevenueId
-                    join hotelBudget in hdc.HotelBudgets on new { hotelRevenue.Year, hotelRevenue.PropertyId } equals new { hotelBudget.Year, hotelBudget.PropertyId }
-                    join budgetEntry in hdc.BudgetEntries on hotelBudget.HotelBudgetId equals budgetEntry.HotelBudgetId
-                    where revenueEntry.HotelRevenueId == hotelEntry.HotelRevenueId
-                    && budgetEntry.PositionMonth == positionMonth
-                    select new Revenue()
-                    {
-                        RevenueId = revenueEntry.RevenueId,
-                        PositionDate = revenueEntry.PositionDate,
-                        HotelRevenueId = revenueEntry.HotelRevenueId,
-                        OccupiedRoom = revenueEntry.OccupiedRoom,
-                        TotalRoomRevenues = revenueEntry.TotalRoomRevenues,
-                        Food = revenueEntry.Food,
-                        Beverage = revenueEntry.Beverage,
-                        Service = revenueEntry.Service,
-                        Spa = revenueEntry.Spa,
-                        Others = revenueEntry.Others,
-                        Total = revenueEntry.Total,
-                        Budget = budgetEntry.Total/dates
-                    }).ToList();
+            var list = (from revenueEntry in hdc.RevenueEntries
+                         join hotelRevenue in hdc.HotelRevenues on revenueEntry.HotelRevenueId equals hotelRevenue.HotelRevenueId
+                         join hotelBudget in hdc.HotelBudgets on new { hotelRevenue.Year, hotelRevenue.PropertyId } equals new { hotelBudget.Year, hotelBudget.PropertyId }
+                         join budgetEntry in hdc.BudgetEntries on hotelBudget.HotelBudgetId equals budgetEntry.HotelBudgetId
+                         where revenueEntry.HotelRevenueId == hotelEntry.HotelRevenueId
+                               && budgetEntry.PositionMonth == positionMonth
+                         select new Revenue()
+                                    {
+                                        RevenueId = revenueEntry.RevenueId,
+                                        PositionDate = revenueEntry.PositionDate,
+                                        HotelRevenueId = revenueEntry.HotelRevenueId,
+                                        OccupiedRoom = revenueEntry.OccupiedRoom,
+                                        TotalRoomRevenues = revenueEntry.TotalRoomRevenues,
+                                        Food = revenueEntry.Food,
+                                        Beverage = revenueEntry.Beverage,
+                                        Service = revenueEntry.Service,
+                                        Spa = revenueEntry.Spa,
+                                        Others = revenueEntry.Others,
+                                        Total = revenueEntry.Total,
+                                        Budget = budgetEntry.Total/dates
+                                    }).ToList();
             return list;
         }
 
