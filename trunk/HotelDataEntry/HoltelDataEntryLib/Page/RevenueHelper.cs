@@ -58,16 +58,15 @@ namespace HotelDataEntryLib.Page
         public static List<HotelDataEntryLib.Helper.Revenue> ListRevenueEntryByMonthYear(HotelRevenue hotelEntry)
         {
             var dates = GetLastDayOfMonth(hotelEntry.Month, hotelEntry.Year);
+            var positionMonth = hotelEntry.Month + "/" + hotelEntry.Year;
             List<HotelDataEntryLib.Helper.Revenue> list = null;
             var hdc = new HotelDataEntryDataContext();
             list = (from revenueEntry in hdc.RevenueEntries
-                    join hotelRevenue in hdc.HotelRevenues on revenueEntry.HotelRevenueId equals hotelEntry.HotelRevenueId
+                    join hotelRevenue in hdc.HotelRevenues on revenueEntry.HotelRevenueId equals hotelRevenue.HotelRevenueId
+                    join hotelBudget in hdc.HotelBudgets on new { hotelRevenue.Year, hotelRevenue.PropertyId } equals new { hotelBudget.Year, hotelBudget.PropertyId }
+                    join budgetEntry in hdc.BudgetEntries on hotelBudget.HotelBudgetId equals budgetEntry.HotelBudgetId
                     where revenueEntry.HotelRevenueId == hotelEntry.HotelRevenueId
-
-                    from budgetEntry in hdc.BudgetEntries
-                    join hotelBudget in hdc.HotelBudgets on budgetEntry.HotelBudgetId equals hotelBudget.HotelBudgetId
-                    where hotelBudget.Year == hotelEntry.Year
-                    && hotelBudget.PropertyId == hotelEntry.PropertyId
+                    && budgetEntry.PositionMonth == positionMonth
                     select new Revenue()
                     {
                         RevenueId = revenueEntry.RevenueId,
