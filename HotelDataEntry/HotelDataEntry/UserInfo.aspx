@@ -3,9 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="Onyx Hospitality Group" name="KEYWORDS">
-    <meta content="Onyx Hospitality: Corporate Office" name="DESCRIPTION">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="Onyx Hospitality Group" name="KEYWORDS" />
+    <meta content="Onyx Hospitality: Corporate Office" name="DESCRIPTION" />
     <title>Onyx-Hospitality | User Information</title>
     <link href="Style/main.css" rel="stylesheet" type="text/css" />
 </head>
@@ -59,6 +59,17 @@
                         </tr>
                         <tr>
                             <td style="text-align: right" class="TextBlack12">
+                                Position
+                            </td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbPosition" ToolTip="Position is required" class="TextBlack12"
+                                    Width="170" MaxLength="50"></asp:TextBox>
+                                <asp:Label runat="server" ID="lbPosition" Visible="False" class="TextBlack12"></asp:Label>
+                                <asp:Label ID="lbPositionRequired" CssClass="asteric" runat="server">*</asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right" class="TextBlack12">
                                 Property
                             </td>
                             <td>
@@ -96,6 +107,8 @@
                             </td>
                         </tr>
                     </table>
+                </td>
+            </tr>
         </table>
     </div>
     <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"

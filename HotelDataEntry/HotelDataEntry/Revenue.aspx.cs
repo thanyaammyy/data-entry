@@ -102,7 +102,7 @@ namespace HotelDataEntry
             JqGridRevenueEntry.DataBind();
             if (!string.IsNullOrEmpty(userPermission))
             {
-                if(Convert.ToInt32(userPermission)<2)
+                if(Convert.ToInt32(userPermission)<2||Convert.ToInt32(userPermission)==3)
                 {
                     JqGridRevenueEntry.ToolBarSettings.ShowEditButton = false;
                     

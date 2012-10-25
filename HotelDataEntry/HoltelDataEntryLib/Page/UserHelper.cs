@@ -24,6 +24,7 @@ namespace HotelDataEntryLib.Page
                             user.LastName,
                             user.Email,
                             permission.PermissionName,
+                            user.Position,
                             user.StatusLabel
                         }).ToList();
             return listUser;
@@ -83,6 +84,7 @@ namespace HotelDataEntryLib.Page
                 getUser.UpdateDateTime = DateTime.Now;
                 getUser.PermissionId = user.PermissionId;
                 getUser.Status = user.Status;
+                getUser.Position = user.Position;
                 getUser.AccessProperties = user.AccessProperties;
                 try
                 {

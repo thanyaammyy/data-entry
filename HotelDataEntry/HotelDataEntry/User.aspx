@@ -133,6 +133,8 @@
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Center">
                     </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Position" DataField="Position" Editable="True" TextAlign="Center">
+                    </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Center">
                         <EditClientSideValidators>
                             <cc1:EmailValidator />
