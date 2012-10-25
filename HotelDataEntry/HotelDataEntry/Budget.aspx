@@ -6,6 +6,15 @@
         {
             display: none;
         }
+        .ui-datepicker-month {
+            display: none;
+        }
+        .ui-datepicker-prev {
+            display: none;
+        }
+        .ui-datepicker-next {
+            display: none;
+        }
     </style>
     <script type="text/javascript" language="javascript">
         function validateCurrency(value, column) {
@@ -24,9 +33,8 @@
                 yearRange: "2008:2020",
                 dateFormat: 'yy',
                 onClose: function (dateText, inst) {
-                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                    $(this).datepicker('setDate', new Date(year, month, 1));
+                    $(this).datepicker('setDate', new Date(year, 1, 1));
                     document.getElementById("<%= hiddenMonthYear.ClientID %>").value = year;
                 }
             });
@@ -54,7 +62,7 @@
             </tr>
             <tr>
                 <td>
-                    Position Date
+                    Year
                 </td>
                 <td>
                     <%if (Session["year"] == null)
@@ -165,7 +173,7 @@
                             <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Room" NumberOfColumns="2"/>
                         </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
-                        <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
+                        <EditDialogSettings  Modal="True" Width="350" TopOffset="350" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
