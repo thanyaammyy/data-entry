@@ -130,10 +130,19 @@
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Firstname" DataField="FirstName" Editable="True" TextAlign="Center">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                        </EditClientSideValidators>
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Center">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                        </EditClientSideValidators>
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Position" DataField="Position" Editable="True" TextAlign="Center">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                        </EditClientSideValidators>
                     </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Center">
                         <EditClientSideValidators>
@@ -151,7 +160,7 @@
                 </Columns>
                 <AddDialogSettings CloseAfterAdding="False" />
                 <EditDialogSettings CloseAfterEditing="True" />
-                <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" ShowAddButton="True"
+                <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true"
                     ShowRefreshButton="True" ShowSearchButton="True" />
                 <AppearanceSettings ShowRowNumbers="true" />
                 <PagerSettings PageSize="20" />
