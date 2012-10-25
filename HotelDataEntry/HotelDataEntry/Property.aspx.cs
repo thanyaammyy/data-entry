@@ -51,9 +51,8 @@ namespace HotelDataEntry
         protected void JqgridCompany_RowAdding(object sender, Trirand.Web.UI.WebControls.JQGridRowAddEventArgs e)
         {
             var status = e.RowData["StatusLabel"];
-            var brand = e.RowData["BrandName"];
             var currency = e.RowData["CurrencyCode"];
-            if(!(string.IsNullOrEmpty(status)||string.IsNullOrEmpty(brand)||string.IsNullOrEmpty(currency)))
+            if(!(string.IsNullOrEmpty(status)||string.IsNullOrEmpty(currency)))
             {
 
                 var property = new HotelDataEntryLib.Property()
@@ -62,7 +61,6 @@ namespace HotelDataEntry
                                        PropertyName = e.RowData["PropertyName"],
                                        Status = Convert.ToInt32(status),
                                        UpdateDateTime = DateTime.Now,
-                                       //BrandId = Convert.ToInt32(brand),
                                        CurrencyId = Convert.ToInt32(currency)                                   
                                    };
                 PropertyHelper.AddProperty(property);
@@ -72,10 +70,9 @@ namespace HotelDataEntry
         protected void JqgridCompany_RowEditing(object sender, Trirand.Web.UI.WebControls.JQGridRowEditEventArgs e)
         {
             var status = e.RowData["StatusLabel"];
-            var brand = e.RowData["BrandName"];
             var currency = e.RowData["CurrencyCode"];
             var id = e.RowKey;
-            if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(brand) || string.IsNullOrEmpty(currency)||string.IsNullOrEmpty(id)))
+            if (!(string.IsNullOrEmpty(status) ||  string.IsNullOrEmpty(currency)||string.IsNullOrEmpty(id)))
             {
                 var property = new HotelDataEntryLib.Property()
                                    {
@@ -84,7 +81,6 @@ namespace HotelDataEntry
                                        PropertyCode = e.RowData["PropertyCode"],
                                        Status = Convert.ToInt32(status),
                                        UpdateDateTime = DateTime.Now,
-                                       //BrandId = Convert.ToInt32(brand),
                                        CurrencyId = Convert.ToInt32(currency)
                                    };
                 PropertyHelper.UpdateProperty(property);
