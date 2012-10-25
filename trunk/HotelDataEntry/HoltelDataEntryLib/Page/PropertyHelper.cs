@@ -30,17 +30,25 @@ namespace HotelDataEntryLib.Page
         public static List<Property> AccessProperty(int userId)
         {
             var listAccessProperty = new List<Property>();
-            var user = UserHelper.GetUserInfo(userId);
-            var str = user.AccessProperties;
             listAccessProperty.Add(new Property() { PropertyId = 0, PropertyName = "Select a Property", PropertyCode = "Select a Property" });
-            if(str.Contains("N/A")||string.IsNullOrEmpty(str))
+            if(userId>0)
             {
-                return listAccessProperty;
-            }
-            else
-            {
-                var prop = str.Split(',');
-                listAccessProperty.AddRange(prop.Select(GetProperty));
+                var user = UserHelper.GetUserInfo(userId);
+                var str = user.AccessProperties;
+                
+                if (str.Contains("N/A") || string.IsNullOrEmpty(str))
+                {
+                    return listAccessProperty;
+                }
+                else if (str.Contains("OHG"))
+                {
+                    listAccessProperty.AddRange(Properites());
+                }
+                else
+                {
+                    var prop = str.Split(',');
+                    listAccessProperty.AddRange(prop.Select(GetProperty));
+                }
             }
             return listAccessProperty;
         }

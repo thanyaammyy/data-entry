@@ -85,6 +85,33 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.Label lbEmailRequired;
         
         /// <summary>
+        /// tbPosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPosition;
+        
+        /// <summary>
+        /// lbPosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbPosition;
+        
+        /// <summary>
+        /// lbPositionRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbPositionRequired;
+        
+        /// <summary>
         /// ddlProperty control.
         /// </summary>
         /// <remarks>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Net.Mail;
-using System.Web.UI.WebControls;
 using HotelDataEntryLib.Helper;
 using HotelDataEntryLib.Page;
 
@@ -14,6 +13,7 @@ namespace HotelDataEntry
         public int UserPropertyId;
         public string UserName;
         public string AccessProperty;
+        public string Position;
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -37,6 +37,7 @@ namespace HotelDataEntry
                 UserPropertyId = userInfo.PropertyId;
                 UserName = userInfo.Username;
                 AccessProperty = userInfo.AccessProperties;
+                Position = userInfo.Position;
 
                 ddlProperty.SelectedValue = userInfo.PropertyId.ToString();
                 ddlProperty.Enabled = false;
@@ -46,7 +47,10 @@ namespace HotelDataEntry
                     tbLastName.Text = userInfo.LastName;
                     tbEmail.Text = userInfo.Email;
                 }
-                
+                tbPosition.Visible = false;
+                lbPosition.Visible = true;
+                lbPositionRequired.Visible = false;
+                lbPosition.Text = userInfo.Position;
                 lbAccessProperty.Text = userInfo.AccessProperties;
                 lbUserPermission.Text = PermissionHelper.GetPermission(userInfo.PermissionId).PermissionName;
             }
@@ -58,8 +62,9 @@ namespace HotelDataEntry
             var fName = tbFirstName.Text;
             var lName = tbLastName.Text;
             var email = tbEmail.Text;
+            var position = tbPosition.Text;
             var propertyId = string.IsNullOrEmpty(ddlProperty.SelectedValue)?0:Convert.ToInt32(ddlProperty.SelectedValue);
-            if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||propertyId==0))
+            if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||propertyId==0||string.IsNullOrEmpty(position)))
             {
                 if(IsValidEmail(email))
                 {
@@ -67,7 +72,8 @@ namespace HotelDataEntry
                     {
                         FirstName = fName,
                         LastName = lName,
-                        Email = email
+                        Email = email,
+                        Position = position
                     };
                     if (UserId == 0)
                     {
@@ -88,7 +94,7 @@ namespace HotelDataEntry
                         user.AccessProperties = AccessProperty;
                         UserHelper.UpdateUserProfile(user);
                     }
-                    Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close();</script>");
+                    Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close(parent.location.reload(true));</script>");
                 }
                 else
                 {
