@@ -31,7 +31,7 @@
                         <br />
                         <hr style="color: goldenrod" />
                         <br />
-                        <b>HOTEL DATA ENTRY</b>
+                        <span style="color: #ba9963; font-weight: bold">HOTEL DATA ENTRY</span>
                     </td>
                 </tr>
                 <tr>
