@@ -118,6 +118,7 @@
     <Content Include="Style\images\ui-icons_f35f07_256x240.png" />
     <Content Include="Style\images\ui-icons_ff7519_256x240.png" />
     <Content Include="Style\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Style\jquery-ui-1.8.23.custom.css" />
     <Content Include="Style\jquery-ui-1.9.1.custom.css" />
     <Content Include="Style\main.css" />
     <Content Include="Style\ui.jqgrid.css" />
