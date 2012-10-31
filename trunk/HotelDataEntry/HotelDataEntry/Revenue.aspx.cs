@@ -113,7 +113,7 @@ namespace HotelDataEntry
         {
             var revenueEntryId = e.RowKey;
             var hotelEntryId = e.RowData["HotelEntryId"] == "" ? 0 : Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var occupiedRoom = string.IsNullOrEmpty(e.RowData["OccupiedRoom"]) ? 0.00 : float.Parse(e.RowData["OccupiedRoom"]);
+            var occupiedRoom = string.IsNullOrEmpty(e.RowData["OccupiedRoom"]) ? 0 : float.Parse(e.RowData["OccupiedRoom"]);
             var roomRevenue = string.IsNullOrEmpty(e.RowData["TotalRoomRevenues"]) ? 0.00 : float.Parse(e.RowData["TotalRoomRevenues"]);
             var food = string.IsNullOrEmpty(e.RowData["Food"]) ? 0.00 : float.Parse(e.RowData["Food"]);
             var beverage = string.IsNullOrEmpty(e.RowData["Beverage"]) ? 0.00 : float.Parse(e.RowData["Beverage"]);
@@ -131,14 +131,14 @@ namespace HotelDataEntry
                     Service = service,
                     SpaProduct = spa,
                     Others = others,
-                    Total = occupiedRoom+roomRevenue+food+beverage+service+spa+others
+                    Total = roomRevenue+food+beverage+service+spa+others
                 };
             RevenueHelper.UpdateRevenueEntry(revenueEntry);
         }
 
         protected void CalculateTotal(List<HotelDataEntryLib.Helper.Revenue> listRevenueEntry)
         {
-            var occupiedRoomTotal = 0.00;
+            var occupiedRoomTotal = 0;
             var roomRevenuesTotal = 0.00;
             var foodTotal = 0.00;
             var beverageTotal = 0.00;
@@ -150,7 +150,7 @@ namespace HotelDataEntry
             foreach (var revenueEntry in listRevenueEntry)
             {
                 var occupiedRoom = revenueEntry.OccupiedRoom;
-                occupiedRoomTotal += occupiedRoom;
+                occupiedRoomTotal += Convert.ToInt32(occupiedRoom);
 
                 var totalRoomRevenues = revenueEntry.TotalRoomRevenues;
                 roomRevenuesTotal += totalRoomRevenues;
@@ -177,7 +177,7 @@ namespace HotelDataEntry
                 budgetTotal += budget;
             }
 
-            JqGridRevenueEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString("#,##0.00");
+            JqGridRevenueEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString();
             JqGridRevenueEntry.Columns.FromDataField("TotalRoomRevenues").FooterValue = roomRevenuesTotal.ToString("#,##0.00");
             JqGridRevenueEntry.Columns.FromDataField("Food").FooterValue = foodTotal.ToString("#,##0.00");
             JqGridRevenueEntry.Columns.FromDataField("Beverage").FooterValue = beverageTotal.ToString("#,##0.00");

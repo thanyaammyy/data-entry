@@ -106,4 +106,7 @@ color: #727272;
 	color: #6c4505;
 	padding-bottom: 30px
 }
+.occupied {
+    background-color:thistle
+}
 

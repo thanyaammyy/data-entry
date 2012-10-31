@@ -28,7 +28,19 @@
             if (pattern.test(value))
                 return [true, ""];
             else
-                return [false, "Please enter a number format"];
+                return [false, "Please enter a valid number format"];
+        }
+
+        function validateRooms(value, column) {
+            var pattern = /(?:^[1-9]\d*$)/;
+            if (pattern.test(value))
+                return [true, ""];
+            else
+                return [false, "Please enter a valid number format"];
+        }
+
+        function disableDate(value, column) {
+            $("#PositionDate").attr("disabled", "true");
         }
 
         $(document).ready(function () {
@@ -120,20 +132,17 @@
                             <cc1:JQGridColumn DataField="RevenueId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelRevenueId" Searchable="False" Width="55" Visible="False" />
-                            <%--<cc1:JQGridColumn HeaderText="" Width="30" TextAlign="Center" EditActionIconsEditDialogEnabled="True"
-                            EditActionIconsDeleteEnabled="False" EditActionIconsColumn="True" EditActionIconsEditEnabled="True">
-                            </cc1:JQGridColumn>--%>
-                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="False" DataType="DateTime"
+                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="true" DataType="DateTime"
                                 TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Occupied Rooms" DataField="OccupiedRoom" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupied Rooms(rms)" DataField="OccupiedRoom" Editable="True"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                    <cc1:CustomValidator ValidationFunction="validateRooms"/>
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Total Room Revenues" DataField="TotalRoomRevenues" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="200" HeaderText="Total Room Revenues" DataField="TotalRoomRevenues" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
@@ -189,9 +198,10 @@
                         </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
                         <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
-                            Caption="Edit Revenue Entry"></EditDialogSettings>
+                            Caption="Edit Revenue Entry <% %>"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
+                        <ClientSideEvents AfterEditDialogShown="disableDate"></ClientSideEvents>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
