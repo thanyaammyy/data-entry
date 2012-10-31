@@ -16,7 +16,7 @@ namespace HotelDataEntryLib.Page
                      hdc.BudgetEntries.InsertOnSubmit(new BudgetEntry()
                      {
                          HotelBudgetId = hotelEntry.HotelBudgetId,
-                         OccupiedRoom = 0.00,
+                         OccupiedRoom = 0,
                          TotalRoomRevenues = 0.00,
                          Food = 0.00,
                          Beverage = 0.00,

@@ -210,5 +210,16 @@ namespace HotelDataEntry
                 }
             }
         }
+
+        protected void CurrencyLabel_DataBound(object sender, EventArgs e)
+        {
+            var property = string.IsNullOrEmpty(ddlCompany.SelectedValue) ? 0 : Convert.ToInt32(ddlCompany.SelectedValue);
+            if (property != 0)
+            {
+                var curr = PropertyHelper.GetProperty(property);
+                var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                lbCurerncy.Text = currency.CurrencyCode;
+            }
+        }
     }
 }

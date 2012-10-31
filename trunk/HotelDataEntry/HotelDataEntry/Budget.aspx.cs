@@ -95,12 +95,12 @@ namespace HotelDataEntry
         {
             var budgetEntryId = e.RowKey;
             var hotelEntryId = e.RowData["HotelEntryId"] == "" ? 0 : Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var occupiedRoom = string.IsNullOrEmpty(e.RowData["OccupiedRoom"]) ? 0.00 : float.Parse(e.RowData["OccupiedRoom"]);
+            var occupiedRoom = string.IsNullOrEmpty(e.RowData["OccupiedRoom"]) ? 0: float.Parse(e.RowData["OccupiedRoom"]);
             var roomRevenue = string.IsNullOrEmpty(e.RowData["TotalRoomRevenues"]) ? 0.00 : float.Parse(e.RowData["TotalRoomRevenues"]);
             var food = string.IsNullOrEmpty(e.RowData["Food"]) ? 0.00 : float.Parse(e.RowData["Food"]);
             var beverage = string.IsNullOrEmpty(e.RowData["Beverage"]) ? 0.00 : float.Parse(e.RowData["Beverage"]);
             var service = string.IsNullOrEmpty(e.RowData["Service"]) ? 0.00 : float.Parse(e.RowData["Service"]);
-            var spa = string.IsNullOrEmpty(e.RowData["Spa"]) ? 0.00 : float.Parse(e.RowData["Spa"]);
+            var spa = string.IsNullOrEmpty(e.RowData["SpaProduct"]) ? 0.00 : float.Parse(e.RowData["SpaProduct"]);
             var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : float.Parse(e.RowData["Others"]);
             var revenueEntry = new BudgetEntry()
             {
@@ -113,14 +113,14 @@ namespace HotelDataEntry
                 Service = service,
                 SpaProduct = spa,
                 Others = others,
-                Total = occupiedRoom + roomRevenue + food + beverage + service + spa + others
+                Total = roomRevenue + food + beverage + service + spa + others
             };
             BudgetHelper.UpdateBudgetEntry(revenueEntry);
         }
 
         protected void CalculateTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
         {
-            var occupiedRoomTotal = 0.00;
+            var occupiedRoomTotal = 0;
             var roomRevenuesTotal = 0.00;
             var foodTotal = 0.00;
             var beverageTotal = 0.00;
@@ -131,7 +131,7 @@ namespace HotelDataEntry
             foreach (var revenueEntry in listRevenueEntry)
             {
                 var occupiedRoom = revenueEntry.OccupiedRoom;
-                occupiedRoomTotal += occupiedRoom;
+                occupiedRoomTotal += Convert.ToInt32(occupiedRoom);
 
                 var totalRoomRevenues = revenueEntry.TotalRoomRevenues;
                 roomRevenuesTotal += totalRoomRevenues;
@@ -155,12 +155,12 @@ namespace HotelDataEntry
                 total += tmd;
             }
 
-            JqGridBudgetEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString("#,##0.00");
+            JqGridBudgetEntry.Columns.FromDataField("OccupiedRoom").FooterValue = occupiedRoomTotal.ToString();
             JqGridBudgetEntry.Columns.FromDataField("TotalRoomRevenues").FooterValue = roomRevenuesTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("Food").FooterValue = foodTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("Beverage").FooterValue = beverageTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("Service").FooterValue = serviceTotal.ToString("#,##0.00");
-            JqGridBudgetEntry.Columns.FromDataField("Spa").FooterValue = spaTotal.ToString("#,##0.00");
+            JqGridBudgetEntry.Columns.FromDataField("SpaProduct").FooterValue = spaTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("Others").FooterValue = othersTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("Total").FooterValue = total.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("PositionMonth").FooterValue = "Total";
@@ -185,6 +185,17 @@ namespace HotelDataEntry
                 {
                     lbCurerncy.Text = "";
                 }
+            }
+        }
+
+        protected void CurrencyLabel_DataBound(object sender, EventArgs e)
+        {
+            var property = string.IsNullOrEmpty(ddlCompany.SelectedValue) ? 0 : Convert.ToInt32(ddlCompany.SelectedValue);
+            if (property != 0)
+            {
+                var curr = PropertyHelper.GetProperty(property);
+                var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                lbCurerncy.Text = currency.CurrencyCode;
             }
         }
     }

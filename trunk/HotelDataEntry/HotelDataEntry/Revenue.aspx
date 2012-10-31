@@ -76,7 +76,8 @@
                 <td>
                     <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
                         AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
-                        DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
+                        DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" OnDataBound="CurrencyLabel_DataBound"
+                        runat="server">
                     </asp:DropDownList>
                     <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
@@ -103,7 +104,7 @@
                     Currency
                 </td>
                 <td>
-                    <asp:Label runat="server" ID="lbCurerncy"></asp:Label>
+                    <asp:Label runat="server" OnLoad="CurrencyLabel_DataBound" ID="lbCurerncy"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -135,7 +136,7 @@
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="true" DataType="DateTime"
                                 TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupied Rooms(rms)" DataField="OccupiedRoom" Editable="True"
+                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupied Rooms (rms)" DataField="OccupiedRoom" Editable="True"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
@@ -198,7 +199,7 @@
                         </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
                         <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
-                            Caption="Edit Revenue Entry <% %>"></EditDialogSettings>
+                            Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
                         <ClientSideEvents AfterEditDialogShown="disableDate"></ClientSideEvents>
