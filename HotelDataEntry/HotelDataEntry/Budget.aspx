@@ -24,6 +24,17 @@
             else
                 return [false, "Please enter a number format"];
         }
+        function validateRooms(value, column) {
+            var pattern = /(?:^[1-9]\d*$)/;
+            if (pattern.test(value))
+                return [true, ""];
+            else
+                return [false, "Please enter a valid number format"];
+        }
+
+        function disableDate(value, column) {
+            $("#PositionMonth").attr("disabled", "true");
+        }
 
         $(document).ready(function () {
             $('input[name="calendar"]').blur();
@@ -54,7 +65,7 @@
                 </td>
                 <td>
                     <asp:DropDownList ID="ddlCompany" ToolTip="Select a property" DataSourceID="PropertyDataSource"
-                        AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged"
+                        AutoPostBack="True" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" OnDataBound="CurrencyLabel_DataBound"
                         DataValueField="PropertyId" DataTextField="PropertyCode" Width="150" runat="server">
                     </asp:DropDownList>
                     <asp:Label ID="lbCompany" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
@@ -82,7 +93,7 @@
                     Currency
                 </td>
                 <td>
-                    <asp:Label runat="server" ID="lbCurerncy"></asp:Label>
+                    <asp:Label runat="server" OnLoad="CurrencyLabel_DataBound" ID="lbCurerncy"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -111,17 +122,16 @@
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelBudgetId" Searchable="False" Width="55" Visible="False" />
-                            <cc1:JQGridColumn HeaderText="Date" DataField="PositionMonth" Editable="False" 
+                            <cc1:JQGridColumn HeaderText="Month/Year" DataField="PositionMonth" Editable="True" 
                                 TextAlign="Center" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Occupied Rooms" DataField="OccupiedRoom" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
+                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupied Rooms (rms)" DataField="OccupiedRoom" Editable="True" TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                    <cc1:CustomValidator ValidationFunction="validateRooms" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Total Room Revenues" DataField="TotalRoomRevenues" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="200" HeaderText="Total Room Revenues" DataField="TotalRoomRevenues" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
@@ -149,7 +159,7 @@
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Spa" DataField="Spa" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn HeaderText="Product" DataField="SpaProduct" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
@@ -170,13 +180,14 @@
                         <HeaderGroups>
                             <cc1:JQGridHeaderGroup StartColumnName="OccupiedRoom" TitleText="Room" NumberOfColumns="2"/>
                             <cc1:JQGridHeaderGroup StartColumnName="Food" TitleText="Food & Beverage" NumberOfColumns="2"/>
-                            <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Room" NumberOfColumns="2"/>
+                            <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Spa" NumberOfColumns="2"/>
                         </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
                         <EditDialogSettings  Modal="True" Width="350" TopOffset="350" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
+                        <ClientSideEvents AfterEditDialogShown="disableDate"></ClientSideEvents>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
