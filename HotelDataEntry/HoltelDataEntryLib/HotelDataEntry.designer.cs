@@ -42,12 +42,6 @@ namespace HotelDataEntryLib
     partial void InsertHotelRevenue(HotelRevenue instance);
     partial void UpdateHotelRevenue(HotelRevenue instance);
     partial void DeleteHotelRevenue(HotelRevenue instance);
-    partial void InsertRevenueEntry(RevenueEntry instance);
-    partial void UpdateRevenueEntry(RevenueEntry instance);
-    partial void DeleteRevenueEntry(RevenueEntry instance);
-    partial void InsertBudgetEntry(BudgetEntry instance);
-    partial void UpdateBudgetEntry(BudgetEntry instance);
-    partial void DeleteBudgetEntry(BudgetEntry instance);
     partial void InsertHotelBudget(HotelBudget instance);
     partial void UpdateHotelBudget(HotelBudget instance);
     partial void DeleteHotelBudget(HotelBudget instance);
@@ -57,6 +51,12 @@ namespace HotelDataEntryLib
     partial void InsertPermission(Permission instance);
     partial void UpdatePermission(Permission instance);
     partial void DeletePermission(Permission instance);
+    partial void InsertBudgetEntry(BudgetEntry instance);
+    partial void UpdateBudgetEntry(BudgetEntry instance);
+    partial void DeleteBudgetEntry(BudgetEntry instance);
+    partial void InsertRevenueEntry(RevenueEntry instance);
+    partial void UpdateRevenueEntry(RevenueEntry instance);
+    partial void DeleteRevenueEntry(RevenueEntry instance);
     #endregion
 		
 		public HotelDataEntryDataContext() : 
@@ -121,22 +121,6 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		public System.Data.Linq.Table<RevenueEntry> RevenueEntries
-		{
-			get
-			{
-				return this.GetTable<RevenueEntry>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BudgetEntry> BudgetEntries
-		{
-			get
-			{
-				return this.GetTable<BudgetEntry>();
-			}
-		}
-		
 		public System.Data.Linq.Table<HotelBudget> HotelBudgets
 		{
 			get
@@ -158,6 +142,22 @@ namespace HotelDataEntryLib
 			get
 			{
 				return this.GetTable<Permission>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BudgetEntry> BudgetEntries
+		{
+			get
+			{
+				return this.GetTable<BudgetEntry>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RevenueEntry> RevenueEntries
+		{
+			get
+			{
+				return this.GetTable<RevenueEntry>();
 			}
 		}
 	}
@@ -1131,740 +1131,6 @@ namespace HotelDataEntryLib
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RevenueEntry")]
-	public partial class RevenueEntry : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RevenueId;
-		
-		private System.Nullable<System.DateTime> _PositionDate;
-		
-		private int _HotelRevenueId;
-		
-		private double _OccupiedRoom;
-		
-		private double _TotalRoomRevenues;
-		
-		private double _Food;
-		
-		private double _Beverage;
-		
-		private double _Service;
-		
-		private double _Spa;
-		
-		private double _Others;
-		
-		private double _Total;
-		
-		private System.Nullable<System.DateTime> _UpdateDateTime;
-		
-		private EntityRef<HotelRevenue> _HotelRevenue;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRevenueIdChanging(int value);
-    partial void OnRevenueIdChanged();
-    partial void OnPositionDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnPositionDateChanged();
-    partial void OnHotelRevenueIdChanging(int value);
-    partial void OnHotelRevenueIdChanged();
-    partial void OnOccupiedRoomChanging(double value);
-    partial void OnOccupiedRoomChanged();
-    partial void OnTotalRoomRevenuesChanging(double value);
-    partial void OnTotalRoomRevenuesChanged();
-    partial void OnFoodChanging(double value);
-    partial void OnFoodChanged();
-    partial void OnBeverageChanging(double value);
-    partial void OnBeverageChanged();
-    partial void OnServiceChanging(double value);
-    partial void OnServiceChanged();
-    partial void OnSpaChanging(double value);
-    partial void OnSpaChanged();
-    partial void OnOthersChanging(double value);
-    partial void OnOthersChanged();
-    partial void OnTotalChanging(double value);
-    partial void OnTotalChanged();
-    partial void OnUpdateDateTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdateDateTimeChanged();
-    #endregion
-		
-		public RevenueEntry()
-		{
-			this._HotelRevenue = default(EntityRef<HotelRevenue>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevenueId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RevenueId
-		{
-			get
-			{
-				return this._RevenueId;
-			}
-			set
-			{
-				if ((this._RevenueId != value))
-				{
-					this.OnRevenueIdChanging(value);
-					this.SendPropertyChanging();
-					this._RevenueId = value;
-					this.SendPropertyChanged("RevenueId");
-					this.OnRevenueIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> PositionDate
-		{
-			get
-			{
-				return this._PositionDate;
-			}
-			set
-			{
-				if ((this._PositionDate != value))
-				{
-					this.OnPositionDateChanging(value);
-					this.SendPropertyChanging();
-					this._PositionDate = value;
-					this.SendPropertyChanged("PositionDate");
-					this.OnPositionDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HotelRevenueId", DbType="Int NOT NULL")]
-		public int HotelRevenueId
-		{
-			get
-			{
-				return this._HotelRevenueId;
-			}
-			set
-			{
-				if ((this._HotelRevenueId != value))
-				{
-					if (this._HotelRevenue.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnHotelRevenueIdChanging(value);
-					this.SendPropertyChanging();
-					this._HotelRevenueId = value;
-					this.SendPropertyChanged("HotelRevenueId");
-					this.OnHotelRevenueIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OccupiedRoom", DbType="Float NOT NULL")]
-		public double OccupiedRoom
-		{
-			get
-			{
-				return this._OccupiedRoom;
-			}
-			set
-			{
-				if ((this._OccupiedRoom != value))
-				{
-					this.OnOccupiedRoomChanging(value);
-					this.SendPropertyChanging();
-					this._OccupiedRoom = value;
-					this.SendPropertyChanged("OccupiedRoom");
-					this.OnOccupiedRoomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalRoomRevenues", DbType="Float NOT NULL")]
-		public double TotalRoomRevenues
-		{
-			get
-			{
-				return this._TotalRoomRevenues;
-			}
-			set
-			{
-				if ((this._TotalRoomRevenues != value))
-				{
-					this.OnTotalRoomRevenuesChanging(value);
-					this.SendPropertyChanging();
-					this._TotalRoomRevenues = value;
-					this.SendPropertyChanged("TotalRoomRevenues");
-					this.OnTotalRoomRevenuesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Food", DbType="Float NOT NULL")]
-		public double Food
-		{
-			get
-			{
-				return this._Food;
-			}
-			set
-			{
-				if ((this._Food != value))
-				{
-					this.OnFoodChanging(value);
-					this.SendPropertyChanging();
-					this._Food = value;
-					this.SendPropertyChanged("Food");
-					this.OnFoodChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beverage", DbType="Float NOT NULL")]
-		public double Beverage
-		{
-			get
-			{
-				return this._Beverage;
-			}
-			set
-			{
-				if ((this._Beverage != value))
-				{
-					this.OnBeverageChanging(value);
-					this.SendPropertyChanging();
-					this._Beverage = value;
-					this.SendPropertyChanged("Beverage");
-					this.OnBeverageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Service", DbType="Float NOT NULL")]
-		public double Service
-		{
-			get
-			{
-				return this._Service;
-			}
-			set
-			{
-				if ((this._Service != value))
-				{
-					this.OnServiceChanging(value);
-					this.SendPropertyChanging();
-					this._Service = value;
-					this.SendPropertyChanged("Service");
-					this.OnServiceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Spa", DbType="Float NOT NULL")]
-		public double Spa
-		{
-			get
-			{
-				return this._Spa;
-			}
-			set
-			{
-				if ((this._Spa != value))
-				{
-					this.OnSpaChanging(value);
-					this.SendPropertyChanging();
-					this._Spa = value;
-					this.SendPropertyChanged("Spa");
-					this.OnSpaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Others", DbType="Float NOT NULL")]
-		public double Others
-		{
-			get
-			{
-				return this._Others;
-			}
-			set
-			{
-				if ((this._Others != value))
-				{
-					this.OnOthersChanging(value);
-					this.SendPropertyChanging();
-					this._Others = value;
-					this.SendPropertyChanged("Others");
-					this.OnOthersChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float NOT NULL")]
-		public double Total
-		{
-			get
-			{
-				return this._Total;
-			}
-			set
-			{
-				if ((this._Total != value))
-				{
-					this.OnTotalChanging(value);
-					this.SendPropertyChanging();
-					this._Total = value;
-					this.SendPropertyChanged("Total");
-					this.OnTotalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdateDateTime
-		{
-			get
-			{
-				return this._UpdateDateTime;
-			}
-			set
-			{
-				if ((this._UpdateDateTime != value))
-				{
-					this.OnUpdateDateTimeChanging(value);
-					this.SendPropertyChanging();
-					this._UpdateDateTime = value;
-					this.SendPropertyChanged("UpdateDateTime");
-					this.OnUpdateDateTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelRevenue_RevenueEntry", Storage="_HotelRevenue", ThisKey="HotelRevenueId", OtherKey="HotelRevenueId", IsForeignKey=true)]
-		public HotelRevenue HotelRevenue
-		{
-			get
-			{
-				return this._HotelRevenue.Entity;
-			}
-			set
-			{
-				HotelRevenue previousValue = this._HotelRevenue.Entity;
-				if (((previousValue != value) 
-							|| (this._HotelRevenue.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HotelRevenue.Entity = null;
-						previousValue.RevenueEntries.Remove(this);
-					}
-					this._HotelRevenue.Entity = value;
-					if ((value != null))
-					{
-						value.RevenueEntries.Add(this);
-						this._HotelRevenueId = value.HotelRevenueId;
-					}
-					else
-					{
-						this._HotelRevenueId = default(int);
-					}
-					this.SendPropertyChanged("HotelRevenue");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BudgetEntry")]
-	public partial class BudgetEntry : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _BudgetId;
-		
-		private int _HotelBudgetId;
-		
-		private System.Nullable<System.DateTime> _UpdateDateTime;
-		
-		private string _PositionMonth;
-		
-		private double _OccupiedRoom;
-		
-		private double _TotalRoomRevenues;
-		
-		private double _Food;
-		
-		private double _Beverage;
-		
-		private double _Service;
-		
-		private double _Spa;
-		
-		private double _Others;
-		
-		private double _Total;
-		
-		private EntityRef<HotelBudget> _HotelBudget;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnBudgetIdChanging(int value);
-    partial void OnBudgetIdChanged();
-    partial void OnHotelBudgetIdChanging(int value);
-    partial void OnHotelBudgetIdChanged();
-    partial void OnUpdateDateTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdateDateTimeChanged();
-    partial void OnPositionMonthChanging(string value);
-    partial void OnPositionMonthChanged();
-    partial void OnOccupiedRoomChanging(double value);
-    partial void OnOccupiedRoomChanged();
-    partial void OnTotalRoomRevenuesChanging(double value);
-    partial void OnTotalRoomRevenuesChanged();
-    partial void OnFoodChanging(double value);
-    partial void OnFoodChanged();
-    partial void OnBeverageChanging(double value);
-    partial void OnBeverageChanged();
-    partial void OnServiceChanging(double value);
-    partial void OnServiceChanged();
-    partial void OnSpaChanging(double value);
-    partial void OnSpaChanged();
-    partial void OnOthersChanging(double value);
-    partial void OnOthersChanged();
-    partial void OnTotalChanging(double value);
-    partial void OnTotalChanged();
-    #endregion
-		
-		public BudgetEntry()
-		{
-			this._HotelBudget = default(EntityRef<HotelBudget>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BudgetId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int BudgetId
-		{
-			get
-			{
-				return this._BudgetId;
-			}
-			set
-			{
-				if ((this._BudgetId != value))
-				{
-					this.OnBudgetIdChanging(value);
-					this.SendPropertyChanging();
-					this._BudgetId = value;
-					this.SendPropertyChanged("BudgetId");
-					this.OnBudgetIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HotelBudgetId", DbType="Int NOT NULL")]
-		public int HotelBudgetId
-		{
-			get
-			{
-				return this._HotelBudgetId;
-			}
-			set
-			{
-				if ((this._HotelBudgetId != value))
-				{
-					if (this._HotelBudget.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnHotelBudgetIdChanging(value);
-					this.SendPropertyChanging();
-					this._HotelBudgetId = value;
-					this.SendPropertyChanged("HotelBudgetId");
-					this.OnHotelBudgetIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdateDateTime
-		{
-			get
-			{
-				return this._UpdateDateTime;
-			}
-			set
-			{
-				if ((this._UpdateDateTime != value))
-				{
-					this.OnUpdateDateTimeChanging(value);
-					this.SendPropertyChanging();
-					this._UpdateDateTime = value;
-					this.SendPropertyChanged("UpdateDateTime");
-					this.OnUpdateDateTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionMonth", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string PositionMonth
-		{
-			get
-			{
-				return this._PositionMonth;
-			}
-			set
-			{
-				if ((this._PositionMonth != value))
-				{
-					this.OnPositionMonthChanging(value);
-					this.SendPropertyChanging();
-					this._PositionMonth = value;
-					this.SendPropertyChanged("PositionMonth");
-					this.OnPositionMonthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OccupiedRoom", DbType="Float NOT NULL")]
-		public double OccupiedRoom
-		{
-			get
-			{
-				return this._OccupiedRoom;
-			}
-			set
-			{
-				if ((this._OccupiedRoom != value))
-				{
-					this.OnOccupiedRoomChanging(value);
-					this.SendPropertyChanging();
-					this._OccupiedRoom = value;
-					this.SendPropertyChanged("OccupiedRoom");
-					this.OnOccupiedRoomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalRoomRevenues", DbType="Float NOT NULL")]
-		public double TotalRoomRevenues
-		{
-			get
-			{
-				return this._TotalRoomRevenues;
-			}
-			set
-			{
-				if ((this._TotalRoomRevenues != value))
-				{
-					this.OnTotalRoomRevenuesChanging(value);
-					this.SendPropertyChanging();
-					this._TotalRoomRevenues = value;
-					this.SendPropertyChanged("TotalRoomRevenues");
-					this.OnTotalRoomRevenuesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Food", DbType="Float NOT NULL")]
-		public double Food
-		{
-			get
-			{
-				return this._Food;
-			}
-			set
-			{
-				if ((this._Food != value))
-				{
-					this.OnFoodChanging(value);
-					this.SendPropertyChanging();
-					this._Food = value;
-					this.SendPropertyChanged("Food");
-					this.OnFoodChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beverage", DbType="Float NOT NULL")]
-		public double Beverage
-		{
-			get
-			{
-				return this._Beverage;
-			}
-			set
-			{
-				if ((this._Beverage != value))
-				{
-					this.OnBeverageChanging(value);
-					this.SendPropertyChanging();
-					this._Beverage = value;
-					this.SendPropertyChanged("Beverage");
-					this.OnBeverageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Service", DbType="Float NOT NULL")]
-		public double Service
-		{
-			get
-			{
-				return this._Service;
-			}
-			set
-			{
-				if ((this._Service != value))
-				{
-					this.OnServiceChanging(value);
-					this.SendPropertyChanging();
-					this._Service = value;
-					this.SendPropertyChanged("Service");
-					this.OnServiceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Spa", DbType="Float NOT NULL")]
-		public double Spa
-		{
-			get
-			{
-				return this._Spa;
-			}
-			set
-			{
-				if ((this._Spa != value))
-				{
-					this.OnSpaChanging(value);
-					this.SendPropertyChanging();
-					this._Spa = value;
-					this.SendPropertyChanged("Spa");
-					this.OnSpaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Others", DbType="Float NOT NULL")]
-		public double Others
-		{
-			get
-			{
-				return this._Others;
-			}
-			set
-			{
-				if ((this._Others != value))
-				{
-					this.OnOthersChanging(value);
-					this.SendPropertyChanging();
-					this._Others = value;
-					this.SendPropertyChanged("Others");
-					this.OnOthersChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float NOT NULL")]
-		public double Total
-		{
-			get
-			{
-				return this._Total;
-			}
-			set
-			{
-				if ((this._Total != value))
-				{
-					this.OnTotalChanging(value);
-					this.SendPropertyChanging();
-					this._Total = value;
-					this.SendPropertyChanged("Total");
-					this.OnTotalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelBudget_BudgetEntry", Storage="_HotelBudget", ThisKey="HotelBudgetId", OtherKey="HotelBudgetId", IsForeignKey=true)]
-		public HotelBudget HotelBudget
-		{
-			get
-			{
-				return this._HotelBudget.Entity;
-			}
-			set
-			{
-				HotelBudget previousValue = this._HotelBudget.Entity;
-				if (((previousValue != value) 
-							|| (this._HotelBudget.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HotelBudget.Entity = null;
-						previousValue.BudgetEntries.Remove(this);
-					}
-					this._HotelBudget.Entity = value;
-					if ((value != null))
-					{
-						value.BudgetEntries.Add(this);
-						this._HotelBudgetId = value.HotelBudgetId;
-					}
-					else
-					{
-						this._HotelBudgetId = default(int);
-					}
-					this.SendPropertyChanged("HotelBudget");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.HotelBudget")]
 	public partial class HotelBudget : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2561,6 +1827,740 @@ namespace HotelDataEntryLib
 		{
 			this.SendPropertyChanging();
 			entity.Permission = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BudgetEntry")]
+	public partial class BudgetEntry : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _BudgetId;
+		
+		private int _HotelBudgetId;
+		
+		private System.Nullable<System.DateTime> _UpdateDateTime;
+		
+		private string _PositionMonth;
+		
+		private double _OccupiedRoom;
+		
+		private double _TotalRoomRevenues;
+		
+		private double _Food;
+		
+		private double _Beverage;
+		
+		private double _Service;
+		
+		private double _SpaProduct;
+		
+		private double _Others;
+		
+		private double _Total;
+		
+		private EntityRef<HotelBudget> _HotelBudget;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBudgetIdChanging(int value);
+    partial void OnBudgetIdChanged();
+    partial void OnHotelBudgetIdChanging(int value);
+    partial void OnHotelBudgetIdChanged();
+    partial void OnUpdateDateTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdateDateTimeChanged();
+    partial void OnPositionMonthChanging(string value);
+    partial void OnPositionMonthChanged();
+    partial void OnOccupiedRoomChanging(double value);
+    partial void OnOccupiedRoomChanged();
+    partial void OnTotalRoomRevenuesChanging(double value);
+    partial void OnTotalRoomRevenuesChanged();
+    partial void OnFoodChanging(double value);
+    partial void OnFoodChanged();
+    partial void OnBeverageChanging(double value);
+    partial void OnBeverageChanged();
+    partial void OnServiceChanging(double value);
+    partial void OnServiceChanged();
+    partial void OnSpaProductChanging(double value);
+    partial void OnSpaProductChanged();
+    partial void OnOthersChanging(double value);
+    partial void OnOthersChanged();
+    partial void OnTotalChanging(double value);
+    partial void OnTotalChanged();
+    #endregion
+		
+		public BudgetEntry()
+		{
+			this._HotelBudget = default(EntityRef<HotelBudget>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BudgetId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int BudgetId
+		{
+			get
+			{
+				return this._BudgetId;
+			}
+			set
+			{
+				if ((this._BudgetId != value))
+				{
+					this.OnBudgetIdChanging(value);
+					this.SendPropertyChanging();
+					this._BudgetId = value;
+					this.SendPropertyChanged("BudgetId");
+					this.OnBudgetIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HotelBudgetId", DbType="Int NOT NULL")]
+		public int HotelBudgetId
+		{
+			get
+			{
+				return this._HotelBudgetId;
+			}
+			set
+			{
+				if ((this._HotelBudgetId != value))
+				{
+					if (this._HotelBudget.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnHotelBudgetIdChanging(value);
+					this.SendPropertyChanging();
+					this._HotelBudgetId = value;
+					this.SendPropertyChanged("HotelBudgetId");
+					this.OnHotelBudgetIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdateDateTime
+		{
+			get
+			{
+				return this._UpdateDateTime;
+			}
+			set
+			{
+				if ((this._UpdateDateTime != value))
+				{
+					this.OnUpdateDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._UpdateDateTime = value;
+					this.SendPropertyChanged("UpdateDateTime");
+					this.OnUpdateDateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionMonth", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string PositionMonth
+		{
+			get
+			{
+				return this._PositionMonth;
+			}
+			set
+			{
+				if ((this._PositionMonth != value))
+				{
+					this.OnPositionMonthChanging(value);
+					this.SendPropertyChanging();
+					this._PositionMonth = value;
+					this.SendPropertyChanged("PositionMonth");
+					this.OnPositionMonthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OccupiedRoom", DbType="Float NOT NULL")]
+		public double OccupiedRoom
+		{
+			get
+			{
+				return this._OccupiedRoom;
+			}
+			set
+			{
+				if ((this._OccupiedRoom != value))
+				{
+					this.OnOccupiedRoomChanging(value);
+					this.SendPropertyChanging();
+					this._OccupiedRoom = value;
+					this.SendPropertyChanged("OccupiedRoom");
+					this.OnOccupiedRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalRoomRevenues", DbType="Float NOT NULL")]
+		public double TotalRoomRevenues
+		{
+			get
+			{
+				return this._TotalRoomRevenues;
+			}
+			set
+			{
+				if ((this._TotalRoomRevenues != value))
+				{
+					this.OnTotalRoomRevenuesChanging(value);
+					this.SendPropertyChanging();
+					this._TotalRoomRevenues = value;
+					this.SendPropertyChanged("TotalRoomRevenues");
+					this.OnTotalRoomRevenuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Food", DbType="Float NOT NULL")]
+		public double Food
+		{
+			get
+			{
+				return this._Food;
+			}
+			set
+			{
+				if ((this._Food != value))
+				{
+					this.OnFoodChanging(value);
+					this.SendPropertyChanging();
+					this._Food = value;
+					this.SendPropertyChanged("Food");
+					this.OnFoodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beverage", DbType="Float NOT NULL")]
+		public double Beverage
+		{
+			get
+			{
+				return this._Beverage;
+			}
+			set
+			{
+				if ((this._Beverage != value))
+				{
+					this.OnBeverageChanging(value);
+					this.SendPropertyChanging();
+					this._Beverage = value;
+					this.SendPropertyChanged("Beverage");
+					this.OnBeverageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Service", DbType="Float NOT NULL")]
+		public double Service
+		{
+			get
+			{
+				return this._Service;
+			}
+			set
+			{
+				if ((this._Service != value))
+				{
+					this.OnServiceChanging(value);
+					this.SendPropertyChanging();
+					this._Service = value;
+					this.SendPropertyChanged("Service");
+					this.OnServiceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpaProduct", DbType="Float NOT NULL")]
+		public double SpaProduct
+		{
+			get
+			{
+				return this._SpaProduct;
+			}
+			set
+			{
+				if ((this._SpaProduct != value))
+				{
+					this.OnSpaProductChanging(value);
+					this.SendPropertyChanging();
+					this._SpaProduct = value;
+					this.SendPropertyChanged("SpaProduct");
+					this.OnSpaProductChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Others", DbType="Float NOT NULL")]
+		public double Others
+		{
+			get
+			{
+				return this._Others;
+			}
+			set
+			{
+				if ((this._Others != value))
+				{
+					this.OnOthersChanging(value);
+					this.SendPropertyChanging();
+					this._Others = value;
+					this.SendPropertyChanged("Others");
+					this.OnOthersChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float NOT NULL")]
+		public double Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this.OnTotalChanging(value);
+					this.SendPropertyChanging();
+					this._Total = value;
+					this.SendPropertyChanged("Total");
+					this.OnTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelBudget_BudgetEntry", Storage="_HotelBudget", ThisKey="HotelBudgetId", OtherKey="HotelBudgetId", IsForeignKey=true)]
+		public HotelBudget HotelBudget
+		{
+			get
+			{
+				return this._HotelBudget.Entity;
+			}
+			set
+			{
+				HotelBudget previousValue = this._HotelBudget.Entity;
+				if (((previousValue != value) 
+							|| (this._HotelBudget.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._HotelBudget.Entity = null;
+						previousValue.BudgetEntries.Remove(this);
+					}
+					this._HotelBudget.Entity = value;
+					if ((value != null))
+					{
+						value.BudgetEntries.Add(this);
+						this._HotelBudgetId = value.HotelBudgetId;
+					}
+					else
+					{
+						this._HotelBudgetId = default(int);
+					}
+					this.SendPropertyChanged("HotelBudget");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RevenueEntry")]
+	public partial class RevenueEntry : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RevenueId;
+		
+		private System.Nullable<System.DateTime> _PositionDate;
+		
+		private int _HotelRevenueId;
+		
+		private double _OccupiedRoom;
+		
+		private double _TotalRoomRevenues;
+		
+		private double _Food;
+		
+		private double _Beverage;
+		
+		private double _Service;
+		
+		private double _SpaProduct;
+		
+		private double _Others;
+		
+		private double _Total;
+		
+		private System.Nullable<System.DateTime> _UpdateDateTime;
+		
+		private EntityRef<HotelRevenue> _HotelRevenue;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRevenueIdChanging(int value);
+    partial void OnRevenueIdChanged();
+    partial void OnPositionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnPositionDateChanged();
+    partial void OnHotelRevenueIdChanging(int value);
+    partial void OnHotelRevenueIdChanged();
+    partial void OnOccupiedRoomChanging(double value);
+    partial void OnOccupiedRoomChanged();
+    partial void OnTotalRoomRevenuesChanging(double value);
+    partial void OnTotalRoomRevenuesChanged();
+    partial void OnFoodChanging(double value);
+    partial void OnFoodChanged();
+    partial void OnBeverageChanging(double value);
+    partial void OnBeverageChanged();
+    partial void OnServiceChanging(double value);
+    partial void OnServiceChanged();
+    partial void OnSpaProductChanging(double value);
+    partial void OnSpaProductChanged();
+    partial void OnOthersChanging(double value);
+    partial void OnOthersChanged();
+    partial void OnTotalChanging(double value);
+    partial void OnTotalChanged();
+    partial void OnUpdateDateTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdateDateTimeChanged();
+    #endregion
+		
+		public RevenueEntry()
+		{
+			this._HotelRevenue = default(EntityRef<HotelRevenue>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RevenueId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RevenueId
+		{
+			get
+			{
+				return this._RevenueId;
+			}
+			set
+			{
+				if ((this._RevenueId != value))
+				{
+					this.OnRevenueIdChanging(value);
+					this.SendPropertyChanging();
+					this._RevenueId = value;
+					this.SendPropertyChanged("RevenueId");
+					this.OnRevenueIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> PositionDate
+		{
+			get
+			{
+				return this._PositionDate;
+			}
+			set
+			{
+				if ((this._PositionDate != value))
+				{
+					this.OnPositionDateChanging(value);
+					this.SendPropertyChanging();
+					this._PositionDate = value;
+					this.SendPropertyChanged("PositionDate");
+					this.OnPositionDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HotelRevenueId", DbType="Int NOT NULL")]
+		public int HotelRevenueId
+		{
+			get
+			{
+				return this._HotelRevenueId;
+			}
+			set
+			{
+				if ((this._HotelRevenueId != value))
+				{
+					if (this._HotelRevenue.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnHotelRevenueIdChanging(value);
+					this.SendPropertyChanging();
+					this._HotelRevenueId = value;
+					this.SendPropertyChanged("HotelRevenueId");
+					this.OnHotelRevenueIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OccupiedRoom", DbType="Float NOT NULL")]
+		public double OccupiedRoom
+		{
+			get
+			{
+				return this._OccupiedRoom;
+			}
+			set
+			{
+				if ((this._OccupiedRoom != value))
+				{
+					this.OnOccupiedRoomChanging(value);
+					this.SendPropertyChanging();
+					this._OccupiedRoom = value;
+					this.SendPropertyChanged("OccupiedRoom");
+					this.OnOccupiedRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalRoomRevenues", DbType="Float NOT NULL")]
+		public double TotalRoomRevenues
+		{
+			get
+			{
+				return this._TotalRoomRevenues;
+			}
+			set
+			{
+				if ((this._TotalRoomRevenues != value))
+				{
+					this.OnTotalRoomRevenuesChanging(value);
+					this.SendPropertyChanging();
+					this._TotalRoomRevenues = value;
+					this.SendPropertyChanged("TotalRoomRevenues");
+					this.OnTotalRoomRevenuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Food", DbType="Float NOT NULL")]
+		public double Food
+		{
+			get
+			{
+				return this._Food;
+			}
+			set
+			{
+				if ((this._Food != value))
+				{
+					this.OnFoodChanging(value);
+					this.SendPropertyChanging();
+					this._Food = value;
+					this.SendPropertyChanged("Food");
+					this.OnFoodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beverage", DbType="Float NOT NULL")]
+		public double Beverage
+		{
+			get
+			{
+				return this._Beverage;
+			}
+			set
+			{
+				if ((this._Beverage != value))
+				{
+					this.OnBeverageChanging(value);
+					this.SendPropertyChanging();
+					this._Beverage = value;
+					this.SendPropertyChanged("Beverage");
+					this.OnBeverageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Service", DbType="Float NOT NULL")]
+		public double Service
+		{
+			get
+			{
+				return this._Service;
+			}
+			set
+			{
+				if ((this._Service != value))
+				{
+					this.OnServiceChanging(value);
+					this.SendPropertyChanging();
+					this._Service = value;
+					this.SendPropertyChanged("Service");
+					this.OnServiceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpaProduct", DbType="Float NOT NULL")]
+		public double SpaProduct
+		{
+			get
+			{
+				return this._SpaProduct;
+			}
+			set
+			{
+				if ((this._SpaProduct != value))
+				{
+					this.OnSpaProductChanging(value);
+					this.SendPropertyChanging();
+					this._SpaProduct = value;
+					this.SendPropertyChanged("SpaProduct");
+					this.OnSpaProductChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Others", DbType="Float NOT NULL")]
+		public double Others
+		{
+			get
+			{
+				return this._Others;
+			}
+			set
+			{
+				if ((this._Others != value))
+				{
+					this.OnOthersChanging(value);
+					this.SendPropertyChanging();
+					this._Others = value;
+					this.SendPropertyChanged("Others");
+					this.OnOthersChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Float NOT NULL")]
+		public double Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this.OnTotalChanging(value);
+					this.SendPropertyChanging();
+					this._Total = value;
+					this.SendPropertyChanged("Total");
+					this.OnTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdateDateTime
+		{
+			get
+			{
+				return this._UpdateDateTime;
+			}
+			set
+			{
+				if ((this._UpdateDateTime != value))
+				{
+					this.OnUpdateDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._UpdateDateTime = value;
+					this.SendPropertyChanged("UpdateDateTime");
+					this.OnUpdateDateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HotelRevenue_RevenueEntry", Storage="_HotelRevenue", ThisKey="HotelRevenueId", OtherKey="HotelRevenueId", IsForeignKey=true)]
+		public HotelRevenue HotelRevenue
+		{
+			get
+			{
+				return this._HotelRevenue.Entity;
+			}
+			set
+			{
+				HotelRevenue previousValue = this._HotelRevenue.Entity;
+				if (((previousValue != value) 
+							|| (this._HotelRevenue.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._HotelRevenue.Entity = null;
+						previousValue.RevenueEntries.Remove(this);
+					}
+					this._HotelRevenue.Entity = value;
+					if ((value != null))
+					{
+						value.RevenueEntries.Add(this);
+						this._HotelRevenueId = value.HotelRevenueId;
+					}
+					else
+					{
+						this._HotelRevenueId = default(int);
+					}
+					this.SendPropertyChanged("HotelRevenue");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

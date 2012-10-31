@@ -129,7 +129,7 @@ namespace HotelDataEntry
                     Food = food,
                     Beverage = beverage,
                     Service = service,
-                    Spa = spa,
+                    SpaProduct = spa,
                     Others = others,
                     Total = occupiedRoom+roomRevenue+food+beverage+service+spa+others
                 };

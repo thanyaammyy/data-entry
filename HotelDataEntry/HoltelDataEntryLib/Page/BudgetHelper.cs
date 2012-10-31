@@ -20,7 +20,7 @@ namespace HotelDataEntryLib.Page
                          TotalRoomRevenues = 0.00,
                          Food = 0.00,
                          Beverage = 0.00,
-                         Spa = 0.00,
+                         SpaProduct = 0.00,
                          Service = 0.00,
                          Others = 0.00,
                          Total = 0.00,
@@ -62,7 +62,7 @@ namespace HotelDataEntryLib.Page
                      entry.TotalRoomRevenues = budgetEntry.TotalRoomRevenues;
                      entry.Food = budgetEntry.Food;
                      entry.Beverage = budgetEntry.Beverage;
-                     entry.Spa = budgetEntry.Spa;
+                     entry.SpaProduct = budgetEntry.SpaProduct;
                      entry.Service = budgetEntry.Service;
                      entry.Others = budgetEntry.Others;
                      entry.Total = budgetEntry.Total;
