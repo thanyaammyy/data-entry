@@ -111,7 +111,7 @@ namespace HotelDataEntry
                 Food = food,
                 Beverage = beverage,
                 Service = service,
-                Spa = spa,
+                SpaProduct = spa,
                 Others = others,
                 Total = occupiedRoom + roomRevenue + food + beverage + service + spa + others
             };
@@ -145,7 +145,7 @@ namespace HotelDataEntry
                 var service = revenueEntry.Service;
                 serviceTotal += service;
 
-                var spa = revenueEntry.Spa;
+                var spa = revenueEntry.SpaProduct;
                 spaTotal += spa;
 
                 var others = revenueEntry.Others;

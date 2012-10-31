@@ -161,7 +161,7 @@
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Spa" DataField="Spa" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn HeaderText="Product" DataField="Spa" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
@@ -185,7 +185,7 @@
                         <HeaderGroups>
                             <cc1:JQGridHeaderGroup StartColumnName="OccupiedRoom" TitleText="Room" NumberOfColumns="2"/>
                             <cc1:JQGridHeaderGroup StartColumnName="Food" TitleText="Food & Beverage" NumberOfColumns="2"/>
-                            <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Room" NumberOfColumns="2"/>
+                            <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Spa" NumberOfColumns="2"/>
                         </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
                         <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
