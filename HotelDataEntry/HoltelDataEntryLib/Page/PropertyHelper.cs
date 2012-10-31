@@ -40,13 +40,14 @@ namespace HotelDataEntryLib.Page
                 {
                     return listAccessProperty;
                 }
-                else if (str.Contains("OHG"))
+                if (str.Contains("OHG"))
                 {
                     listAccessProperty.AddRange(Properites());
                 }
                 else
                 {
                     var prop = str.Split(',');
+                    if (prop.Length == 1) listAccessProperty.RemoveAt(0);
                     listAccessProperty.AddRange(prop.Select(GetProperty));
                 }
             }
