@@ -62,7 +62,7 @@ namespace HotelDataEntry
         {
             try
             {
-                var entry = new DirectoryEntry("LDAP://10.1.201.11", userName, password);
+                var entry = new DirectoryEntry("LDAP://onyx-hq/CN=Builtin,DC=ONYX-HOSPITALITY,DC=GROUP", userName, password);
                 var nativeObject = entry.NativeObject;
                 return true;
             }
