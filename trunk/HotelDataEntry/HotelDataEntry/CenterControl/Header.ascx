@@ -4,7 +4,7 @@
         <span style="color: #3f3731">Welcome :</span> <a class="fancybox fancybox.iframe"
             href="UserInfo.aspx?key=<%=Key %>">
             <asp:Label runat="server" ID="lbUsername" ToolTip="View or edit your infromation"></asp:Label>
-        </a>[<asp:HyperLink ID="hplLogout" runat="server" ToolTip="Log out of system" NavigateUrl="~/Logout.aspx"
+        </a>[<asp:HyperLink ID="hplLogout" runat="server" ToolTip="Log out of system" NavigateUrl="../Logout.aspx"
             Text="logout"></asp:HyperLink>]
     </div>
     <div style="padding-left: 50px; padding-bottom: 20px; padding-right: 20px; padding-top: 20px; margin: auto;">
