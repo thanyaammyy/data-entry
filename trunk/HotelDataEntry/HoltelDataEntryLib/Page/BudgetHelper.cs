@@ -7,7 +7,7 @@ namespace HotelDataEntryLib.Page
 {
      public static class BudgetHelper
     {
-         public static void AddBudgetEntryListByYear(HotelBudget hotelEntry)
+         public static void AddBudgetEntryListByYear(HotelBudget hotelEntry, string username)
          {
              using (var hdc = new HotelDataEntryDataContext())
              {
@@ -16,17 +16,15 @@ namespace HotelDataEntryLib.Page
                      hdc.BudgetEntries.InsertOnSubmit(new BudgetEntry()
                      {
                          HotelBudgetId = hotelEntry.HotelBudgetId,
-                         OccupiedRoom = 0,
-                         TotalRoomRevenues = 0.00,
-                         Food = 0.00,
-                         Beverage = 0.00,
-                         SpaProduct = 0.00,
-                         Service = 0.00,
+                         OccupancyRoom = 0,
+                         RoomBudget = 0.00,
+                         FBBudget = 0.00,
+                         SpaBudget = 0.00,
                          Others = 0.00,
                          Total = 0.00,
                          UpdateDateTime = DateTime.Now,
+                         UpdateUser = username,
                          PositionMonth = (i+1)+"/"+hotelEntry.Year
-
                      });
 
                      try
@@ -57,18 +55,14 @@ namespace HotelDataEntryLib.Page
                  try
                  {
                      var entry = hdc.BudgetEntries.Single(item => item.BudgetId == budgetEntry.BudgetId);
-
-                     entry.OccupiedRoom = budgetEntry.OccupiedRoom;
-                     entry.TotalRoomRevenues = budgetEntry.TotalRoomRevenues;
-                     entry.Food = budgetEntry.Food;
-                     entry.Beverage = budgetEntry.Beverage;
-                     entry.SpaProduct = budgetEntry.SpaProduct;
-                     entry.Service = budgetEntry.Service;
+                     entry.OccupancyRoom = budgetEntry.OccupancyRoom;
+                     entry.RoomBudget = budgetEntry.RoomBudget;
+                     entry.FBBudget = budgetEntry.FBBudget;
+                     entry.SpaBudget = budgetEntry.SpaBudget;
                      entry.Others = budgetEntry.Others;
                      entry.Total = budgetEntry.Total;
                      entry.UpdateDateTime = DateTime.Now;
-
-
+                     entry.UpdateUser = budgetEntry.UpdateUser;
                      hdc.SubmitChanges();
                  }
                  catch (SqlException ex)
