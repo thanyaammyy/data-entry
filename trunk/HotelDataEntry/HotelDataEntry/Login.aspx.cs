@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.DirectoryServices;
 using HotelDataEntryLib.Helper;
+using HotelDataEntryLib.Page;
 
 namespace HotelDataEntry
 {
@@ -16,7 +17,6 @@ namespace HotelDataEntry
         {
             lbUserRequired.Visible = false;
             lbPwdRequired.Visible = false;
-            lbRequired.Visible = false;
             lbError.Visible = false;
             Session["LoginSession"] = "False";
             Session["UserSession"] = "";
@@ -31,15 +31,24 @@ namespace HotelDataEntry
                     Session["UserSession"] = username;
                     var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
                     var encryptEmail = Encryption.EncryptStringAES(username, strSharedSecret);
-                    Response.Redirect("Revenue.aspx?key=" + encryptEmail);
+                    var user = UserHelper.GetUser(username);
+                    if(user.Status==1)
+                    {
+                        Response.Redirect("Revenue.aspx?key=" + encryptEmail);
+                    }
+                    else
+                    {
+                        lbError.Text = "You are not authorized to access this page";
+                        lbError.Visible = true;
+                    }
                 }
                 else
                 {
                     btnLogin.Enabled = true;
+                    lbError.Text = "Your login attempt was not successful. Please try again.";
                     lbError.Visible = true;
                     lbUserRequired.Visible = false;
                     lbPwdRequired.Visible = false;
-                    lbRequired.Visible = false;
                 }
             }
             else
@@ -47,8 +56,8 @@ namespace HotelDataEntry
                 btnLogin.Enabled = true;
                 lbUserRequired.Visible = true;
                 lbPwdRequired.Visible = true;
-                lbRequired.Visible = true;
-                lbError.Visible = false;
+                lbError.Text = "Pleae enter username and password.";
+                lbError.Visible = true;
             }
         }
 
@@ -56,6 +65,9 @@ namespace HotelDataEntry
         {
             tbPassword.Text = "";
             tbUsername.Text = "";
+            lbError.Visible = false;
+            lbPwdRequired.Visible = false;
+            lbUserRequired.Visible = false;
         }
 
         public bool AuthenticateActiveDirectory(string userName, string password)

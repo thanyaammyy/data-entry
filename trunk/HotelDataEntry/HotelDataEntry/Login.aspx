@@ -73,7 +73,8 @@
                             </ProgressTemplate>
                         </asp:UpdateProgress>
                         <asp:Label ID="lbError" CssClass="redText" Visible="False" runat="server">Your login attempt was not successful. Please try again.</asp:Label>
-                        <asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Pleae enter username and password</asp:Label>
+                        <%--<asp:Label ID="lbRequired" CssClass="redText" Visible="False" runat="server">Pleae enter username and password</asp:Label>
+                        <asp:Label ID="lbUserNotActive" CssClass="redText" Visible="False" runat="server">You are not authorized to access this page</asp:Label>--%>
                     </td>
                 </tr>
             </table>
