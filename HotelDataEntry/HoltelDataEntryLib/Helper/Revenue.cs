@@ -10,12 +10,10 @@ namespace HotelDataEntryLib.Helper
         public int RevenueId { get; set; }
         public DateTime? PositionDate { get; set; }
         public int HotelRevenueId{ get; set; }
-        public double OccupiedRoom{ get; set; }
-        public double TotalRoomRevenues { get; set; }
-        public double Food { get; set; }
-        public double Beverage { get; set; }
-        public double Service { get; set; }
-        public double Spa { get; set; }
+        public double OccupancyRoom{ get; set; }
+        public double RoomRevenue { get; set; }
+        public double FBRevenue { get; set; }
+        public double SpaRevenue { get; set; }
         public double Others { get; set; }
         public double Total { get; set; }
         public double Budget { get; set; }

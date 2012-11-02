@@ -22,10 +22,10 @@
             if (pattern.test(value))
                 return [true, ""];
             else
-                return [false, "Please enter a number format"];
+                return [false, "Please enter a valid number format"];
         }
         function validateRooms(value, column) {
-            var pattern = /(?:^[1-9]\d*$)/;
+            var pattern = /(?:^\d+(\.\d{1,2})?)/;
             if (pattern.test(value))
                 return [true, ""];
             else
@@ -125,41 +125,27 @@
                             <cc1:JQGridColumn HeaderText="Month/Year" DataField="PositionMonth" Editable="True" 
                                 TextAlign="Center" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupied Rooms (rms)" DataField="OccupiedRoom" Editable="True" TextAlign="Right">
+                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom" Editable="True" TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateRooms" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Total Room Revenues" DataField="TotalRoomRevenues" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="200" HeaderText="Room Budget" DataField="RoomBudget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Food" DataField="Food" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn HeaderText="F&amp;B Budget" DataField="FBBudget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Beverage" DataField="Beverage" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Service" DataField="Service" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Product" DataField="SpaProduct" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn HeaderText="Spa Budget" DataField="SpaBudget" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
@@ -177,14 +163,9 @@
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
                         </Columns>
-                        <HeaderGroups>
-                            <cc1:JQGridHeaderGroup StartColumnName="OccupiedRoom" TitleText="Room" NumberOfColumns="2"/>
-                            <cc1:JQGridHeaderGroup StartColumnName="Food" TitleText="Food & Beverage" NumberOfColumns="2"/>
-                            <cc1:JQGridHeaderGroup StartColumnName="Service" TitleText="Spa" NumberOfColumns="2"/>
-                        </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
                         <EditDialogSettings  Modal="True" Width="350" TopOffset="350" LeftOffset="500" CloseAfterEditing="True"
-                            Caption="Edit Revenue Entry"></EditDialogSettings>
+                            Caption="Edit Budget Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
                         <ClientSideEvents AfterEditDialogShown="disableDate"></ClientSideEvents>

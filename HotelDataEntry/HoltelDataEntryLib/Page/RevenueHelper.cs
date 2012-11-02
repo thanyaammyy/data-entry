@@ -9,7 +9,7 @@ namespace HotelDataEntryLib.Page
 {
     public static class RevenueHelper
     {
-        public static void AddRevenueEntryListByMonthYear(HotelRevenue hotelEntry)
+        public static void AddRevenueEntryListByMonthYear(HotelRevenue hotelEntry, string username)
         {
             var dates = GetLastDayOfMonth(hotelEntry.Month,hotelEntry.Year);
             using (var hdc = new HotelDataEntryDataContext())
@@ -19,15 +19,14 @@ namespace HotelDataEntryLib.Page
                     hdc.RevenueEntries.InsertOnSubmit(new RevenueEntry()
                         {
                             HotelRevenueId = hotelEntry.HotelRevenueId,
-                            OccupiedRoom = 0,
-                            TotalRoomRevenues = 0.00,
-                            Food = 0.00,
-                            Beverage = 0.00,
-                            SpaProduct = 0.00,
-                            Service = 0.00,
+                            OccupancyRoom = 0,
+                            RoomRevenue = 0.00,
+                            FBRevenue = 0.00,
+                            SpaRevenue = 0.00,
                             Others = 0.00,
                             Total = 0.00,
                             UpdateDateTime = DateTime.Now,
+                            UpdateUser = username,
                             PositionDate = new DateTime(hotelEntry.Year, hotelEntry.Month, (i + 1))
 
                         });
@@ -71,12 +70,10 @@ namespace HotelDataEntryLib.Page
                                         RevenueId = revenueEntry.RevenueId,
                                         PositionDate = revenueEntry.PositionDate,
                                         HotelRevenueId = revenueEntry.HotelRevenueId,
-                                        OccupiedRoom = revenueEntry.OccupiedRoom,
-                                        TotalRoomRevenues = revenueEntry.TotalRoomRevenues,
-                                        Food = revenueEntry.Food,
-                                        Beverage = revenueEntry.Beverage,
-                                        Service = revenueEntry.Service,
-                                        Spa = revenueEntry.SpaProduct,
+                                        OccupancyRoom = revenueEntry.OccupancyRoom,
+                                        RoomRevenue = revenueEntry.RoomRevenue,
+                                        FBRevenue = revenueEntry.FBRevenue,
+                                        SpaRevenue = revenueEntry.SpaRevenue,
                                         Others = revenueEntry.Others,
                                         Total = revenueEntry.Total,
                                         Budget = budgetEntry.Total/dates
@@ -91,18 +88,14 @@ namespace HotelDataEntryLib.Page
                 try
                 {
                     var entry = hdc.RevenueEntries.Single(item => item.RevenueId == revenueEntry.RevenueId);
-
-                    entry.OccupiedRoom = revenueEntry.OccupiedRoom;
-                    entry.TotalRoomRevenues = revenueEntry.TotalRoomRevenues;
-                    entry.Food = revenueEntry.Food;
-                    entry.Beverage = revenueEntry.Beverage;
-                    entry.SpaProduct = revenueEntry.SpaProduct;
-                    entry.Service = revenueEntry.Service;
+                    entry.OccupancyRoom = revenueEntry.OccupancyRoom;
+                    entry.FBRevenue = revenueEntry.FBRevenue;
+                    entry.SpaRevenue = revenueEntry.SpaRevenue;
+                    entry.RoomRevenue = revenueEntry.RoomRevenue;
                     entry.Others = revenueEntry.Others;
                     entry.Total = revenueEntry.Total;
                     entry.UpdateDateTime = DateTime.Now;
-
-                
+                    entry.UpdateUser = revenueEntry.UpdateUser;
                     hdc.SubmitChanges();
                 }
                 catch (SqlException ex)
