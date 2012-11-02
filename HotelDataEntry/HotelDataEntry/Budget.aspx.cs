@@ -84,7 +84,7 @@ namespace HotelDataEntry
             JqGridBudgetEntry.DataBind();
             if (!string.IsNullOrEmpty(userPermission))
             {
-                if (Convert.ToInt32(userPermission) < 2 || Convert.ToInt32(userPermission)==3)
+                if (Convert.ToInt32(userPermission) < 2)
                 {
                     JqGridBudgetEntry.ToolBarSettings.ShowEditButton = false;
 
