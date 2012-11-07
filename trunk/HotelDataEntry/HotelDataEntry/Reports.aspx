@@ -20,7 +20,7 @@
     <script src="Script/jqueryUI/jquery.jqGrid.src.js" type="text/javascript"></script>
     <script src="Script/jqueryUI/jquery.jqAutoComplete.min.js" type="text/javascript"></script>
 </head>
-<body style="width: 90%; height: 90%">
+<body style="width: 100%; height: 90%">
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -47,7 +47,7 @@
         <div style="padding-top: 10px;" runat="server" id="divJqgrid">
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
-                    <cc1:JQGrid ID="JqGridReport" AutoWidth="True" runat="server" Height="80%">
+                    <cc1:JQGrid ID="JqGridReport" AutoWidth="True" runat="server" Height="80%" OnInit="JqGridReport_Init">
                         <Columns>
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
@@ -56,13 +56,13 @@
                             <cc1:JQGridColumn Width="350" HeaderText="Room Actual"  DataField="RoomActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="350" HeaderText="Room Budget" DataField="RoomBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="380" HeaderText="Room Budget" DataField="RoomBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn Width="350" HeaderText="F & B Actual" DataField="FBActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="350" HeaderText="F & B Budget" DataField="FBBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="380" HeaderText="F & B Budget" DataField="FBBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn Width="350" HeaderText="Spa Actual" DataField="SpaActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
@@ -71,23 +71,23 @@
                             <cc1:JQGridColumn Width="350" HeaderText="Spa Budget" DataField="SpaBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="350" HeaderText="Others Actual" DataField="OtherActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="380" HeaderText="Others Actual" DataField="OtherActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="350" HeaderText="Others Budget" DataField="OtherBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="410" HeaderText="Others Budget" DataField="OtherBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
                         </Columns>
-                        <%--<HeaderGroups>
+                        <HeaderGroups>
                             <cc1:JQGridHeaderGroup StartColumnName="RoomActual" NumberOfColumns="2" TitleText="Room" />
                             <cc1:JQGridHeaderGroup StartColumnName="FBActual" NumberOfColumns="2" TitleText="F & B" />
                             <cc1:JQGridHeaderGroup StartColumnName="SpaActual" NumberOfColumns="2" TitleText="Spa" />
-                            <cc1:JQGridHeaderGroup StartColumnName="OtherActual" NumberOfColumns="2" TitleText="Others" />
-                        </HeaderGroups>--%>
+                            <cc1:JQGridHeaderGroup StartColumnName="OtherActual" NumberOfColumns="2" TitleText="Others"/>
+                        </HeaderGroups>
                         <ToolBarSettings ShowRefreshButton="True" />
-                        <ExportSettings ExportDataRange="All" ExportHeaders="True"></ExportSettings>
+                        <ExportSettings ExportDataRange="All" ExportHeaders="True" ></ExportSettings>
                         <PagerSettings PageSize="32" />
-                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
+                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" ShrinkToFit="True" />
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
@@ -98,10 +98,10 @@
                     <td>
                         Export
                     </td>
-                    <td>
+                    <%--<td>
                         <asp:ImageButton Width="22" Height="22" ID="btnCSV" ImageUrl="Style/images/csv.png"
                             ToolTip="Export to CSV" runat="server" OnClick="btnCSV_Click" />
-                    </td>
+                    </td>--%>
                     <td>
                         <asp:ImageButton Width="22" Height="22" ID="btnExcel" ImageUrl="Style/images/excel.png"
                             ToolTip="Export to Excel" runat="server" OnClick="btnExcel_Click" />
