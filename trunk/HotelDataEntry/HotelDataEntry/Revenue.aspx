@@ -71,6 +71,7 @@
                 closeClick: false,
                 openEffect: 'none',
                 closeEffect: 'none',
+                modal:true,
                 helpers: {
                     title: null
                 }
