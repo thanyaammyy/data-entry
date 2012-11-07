@@ -15,11 +15,14 @@ namespace HotelDataEntry
             Session["bPropertyId"] = null;
             Session["year"] = null;
 
-            if (!string.IsNullOrEmpty(Session["permission"].ToString()))
+            if (Session["permission"] != null)
             {
-                if (Convert.ToInt32(Session["permission"]) != 3)
+                if (!string.IsNullOrEmpty(Session["permission"].ToString()))
                 {
-                    Response.Redirect("Login.aspx");
+                    if (Convert.ToInt32(Session["permission"]) != 3)
+                    {
+                        Response.Redirect("Login.aspx");
+                    }
                 }
             }
             else
