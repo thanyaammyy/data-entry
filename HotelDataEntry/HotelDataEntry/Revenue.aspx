@@ -63,15 +63,18 @@
 
             $(".various").fancybox({
                 maxWidth: 800,
-                maxHeight: 450,
-                fitToView: false,
+                maxHeight: 500,
+                fitToView: true,
                 width: '80%',
                 height: '80%',
                 autoSize: false,
-                closeClick: false,
                 openEffect: 'none',
                 closeEffect: 'none',
-                modal:true,
+                showCloseButton  : true,
+                overlayShow: true,
+                hideOnOverlayClick: false,
+                hideOnContentClick: false,
+                enableEscapeButton: false,
                 helpers: {
                     title: null
                 }
