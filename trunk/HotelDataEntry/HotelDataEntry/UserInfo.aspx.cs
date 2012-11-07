@@ -62,7 +62,7 @@ namespace HotelDataEntry
             var fName = tbFirstName.Text;
             var lName = tbLastName.Text;
             var email = tbEmail.Text;
-            var position = tbPosition.Text;
+            var position = string.IsNullOrEmpty(tbPosition.Text)?lbPosition.Text:tbPosition.Text;
             var propertyId = string.IsNullOrEmpty(ddlProperty.SelectedValue)?0:Convert.ToInt32(ddlProperty.SelectedValue);
             if(!(string.IsNullOrEmpty(fName)||string.IsNullOrEmpty(lName)||string.IsNullOrEmpty(email)||propertyId==0||string.IsNullOrEmpty(position)))
             {
