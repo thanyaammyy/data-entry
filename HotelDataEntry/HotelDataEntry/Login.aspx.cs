@@ -36,7 +36,8 @@ namespace HotelDataEntry
                     {
                         if (user.Status == 1)
                         {
-                            Response.Redirect("Revenue.aspx?key=" + encryptEmail);
+                            Session["loginKey"] = encryptEmail;
+                            Response.Redirect("Revenue.aspx");
                         }
                         else
                         {
@@ -46,7 +47,8 @@ namespace HotelDataEntry
                         }
                     }
                     else
-                        Response.Redirect("Revenue.aspx?key=" + encryptEmail);
+                        Session["loginKey"] = encryptEmail;
+                        Response.Redirect("Revenue.aspx");
                 }
                 else
                 {

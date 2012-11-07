@@ -13,7 +13,7 @@ namespace HotelDataEntry.CenterControl
         protected void Page_Load(object sender, EventArgs e)
         {
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
-            UserName = Session["Key"] == null ? Request.QueryString["key"] : Session["Key"].ToString();
+            UserName = Session["Key"] == null ? Session["loginKey"].ToString() : Session["Key"].ToString();
             if (string.IsNullOrEmpty(UserName)) Response.Redirect("Login.aspx");
             var decryptKey = Encryption.DecryptStringAES(UserName, strSharedSecret);
             if(!decryptKey.Contains("&"))
