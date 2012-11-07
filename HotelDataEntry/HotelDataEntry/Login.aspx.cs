@@ -32,15 +32,21 @@ namespace HotelDataEntry
                     var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
                     var encryptEmail = Encryption.EncryptStringAES(username, strSharedSecret);
                     var user = UserHelper.GetUser(username);
-                    if(user.Status==1)
+                    if (!string.IsNullOrEmpty(user.Email)&&!string.IsNullOrEmpty(user.Username))
                     {
-                        Response.Redirect("Revenue.aspx?key=" + encryptEmail);
+                        if (user.Status == 1)
+                        {
+                            Response.Redirect("Revenue.aspx?key=" + encryptEmail);
+                        }
+                        else
+                        {
+                            btnLogin.Enabled = true;
+                            lbError.Text = "You are not authorized to access this page";
+                            lbError.Visible = true;
+                        }
                     }
                     else
-                    {
-                        lbError.Text = "You are not authorized to access this page";
-                        lbError.Visible = true;
-                    }
+                        Response.Redirect("Revenue.aspx?key=" + encryptEmail);
                 }
                 else
                 {

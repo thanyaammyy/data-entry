@@ -83,6 +83,7 @@ namespace HotelDataEntry
                         user.Username = Session["UserSession"].ToString();
                         user.AccessProperties = "N/A";
                         UserHelper.AddUserProfile(user);
+                        Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.location.href = 'Login.aspx';parent.$.fancybox.close();</script>");
                     }
                     else
                     {
@@ -93,8 +94,8 @@ namespace HotelDataEntry
                         user.Username = UserName;
                         user.AccessProperties = AccessProperty;
                         UserHelper.UpdateUserProfile(user);
+                        Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close(parent.location.reload(true));</script>");
                     }
-                    Page.RegisterClientScriptBlock("closeIframe", "<script type=\"text/javascript\" language=\"javascript\">parent.$.fancybox.close(parent.location.reload(true));</script>");
                 }
                 else
                 {
