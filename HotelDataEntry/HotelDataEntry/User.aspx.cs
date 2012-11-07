@@ -10,20 +10,13 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //dataEntry
-            Session["propertyId"] = null;
-            Session["dataEntryTypeId"] = null;
+            //Revenue
+            Session["rPropertyId"] = null;
             Session["MonthYear"] = null;
 
-            //Report
-            Session["monthly"] = null;
-            Session["property"] = null;
-            Session["dateFrom"] = null;
-            Session["dateTo"] = null;
-            Session["monthly"] = null;
-            Session["property2"] = null;
-            Session["monthlyDate"] = null;
-            Session["IsMonthly"] = null;
+            //Budget
+            Session["bPropertyId"] = null;
+            Session["year"] = null;
 
             if (!string.IsNullOrEmpty(Session["permission"].ToString()))
             {

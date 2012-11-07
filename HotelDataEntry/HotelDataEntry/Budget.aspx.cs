@@ -13,16 +13,6 @@ namespace HotelDataEntry
         public int UserId;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Report
-            Session["monthly"] = null;
-            Session["property"] = null;
-            Session["dateFrom"] = null;
-            Session["dateTo"] = null;
-            Session["monthly"] = null;
-            Session["property2"] = null;
-            Session["monthlyDate"] = null;
-            Session["IsMonthly"] = null;
-
             //Revenue
             Session["rPropertyId"] = null;
             Session["MonthYear"] = null;
