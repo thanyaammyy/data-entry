@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HotelDataEntryLib;
+using Trirand.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace HotelDataEntry
 {
@@ -117,6 +122,70 @@ namespace HotelDataEntry
             JqGridReport.Columns.FromDataField("OtherActual").FooterValue = totalOtherActual.ToString("#,##0.00");
             JqGridReport.Columns.FromDataField("OtherBudget").FooterValue = totalOtherBudget.ToString("#,##0.00");
             JqGridReport.Columns.FromDataField("MonthYear").FooterValue = "Total";
+        }
+
+        protected void btnCSV_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+            JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+            JqGridReport.ExportToCSV("report.csv");
+        }
+
+        protected void btnExcel_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+            JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+            JqGridReport.ExportToExcel("report.xls");
+        }
+
+        protected void btnPDF_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+            JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+            var dt = JqGridReport.GetExportData();
+            ExportToPDF(dt);
+        }
+
+        private void ExportToPDF(DataTable dt)
+        {
+            var pdfDoc = new Document();
+            var pdfStream = new MemoryStream();
+            var pdfWriter = PdfWriter.GetInstance(pdfDoc, pdfStream);
+
+            pdfDoc.Open();//Open Document to write
+            pdfDoc.NewPage();
+
+            var font8 = FontFactory.GetFont("ARIAL", 7);
+
+            var PdfTable = new PdfPTable(dt.Columns.Count);
+            PdfPCell PdfPCell = null;
+
+            //Add Header of the pdf table
+            for (var column = 0; column < dt.Columns.Count; column++)
+            {
+                PdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Columns[column].Caption, font8)));
+                PdfTable.AddCell(PdfPCell);
+            }
+
+            //How add the data from datatable to pdf table
+            for (var rows = 0; rows < dt.Rows.Count; rows++)
+            {
+                for (var column = 0; column < dt.Columns.Count; column++)
+                {
+                    PdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8)));
+                    PdfTable.AddCell(PdfPCell);
+                }
+            }
+
+            PdfTable.SpacingBefore = 15f; // Give some space after the text or it may overlap the table            
+            pdfDoc.Add(PdfTable); // add pdf table to the document
+            pdfDoc.Close();
+            pdfWriter.Close();
+
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=report.pdf");
+            Response.BinaryWrite(pdfStream.ToArray());
+            Response.End();
         }
     }
 }
