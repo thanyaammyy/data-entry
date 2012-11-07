@@ -51,30 +51,30 @@
                         <Columns>
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
-                            <cc1:JQGridColumn HeaderText="Month/Year" Width="200" DataField="MonthYear" TextAlign="Center" FooterValue="Total:">
+                            <cc1:JQGridColumn HeaderText="Month/Year" Width="350" DataField="MonthYear" TextAlign="Center" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Actual" DataField="RoomActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Actual"  DataField="RoomActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Budget" DataField="RoomBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Budget" DataField="RoomBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Actual" DataField="FBActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Actual" DataField="FBActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Budget" DataField="FBBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Budget" DataField="FBBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Actual" DataField="SpaActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Actual" DataField="SpaActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Budget" DataField="SpaBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Budget" DataField="SpaBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Actual" DataField="OtherActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Actual" DataField="OtherActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Budget" DataField="OtherBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
+                            <cc1:JQGridColumn Width="350" HeaderText="Budget" DataField="OtherBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
                         </Columns>
