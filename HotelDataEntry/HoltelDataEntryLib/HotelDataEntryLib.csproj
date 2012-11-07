@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Helper\Encryption.cs" />
     <Compile Include="Helper\Report.cs" />
+    <Compile Include="Helper\Reports.cs" />
     <Compile Include="Helper\Revenue.cs" />
     <Compile Include="HotelDataEntry.designer.cs">
       <AutoGen>True</AutoGen>
@@ -53,6 +54,7 @@
     <Compile Include="Page\BudgetHelper.cs" />
     <Compile Include="Page\CurrencyHelper.cs" />
     <Compile Include="Page\HotelBudgetHelper.cs" />
+    <Compile Include="Page\ReportsHelper.cs" />
     <Compile Include="Page\RevenueHelper.cs" />
     <Compile Include="Page\HotelRevenueHelper.cs" />
     <Compile Include="Page\LogHelper.cs" />

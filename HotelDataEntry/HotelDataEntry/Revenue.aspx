@@ -60,13 +60,29 @@
                     document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
                 }
             });
+
+            $(".various").fancybox({
+                maxWidth: 800,
+                maxHeight: 450,
+                fitToView: false,
+                width: '80%',
+                height: '80%',
+                autoSize: false,
+                closeClick: false,
+                openEffect: 'none',
+                closeEffect: 'none',
+                helpers: {
+                    title: null
+                }
+            });
+
         });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <input type="hidden" id="hiddenMonthYear" runat="server" />
     <div class="headerMenuLabel">
-       Daily Revenue Entry</div>
+        Daily Revenue Entry</div>
     <div>
         <table class="TextBlack12" cellpadding="3" cellspacing="3">
             <tr>
@@ -114,13 +130,21 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
+                    <div id="divReport" runat="server" style="display: none">
+                        <a data-fancybox-type="iframe"  href="Reports.aspx" class="various">Switch to Month-To-Date View</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
                     <asp:Label Visible="False" runat="server" ID="lbError" Text="Please select the required feilds"
                         CssClass="redText"></asp:Label>
                 </td>
             </tr>
         </table>
         <asp:ObjectDataSource ID="PropertyDataSource" DataObjectTypeName="HotelDataEntryLib.Property"
-            SelectMethod="AccessProperty" TypeName="HotelDataEntryLib.Page.PropertyHelper" runat="server">
+            SelectMethod="AccessProperty" TypeName="HotelDataEntryLib.Page.PropertyHelper"
+            runat="server">
             <SelectParameters>
                 <asp:SessionParameter Name="userId" SessionField="userId" Type="Int32" />
             </SelectParameters>
@@ -128,7 +152,8 @@
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
-                    <cc1:JQGrid ID="JqGridRevenueEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
+                    <cc1:JQGrid ID="JqGridRevenueEntry" AutoWidth="True" runat="server" Height="80%"
+                        OnRowEditing="JqGridDataEntry_RowEditing">
                         <Columns>
                             <cc1:JQGridColumn DataField="RevenueId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
@@ -136,29 +161,29 @@
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="true" DataType="DateTime"
                                 TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom" Editable="True"
-                                TextAlign="Right">
+                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom"
+                                Editable="True" TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateRooms"/>
+                                    <cc1:CustomValidator ValidationFunction="validateRooms" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn Width="200" HeaderText="Room Revenue" DataField="RoomRevenue" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
-                                <EditClientSideValidators>
-                                    <cc1:RequiredValidator />
-                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
-                                </EditClientSideValidators>
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="F&amp;B Revenue" DataField="FBRevenue" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
+                            <cc1:JQGridColumn Width="200" HeaderText="Room Revenue" DataField="RoomRevenue" Editable="True"
+                                DataFormatString="{0:#,##0.00;(#,##0.00);0}" TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
                                 </EditClientSideValidators>
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Spa Revenue" DataField="SpaRevenue" Editable="True" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
-                                TextAlign="Right">
+                            <cc1:JQGridColumn HeaderText="F&amp;B Revenue" DataField="FBRevenue" Editable="True"
+                                DataFormatString="{0:#,##0.00;(#,##0.00);0}" TextAlign="Right">
+                                <EditClientSideValidators>
+                                    <cc1:RequiredValidator />
+                                    <cc1:CustomValidator ValidationFunction="validateCurrency" />
+                                </EditClientSideValidators>
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Spa Revenue" DataField="SpaRevenue" Editable="True"
+                                DataFormatString="{0:#,##0.00;(#,##0.00);0}" TextAlign="Right">
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateCurrency" />
@@ -179,7 +204,7 @@
                             </cc1:JQGridColumn>
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
-                        <EditDialogSettings  Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
+                        <EditDialogSettings Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />

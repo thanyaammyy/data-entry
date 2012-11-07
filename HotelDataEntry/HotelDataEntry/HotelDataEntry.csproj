@@ -67,6 +67,7 @@
     <Content Include="CenterControl\Header.ascx" />
     <Content Include="Property.aspx" />
     <Content Include="Currency.aspx" />
+    <Content Include="Reports.aspx" />
     <Content Include="Revenue.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -169,6 +170,13 @@
     </Compile>
     <Compile Include="Currency.aspx.designer.cs">
       <DependentUpon>Currency.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Revenue.aspx.cs">
       <DependentUpon>Revenue.aspx</DependentUpon>

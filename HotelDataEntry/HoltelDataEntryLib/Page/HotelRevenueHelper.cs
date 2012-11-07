@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -19,6 +20,14 @@ namespace HotelDataEntryLib.Page
             var hdc = new HotelDataEntryDataContext();
             var hEntry = hdc.HotelRevenues.Single(item => item.Month == hotelEntry.Month && item.Year == hotelEntry.Year && item.PropertyId == hotelEntry.PropertyId);
             return hEntry;
+        }
+
+        public static List<HotelRevenue> GetHotelRevenueList(HotelBudget hotelBudget)
+        {
+            var hdc = new HotelDataEntryDataContext();
+            return
+                hdc.HotelRevenues.Where(
+                    item => item.Year == hotelBudget.Year && item.PropertyId == hotelBudget.PropertyId).ToList();
         }
 
         public static HotelDataEntryLib.HotelRevenue AddHotelEntryListByMonthYear(HotelRevenue hotelEntry)
