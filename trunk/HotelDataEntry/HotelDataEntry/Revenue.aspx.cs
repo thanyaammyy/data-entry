@@ -52,12 +52,14 @@ namespace HotelDataEntry
                 lbError.Visible = true;
                 lbCalendar.Visible = true;
                 lbCompany.Visible = true;
+                divReport.Attributes["style"] = "display:none";
             }
             else
             {
                 lbError.Visible = false;
                 lbCalendar.Visible = false;
                 lbCompany.Visible = false;
+                divReport.Attributes["style"] = "";
                 divJqgrid.Attributes["style"] = "";
                 var str = my.Split('/');
                 if(!string.IsNullOrEmpty(str[0])&&!string.IsNullOrEmpty(str[1]))

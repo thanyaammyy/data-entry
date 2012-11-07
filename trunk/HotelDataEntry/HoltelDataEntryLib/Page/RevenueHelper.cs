@@ -107,5 +107,11 @@ namespace HotelDataEntryLib.Page
                 }
             }
         }
+
+        public static List<RevenueEntry> GetRevenueEntry(int hotelRevenueId)
+        {
+            var hdc = new HotelDataEntryDataContext();
+            return hdc.RevenueEntries.Where(item => item.HotelRevenueId == hotelRevenueId).ToList();
+        }
     }
 }
