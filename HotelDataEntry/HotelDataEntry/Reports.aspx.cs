@@ -25,12 +25,18 @@ namespace HotelDataEntry
             var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(propertyId);
             lbProperty.Text = property.PropertyName;
             lbYear.Text = year.ToString();
+            Session["reportYear"] = year;
+            Session["reportPropertyId"] = propertyId;
 
+        }
+
+        private void BindingJqGridReport(int year, int propertyId)
+        {
             var hotelBudget = new HotelDataEntryLib.HotelBudget
-                                  {
-                                        Year = year,
-                                        PropertyId = propertyId
-                                  };
+            {
+                Year = year,
+                PropertyId = propertyId
+            };
             var reportBudget = HotelDataEntryLib.Page.ReportsHelper.BudgetReport(hotelBudget);
             var hotelRevenue = HotelDataEntryLib.Page.HotelRevenueHelper.GetHotelRevenueList(hotelBudget);
             var report = CalculateReport(reportBudget, hotelRevenue);
@@ -73,6 +79,7 @@ namespace HotelDataEntry
             JqGridReport.DataSource = report;
             CalculateTotal(report);
             JqGridReport.DataBind();
+            JqGridReport.AppearanceSettings.ShrinkToFit = true;
         }
 
         protected void CalculateTotal(IList<HotelDataEntryLib.Helper.Reports> reports)
@@ -124,11 +131,11 @@ namespace HotelDataEntry
             JqGridReport.Columns.FromDataField("MonthYear").FooterValue = "Total";
         }
 
-        protected void btnCSV_Click(object sender, System.Web.UI.ImageClickEventArgs e)
-        {
-            JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
-            JqGridReport.ExportToCSV("report.csv");
-        }
+        //protected void btnCSV_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        //{
+        //    JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+        //    JqGridReport.ExportToCSV("report.csv");
+        //}
 
         protected void btnExcel_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
@@ -186,6 +193,16 @@ namespace HotelDataEntry
             Response.AppendHeader("Content-Disposition", "attachment; filename=report.pdf");
             Response.BinaryWrite(pdfStream.ToArray());
             Response.End();
+        }
+
+        protected void JqGridReport_Init(object sender, EventArgs e)
+        {
+            if (Session["reportYear"] == null || Session["reportPropertyId"] == null) return;
+            if (string.IsNullOrWhiteSpace(Session["reportYear"].ToString()) || string.IsNullOrEmpty(Session["reportPropertyId"].ToString()))
+                return;
+            var year = Session["reportYear"].ToString();
+            var propertyId = Session["reportPropertyId"].ToString();
+            BindingJqGridReport(Convert.ToInt32(year), Convert.ToInt32(propertyId));
         }
     }
 }
