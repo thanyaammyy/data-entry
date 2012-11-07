@@ -18,7 +18,7 @@ namespace HotelDataEntry
         {
             
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
-            var decryptKey = Encryption.DecryptStringAES(Request.QueryString["key"], strSharedSecret);
+            var decryptKey = Encryption.DecryptStringAES(Session["Key"].ToString(), strSharedSecret);
 
             if(decryptKey.Contains("&"))
             {

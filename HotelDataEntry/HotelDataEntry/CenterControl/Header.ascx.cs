@@ -13,7 +13,7 @@ namespace HotelDataEntry.CenterControl
         protected void Page_Load(object sender, EventArgs e)
         {
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
-            UserName = Request.QueryString["key"];
+            UserName = Session["Key"] == null ? Request.QueryString["key"] : Session["Key"].ToString();
             if (string.IsNullOrEmpty(UserName)) Response.Redirect("Login.aspx");
             var decryptKey = Encryption.DecryptStringAES(UserName, strSharedSecret);
             if(!decryptKey.Contains("&"))
@@ -42,7 +42,7 @@ namespace HotelDataEntry.CenterControl
                     divAdmin.Style["display"] = "";
                 } 
             }
-            
+            Session["Key"] = Key;
             lbUsername.Text = Session["UserSession"].ToString();
         }
     }
