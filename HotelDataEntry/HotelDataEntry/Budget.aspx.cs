@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Web;
 using System.Web.UI.WebControls;
 using HotelDataEntryLib;
 using HotelDataEntryLib.Page;
@@ -16,20 +18,38 @@ namespace HotelDataEntry
             //Revenue
             Session["rPropertyId"] = null;
             Session["MonthYear"] = null;
+            
+            //First Load from menulink
+            var fromMenu = Request.QueryString["key"];
+            if (!string.IsNullOrEmpty(fromMenu))
+            {
+                Session["fromMenuBudget"] = fromMenu;
+                Response.Redirect("Budget.aspx");
+            }
 
             if (!IsPostBack)
             {
-                divJqgrid.Attributes["style"] = "display:none";
-                Session["bPropertyId"] = null;
-                Session["year"] = null;
-            }
+                if (Session["fromMenuBudget"]==null)
+                {
+                    if (Session["bPropertyId"] == null || Session["year"] == null) return;
+                    ShowData(Convert.ToInt32(Session["bPropertyId"]), Session["year"].ToString());
+                }
+                else
+                {
+                    divJqgrid.Attributes["style"] = "display:none";
+                    Session["bPropertyId"] = null;
+                    Session["year"] = null;
+                }
+            }    
         }
+
         protected void btnCreateForm_Click(object sender, EventArgs e)
         {
             var propertyId = ddlCompany.SelectedValue;
             Year = hiddenMonthYear.Value;
             Session["bPropertyId"] = propertyId;
             Session["year"] = Year;
+            Session["fromMenuBudget"] = null;
             ShowData(Convert.ToInt32(Session["bPropertyId"]), Session["year"].ToString());
         }
 
@@ -86,11 +106,11 @@ namespace HotelDataEntry
         {
             var budgetEntryId = e.RowKey;
             var hotelEntryId = e.RowData["HotelEntryId"] == "" ? 0 : Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var occupancyRoom = string.IsNullOrEmpty(e.RowData["OccupancyRoom"]) ? 0 : float.Parse(e.RowData["OccupancyRoom"]);
-            var roomBudget = string.IsNullOrEmpty(e.RowData["RoomBudget"]) ? 0.00 : float.Parse(e.RowData["RoomBudget"]);
-            var fbBudget = string.IsNullOrEmpty(e.RowData["FBBudget"]) ? 0.00 : float.Parse(e.RowData["FBBudget"]);
-            var spa = string.IsNullOrEmpty(e.RowData["SpaBudget"]) ? 0.00 : float.Parse(e.RowData["SpaBudget"]);
-            var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : float.Parse(e.RowData["Others"]);
+            var occupancyRoom = string.IsNullOrEmpty(e.RowData["OccupancyRoom"]) ? 0 : Convert.ToDouble(e.RowData["OccupancyRoom"]);
+            var roomBudget = string.IsNullOrEmpty(e.RowData["RoomBudget"]) ? 0.00 : Convert.ToDouble(e.RowData["RoomBudget"]);
+            var fbBudget = string.IsNullOrEmpty(e.RowData["FBBudget"]) ? 0.00 : Convert.ToDouble(e.RowData["FBBudget"]);
+            var spa = string.IsNullOrEmpty(e.RowData["SpaBudget"]) ? 0.00 : Convert.ToDouble(e.RowData["SpaBudget"]);
+            var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : Convert.ToDouble(e.RowData["Others"]);
             var revenueEntry = new BudgetEntry()
             {
                 BudgetId  = Convert.ToInt32(budgetEntryId),
@@ -108,7 +128,6 @@ namespace HotelDataEntry
 
         protected void CalculateTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
         {
-            var occupancyRoomTotal = 0;
             var roomTotal = 0.00;
             var fbTotal = 0.00;
             var spaTotal = 0.00;
@@ -116,9 +135,6 @@ namespace HotelDataEntry
             var total = 0.00;
             foreach (var revenueEntry in listRevenueEntry)
             {
-                var occupiedRoom = revenueEntry.OccupancyRoom;
-                occupancyRoomTotal += Convert.ToInt32(occupiedRoom);
-
                 var roomRevenues = revenueEntry.RoomBudget;
                 roomTotal += roomRevenues;
 
@@ -134,8 +150,7 @@ namespace HotelDataEntry
                 var tmd = revenueEntry.Total;
                 total += tmd;
             }
-
-            JqGridBudgetEntry.Columns.FromDataField("OccupancyRoom").FooterValue = occupancyRoomTotal.ToString();
+       
             JqGridBudgetEntry.Columns.FromDataField("RoomBudget").FooterValue = roomTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("FBBudget").FooterValue = fbTotal.ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("SpaBudget").FooterValue = spaTotal.ToString("#,##0.00");

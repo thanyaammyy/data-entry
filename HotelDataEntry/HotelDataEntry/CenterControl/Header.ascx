@@ -10,8 +10,8 @@
     <div style="padding-left: 50px; padding-bottom: 20px; padding-right: 20px; padding-top: 20px; margin: auto;">
         <p align="center" style="font-size: 12px; font-family: Helvetica;">
             <div style="float: left; padding-left: 240px">
-                <a href="../Revenue.aspx" id="revenue">Daily Revenue Entry</a> <span style="color: black; padding: 2px">l </span>
-                <a href="../Budget.aspx" id="budget">Budget Entry</a>
+                <a href="../Revenue.aspx?key=df,k0kdg,o^" id="revenue">Daily Revenue Entry</a> <span style="color: black; padding: 2px">l </span>
+                <a href="../Budget.aspx?key=df,k0kdg,o^" id="budget">Budget Entry</a>
             </div>
             <div id="divAdmin" style="padding-left: 10px; float: left; display: none" runat="server">
                 <span style="color: black; padding: 2px">l</span> 

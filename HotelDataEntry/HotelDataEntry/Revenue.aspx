@@ -24,7 +24,7 @@
         }
 
         function validateCurrency(value, column) {
-            var pattern = /(?:^\d{1,3}(?:\.?\d{3})*(?:,\d{2})?$)|(?:^\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$)/;
+            var pattern = /(?:^\d{1,3}(?:\.?\d{2})*(?:,\d{2})?$)|(?:^\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$)/;
             if (pattern.test(value))
                 return [true, ""];
             else
@@ -32,9 +32,12 @@
         }
 
         function validateRooms(value, column) {
-            var pattern = /(?:^\d+(\.\d{1,2})?)/;
+            var pattern = /^\d+(\.\d{1,2})?$/;
             if (pattern.test(value))
-                return [true, ""];
+                if(value>100)
+                    return [false, "The occupancy should not more than 100%"];
+                else
+                    return [true, ""];
             else
                 return [false, "Please enter a valid number format"];
         }
