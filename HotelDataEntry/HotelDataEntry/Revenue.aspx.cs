@@ -23,8 +23,10 @@ namespace HotelDataEntry
 
             if (!IsPostBack)
             {
-                if (Session["rPropertyId"] == null || Session["MonthYear"] == null) return;
-                ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+                Session["rPropertyId"] = null;
+                Session["MonthYear"] = null;
+                divJqgrid.Attributes["style"] = "display:none";
+                divReport.Attributes["style"] = "display:none";
             }
         }
 
@@ -56,6 +58,8 @@ namespace HotelDataEntry
                 var str = my.Split('/');
                 if(!string.IsNullOrEmpty(str[0])&&!string.IsNullOrEmpty(str[1]))
                 {
+                    Session["PropertyIdReport"] = propertyId;//for reports.aspx property
+                    Session["YearReport"] = Convert.ToInt32(str[1]);//for reports.aspx year
                     var hotelEntry = new HotelDataEntryLib.HotelRevenue()
                     {
                         PropertyId = propertyId,
@@ -175,20 +179,26 @@ namespace HotelDataEntry
             MonthYear = hiddenMonthYear.Value;
             Session["MonthYear"] = MonthYear;
             divJqgrid.Attributes["style"] = "display:none";
+            divReport.Attributes["style"] = "display:none";
             var selectedValue = ddlCompany.SelectedValue;
             if (((DropDownList)sender).SelectedValue != "")
             {
-                var property = Convert.ToInt32(selectedValue);
-                if (property != 0)
-                {
-                    var curr = PropertyHelper.GetProperty(property);
-                    var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
-                    lbCurerncy.Text = currency.CurrencyCode;
-                }
-                else
-                {
-                    lbCurerncy.Text = "";
-                }
+                CurrencyBinding(selectedValue);
+            }
+        }
+
+        private void CurrencyBinding(string selectedValue)
+        {
+            var property = Convert.ToInt32(selectedValue);
+            if (property != 0)
+            {
+                var curr = PropertyHelper.GetProperty(property);
+                var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                lbCurerncy.Text = currency.CurrencyCode;
+            }
+            else
+            {
+                lbCurerncy.Text = "";
             }
         }
 
@@ -201,6 +211,12 @@ namespace HotelDataEntry
                 var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
                 lbCurerncy.Text = currency.CurrencyCode;
             }
+        }
+
+        protected void JqGridRevenueEntry_Init(object sender, EventArgs e)
+        {
+            if (Session["rPropertyId"] == null || Session["MonthYear"] == null) return;
+            ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
         }
     }
 }

@@ -114,7 +114,7 @@
                     <%}
                       else
                       {%>
-                    <input type="text" id="Text1" name="calendar" value="<%= Session["MonthYear"] %>" />
+                    <input type="text" id="Text1" name="calendar" value="<%= Session["MonthYear"].ToString() %>" />
                     <% } %>
                     <asp:Label ID="lbCalendar" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
@@ -157,7 +157,7 @@
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridRevenueEntry" AutoWidth="True" runat="server" Height="80%"
-                        OnRowEditing="JqGridDataEntry_RowEditing">
+                        OnRowEditing="JqGridDataEntry_RowEditing" oninit="JqGridRevenueEntry_Init">
                         <Columns>
                             <cc1:JQGridColumn DataField="RevenueId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
