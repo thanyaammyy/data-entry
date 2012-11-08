@@ -114,10 +114,11 @@
                 <asp:SessionParameter Name="userId" SessionField="userId" Type="Int32" />
             </SelectParameters>
         </asp:ObjectDataSource>
-        <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
+        <div style="padding-top: 20px; display:none" runat="server" id="divJqgrid">
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
-                    <cc1:JQGrid ID="JqGridBudgetEntry" AutoWidth="True" runat="server" Height="80%" OnRowEditing="JqGridDataEntry_RowEditing">
+                    <cc1:JQGrid ID="JqGridBudgetEntry" AutoWidth="True" runat="server" Height="80%" 
+                        OnRowEditing="JqGridDataEntry_RowEditing" oninit="JqGridBudgetEntry_Init">
                         <Columns>
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
