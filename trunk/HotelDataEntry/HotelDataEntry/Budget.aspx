@@ -18,16 +18,19 @@
     </style>
     <script type="text/javascript" language="javascript">
         function validateCurrency(value, column) {
-            var pattern = /(?:^\d{1,3}(?:\.?\d{3})*(?:,\d{2})?$)|(?:^\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$)/;
+            var pattern = /(?:^\d{1,3}(?:\.?\d{2})*(?:,\d{2})?$)|(?:^\d{1,3}(?:,?\d{3})*(?:\.\d{2})?$)/;
             if (pattern.test(value))
                 return [true, ""];
             else
                 return [false, "Please enter a valid number format"];
         }
         function validateRooms(value, column) {
-            var pattern = /(?:^\d+(\.\d{1,2})?)/;
+            var pattern = /^\d+(\.\d{1,2})?$/;
             if (pattern.test(value))
-                return [true, ""];
+                if (value > 100)
+                    return [false, "The occupancy should not more than 100%"];
+                else
+                    return [true, ""];
             else
                 return [false, "Please enter a valid number format"];
         }
@@ -118,7 +121,7 @@
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridBudgetEntry" AutoWidth="True" runat="server" Height="80%" 
-                        OnRowEditing="JqGridDataEntry_RowEditing" oninit="JqGridBudgetEntry_Init">
+                        OnRowEditing="JqGridDataEntry_RowEditing" oninit="JqGridBudgetEntry_Init" >
                         <Columns>
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />

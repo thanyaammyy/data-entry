@@ -20,18 +20,34 @@ namespace HotelDataEntry
             Session["bPropertyId"] = null;
             Session["year"] = null;
 
+            //First Load from menulink
+            var fromMenu = Request.QueryString["key"];
+            if (!string.IsNullOrEmpty(fromMenu))
+            {
+                Session["fromMenuRevenue"] = fromMenu;
+                Response.Redirect("Revenue.aspx");
+            }
 
             if (!IsPostBack)
             {
-                Session["rPropertyId"] = null;
-                Session["MonthYear"] = null;
-                divJqgrid.Attributes["style"] = "display:none";
-                divReport.Attributes["style"] = "display:none";
+                if (Session["fromMenuRevenue"] == null)
+                {
+                    if (Session["rPropertyId"] == null || Session["MonthYear"] == null) return;
+                    ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+                }
+                else
+                {
+                    Session["rPropertyId"] = null;
+                    Session["MonthYear"] = null;
+                    divJqgrid.Attributes["style"] = "display:none";
+                    divReport.Attributes["style"] = "display:none";
+                }
             }
         }
 
         protected void btnCreateForm_Click(object sender, EventArgs e)
         {
+            Session["fromMenuRevenue"] = null;
             var propertyId = ddlCompany.SelectedValue;
             MonthYear = hiddenMonthYear.Value;
             Session["rPropertyId"] = propertyId;
@@ -111,11 +127,11 @@ namespace HotelDataEntry
         {
             var revenueEntryId = e.RowKey;
             var hotelEntryId = e.RowData["HotelEntryId"] == "" ? 0 : Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var occupancyRoom = string.IsNullOrEmpty(e.RowData["OccupancyRoom"]) ? 0 : float.Parse(e.RowData["OccupancyRoom"]);
-            var roomRevenue = string.IsNullOrEmpty(e.RowData["RoomRevenue"]) ? 0.00 : float.Parse(e.RowData["RoomRevenue"]);
-            var fbRevenue = string.IsNullOrEmpty(e.RowData["FBRevenue"]) ? 0.00 : float.Parse(e.RowData["FBRevenue"]);
-            var spa = string.IsNullOrEmpty(e.RowData["SpaRevenue"]) ? 0.00 : float.Parse(e.RowData["SpaRevenue"]);
-            var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : float.Parse(e.RowData["Others"]);
+            var occupancyRoom = string.IsNullOrEmpty(e.RowData["OccupancyRoom"]) ? 0 : Convert.ToDouble(e.RowData["OccupancyRoom"]);
+            var roomRevenue = string.IsNullOrEmpty(e.RowData["RoomRevenue"]) ? 0.00 : Convert.ToDouble(e.RowData["RoomRevenue"]);
+            var fbRevenue = string.IsNullOrEmpty(e.RowData["FBRevenue"]) ? 0.00 : Convert.ToDouble(e.RowData["FBRevenue"]);
+            var spa = string.IsNullOrEmpty(e.RowData["SpaRevenue"]) ? 0.00 : Convert.ToDouble(e.RowData["SpaRevenue"]);
+            var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : Convert.ToDouble(e.RowData["Others"]);
             var revenueEntry = new RevenueEntry()
                 {
                     RevenueId = Convert.ToInt32(revenueEntryId),
@@ -133,7 +149,6 @@ namespace HotelDataEntry
 
         protected void CalculateTotal(List<HotelDataEntryLib.Helper.Revenue> listRevenueEntry)
         {
-            var occupancyRoomTotal = 0.00;
             var roomRevenuesTotal = 0.00;
             var fbTotal = 0.00;
             var spaTotal = 0.00;
@@ -142,9 +157,6 @@ namespace HotelDataEntry
             var budgetTotal = 0.00;
             foreach (var revenueEntry in listRevenueEntry)
             {
-                var occupiedRoom = revenueEntry.OccupancyRoom;
-                occupancyRoomTotal += occupiedRoom;
-
                 var totalRoomRevenues = revenueEntry.RoomRevenue;
                 roomRevenuesTotal += totalRoomRevenues;
 
@@ -164,7 +176,6 @@ namespace HotelDataEntry
                 budgetTotal += budget;
             }
 
-            JqGridRevenueEntry.Columns.FromDataField("OccupancyRoom").FooterValue = occupancyRoomTotal.ToString();
             JqGridRevenueEntry.Columns.FromDataField("RoomRevenue").FooterValue = roomRevenuesTotal.ToString("#,##0.00");
             JqGridRevenueEntry.Columns.FromDataField("FBRevenue").FooterValue = fbTotal.ToString("#,##0.00");
             JqGridRevenueEntry.Columns.FromDataField("SpaRevenue").FooterValue = spaTotal.ToString("#,##0.00");
