@@ -83,7 +83,7 @@
                     <%}
                       else
                       {%>
-                    <input type="text" id="Text1" name="calendar" value="<%= Session["year"] %>" />
+                    <input type="text" id="Text1" name="calendar" value="<%= Session["year"].ToString() %>" />
                     <% } %>
                     <asp:Label ID="lbCalendar" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>

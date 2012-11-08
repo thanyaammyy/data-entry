@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using HotelDataEntryLib;
 using Trirand.Web.UI.WebControls;
 using iTextSharp.text;
@@ -17,22 +14,19 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["rPropertyId"] == null || Session["MonthYear"] == null) return;
-            var str = Session["MonthYear"].ToString().Split('/');
-            if (string.IsNullOrEmpty(str[1])) return;
-            var year = Convert.ToInt32(str[1]);
-            var propertyId = Convert.ToInt32(Session["rPropertyId"]);
+            if (Session["PropertyIdReport"] == null || Session["YearReport"] == null) return;
+            var str = Session["YearReport"].ToString();
+            if (string.IsNullOrEmpty(str)) return;
+            var year = Convert.ToInt32(str);
+            var propertyId = Convert.ToInt32(Session["PropertyIdReport"]);
             var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(propertyId);
             lbProperty.Text = property.PropertyName;
             lbYear.Text = year.ToString();
-            Session["reportYear"] = year;
-            Session["reportPropertyId"] = propertyId;
-
         }
 
         private void BindingJqGridReport(int year, int propertyId)
         {
-            var hotelBudget = new HotelDataEntryLib.HotelBudget
+            var hotelBudget = new HotelBudget
             {
                 Year = year,
                 PropertyId = propertyId
@@ -161,14 +155,14 @@ namespace HotelDataEntry
 
             var font8 = FontFactory.GetFont("ARIAL", 7);
 
-            var PdfTable = new PdfPTable(dt.Columns.Count);
-            PdfPCell PdfPCell = null;
+            var pdfTable = new PdfPTable(dt.Columns.Count);
+            PdfPCell pdfPCell = null;
 
             //Add Header of the pdf table
             for (var column = 0; column < dt.Columns.Count; column++)
             {
-                PdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Columns[column].Caption, font8)));
-                PdfTable.AddCell(PdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Columns[column].Caption, font8)));
+                pdfTable.AddCell(pdfPCell);
             }
 
             //How add the data from datatable to pdf table
@@ -176,13 +170,13 @@ namespace HotelDataEntry
             {
                 for (var column = 0; column < dt.Columns.Count; column++)
                 {
-                    PdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8)));
-                    PdfTable.AddCell(PdfPCell);
+                    pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8)));
+                    pdfTable.AddCell(pdfPCell);
                 }
             }
 
-            PdfTable.SpacingBefore = 15f; // Give some space after the text or it may overlap the table            
-            pdfDoc.Add(PdfTable); // add pdf table to the document
+            pdfTable.SpacingBefore = 15f; // Give some space after the text or it may overlap the table            
+            pdfDoc.Add(pdfTable); // add pdf table to the document
             pdfDoc.Close();
             pdfWriter.Close();
 
@@ -197,11 +191,11 @@ namespace HotelDataEntry
 
         protected void JqGridReport_Init(object sender, EventArgs e)
         {
-            if (Session["reportYear"] == null || Session["reportPropertyId"] == null) return;
-            if (string.IsNullOrWhiteSpace(Session["reportYear"].ToString()) || string.IsNullOrEmpty(Session["reportPropertyId"].ToString()))
+            if (Session["YearReport"] == null || Session["PropertyIdReport"] == null) return;
+            if (string.IsNullOrWhiteSpace(Session["YearReport"].ToString()) || string.IsNullOrEmpty(Session["PropertyIdReport"].ToString()))
                 return;
-            var year = Session["reportYear"].ToString();
-            var propertyId = Session["reportPropertyId"].ToString();
+            var year = Session["YearReport"].ToString();
+            var propertyId = Session["PropertyIdReport"].ToString();
             BindingJqGridReport(Convert.ToInt32(year), Convert.ToInt32(propertyId));
         }
     }

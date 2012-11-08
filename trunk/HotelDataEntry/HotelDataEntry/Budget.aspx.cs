@@ -19,11 +19,9 @@ namespace HotelDataEntry
 
             if (!IsPostBack)
             {
-                if (Session["bPropertyId"] == null || Session["year"] == null) return;
-                if (string.IsNullOrEmpty(Session["bPropertyId"].ToString())) return;
-                ddlCompany.SelectedValue = Session["bPropertyId"].ToString();
-                CurrencyBinding(Session["bPropertyId"].ToString());
-
+                divJqgrid.Attributes["style"] = "display:none";
+                Session["bPropertyId"] = null;
+                Session["year"] = null;
             }
         }
         protected void btnCreateForm_Click(object sender, EventArgs e)
