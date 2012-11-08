@@ -47,8 +47,10 @@ namespace HotelDataEntry
                         }
                     }
                     else
+                    {
                         Session["loginKey"] = encryptEmail;
-                        Response.Redirect("Revenue.aspx");
+                        Response.Redirect("Revenue.aspx");   
+                    }
                 }
                 else
                 {

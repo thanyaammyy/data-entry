@@ -42,7 +42,7 @@ namespace HotelDataEntryLib.Page
                 }
                 if (str.Contains("OHG"))
                 {
-                    listAccessProperty.AddRange(Properites());
+                    listAccessProperty.AddRange(Properites().Where(item=>item.PropertyCode!="OHG"));
                 }
                 else
                 {

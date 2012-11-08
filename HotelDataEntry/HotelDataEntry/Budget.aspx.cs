@@ -20,7 +20,10 @@ namespace HotelDataEntry
             if (!IsPostBack)
             {
                 if (Session["bPropertyId"] == null || Session["year"] == null) return;
-                ShowData(Convert.ToInt32(Session["bPropertyId"]), Session["year"].ToString());
+                if (string.IsNullOrEmpty(Session["bPropertyId"].ToString())) return;
+                ddlCompany.SelectedValue = Session["bPropertyId"].ToString();
+                CurrencyBinding(Session["bPropertyId"].ToString());
+
             }
         }
         protected void btnCreateForm_Click(object sender, EventArgs e)
@@ -149,19 +152,25 @@ namespace HotelDataEntry
             Session["year"] = Year;
             divJqgrid.Attributes["style"] = "display:none";
             var selectedValue = ddlCompany.SelectedValue;
+  
             if (((DropDownList)sender).SelectedValue != "")
             {
-                var property = Convert.ToInt32(selectedValue);
-                if (property != 0)
-                {
-                    var curr = PropertyHelper.GetProperty(property);
-                    var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
-                    lbCurerncy.Text = currency.CurrencyCode;
-                }
-                else
-                {
-                    lbCurerncy.Text = "";
-                }
+                CurrencyBinding(selectedValue);
+            }
+        }
+
+        private void CurrencyBinding(string selectedValue)
+        {
+            var property = Convert.ToInt32(selectedValue);
+            if (property != 0)
+            {
+                var curr = PropertyHelper.GetProperty(property);
+                var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+                lbCurerncy.Text = currency.CurrencyCode;
+            }
+            else
+            {
+                lbCurerncy.Text = "";
             }
         }
 
@@ -174,6 +183,12 @@ namespace HotelDataEntry
                 var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
                 lbCurerncy.Text = currency.CurrencyCode;
             }
+        }
+
+        protected void JqGridBudgetEntry_Init(object sender, EventArgs e)
+        {
+            if (Session["bPropertyId"] == null || Session["year"] == null) return;
+            ShowData(Convert.ToInt32(Session["bPropertyId"]), Session["year"].ToString());
         }
     }
 }
