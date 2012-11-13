@@ -10,6 +10,7 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session.Clear();
             btnLogin.Enabled = true;
         }
 
