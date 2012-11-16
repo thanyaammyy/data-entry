@@ -139,6 +139,11 @@
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
+                    <cc1:JQGridColumn HeaderText="Username" DataField="Username" Editable="True" TextAlign="Center">
+                        <EditClientSideValidators>
+                            <cc1:RequiredValidator />
+                        </EditClientSideValidators>
+                    </cc1:JQGridColumn>
                     <cc1:JQGridColumn HeaderText="Position" DataField="Position" Editable="True" TextAlign="Center">
                         <EditClientSideValidators>
                             <cc1:RequiredValidator />

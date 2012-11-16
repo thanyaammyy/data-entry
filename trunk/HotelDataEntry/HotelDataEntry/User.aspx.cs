@@ -104,6 +104,7 @@ namespace HotelDataEntry
             var accessProperties = e.RowData["AccessProperties"];
             var permissionId = e.RowData["PermissionName"];
             var position = e.RowData["Position"];
+            var username = e.RowData["Username"];
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
             {
                 var user = new HotelDataEntryLib.User()
@@ -116,6 +117,7 @@ namespace HotelDataEntry
                     UpdateDateTime = DateTime.Now,
                     AccessProperties = accessProperties,
                     PermissionId = Convert.ToInt32(permissionId),
+                    Username = username,
                     Position = position
                 };
                 UserHelper.AddUserProfile(user);
@@ -130,6 +132,7 @@ namespace HotelDataEntry
             var permissionId = e.RowData["PermissionName"];
             var position = e.RowData["Position"];
             var userId = e.RowKey;
+            var username = e.RowData["Username"];
             if (!(string.IsNullOrEmpty(status) || string.IsNullOrEmpty(mainCompany) || string.IsNullOrEmpty(permissionId)))
             {
                 var user = new HotelDataEntryLib.User()
@@ -142,6 +145,7 @@ namespace HotelDataEntry
                     Status = Convert.ToInt32(status),
                     AccessProperties = accessProperties,
                     PermissionId = Convert.ToInt32(permissionId),
+                    Username = username,
                     Position = position
                 };
                 UserHelper.UpdateUserProfile(user);
