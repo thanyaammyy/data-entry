@@ -160,7 +160,7 @@
                 </Columns>
                 <AddDialogSettings CloseAfterAdding="False" />
                 <EditDialogSettings CloseAfterEditing="True" />
-                <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true"
+                <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" showAddButton="True"
                     ShowRefreshButton="True" ShowSearchButton="True" />
                 <AppearanceSettings ShowRowNumbers="true" />
                 <PagerSettings PageSize="20" />
