@@ -9,6 +9,8 @@ namespace HotelDataEntryLib.Helper
     {
        public int BudgetId { get; set; }
        public string MonthYear { get; set; }
+       public double OccupancyRoomBudget { get; set; }
+       public double OccupancyRoomActual { get; set; }
        public double FBBudget { get; set; }
        public double FBActual { get; set; }
        public double RoomBudget { get; set; }

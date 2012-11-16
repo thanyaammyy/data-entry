@@ -19,10 +19,12 @@ namespace HotelDataEntryLib.Page
                                {
                                    BudgetId = budgetEntry.BudgetId,
                                    MonthYear = budgetEntry.PositionMonth,
+                                   OccupancyRoomBudget = budgetEntry.OccupancyRoom,
                                    FBBudget = budgetEntry.FBBudget,
                                    SpaBudget = budgetEntry.SpaBudget,
                                    RoomBudget = budgetEntry.RoomBudget,
                                    OtherBudget = budgetEntry.Others,
+                                   OccupancyRoomActual = 0,
                                    FBActual = 0.00,
                                    RoomActual = 0.00,
                                    SpaActual = 0.00,
