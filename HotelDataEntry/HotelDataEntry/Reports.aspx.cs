@@ -62,7 +62,7 @@ namespace HotelDataEntry
                             actualSpa += t1.SpaRevenue;
                             actualOthers += t1.Others;
                         }
-                        report[k].OccupancyRoomActual = Math.Round((actualOccupancyRoom/dateNo),2);
+                        report[k].OccupancyRoomActual = dateNo==0?0:Math.Round((actualOccupancyRoom/dateNo),2);
                         report[k].FBActual = actualFB;
                         report[k].RoomActual = actualRoom;
                         report[k].SpaActual = actualSpa;
