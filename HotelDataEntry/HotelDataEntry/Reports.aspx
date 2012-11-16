@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="HotelDataEntry.Reports" %>
-<%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 
+<%@ Register TagPrefix="cc1" Namespace="Trirand.Web.UI.WebControls" Assembly="Trirand.Web" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -24,7 +24,7 @@
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-    <div style="width: 800px; height: 450px">
+    <div style="width: auto; height: 450px">
         <table width="450" style="padding-bottom: 10px; padding-top: 10px; padding-left: 5px;"
             border="0" cellspacing="0" cellpadding="0" align="center">
             <tr>
@@ -35,7 +35,7 @@
                     <asp:Label runat="server" ID="lbProperty" CssClass="TextBlack12"></asp:Label>
                 </td>
             </tr>
-            <tr >
+            <tr>
                 <td class="TextBlack12">
                     Year
                 </td>
@@ -48,10 +48,14 @@
             <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridReport" AutoWidth="True" runat="server" Height="80%" OnInit="JqGridReport_Init">
-                        <Columns>
+                        <columns>
                             <cc1:JQGridColumn DataField="BudgetId" Searchable="False" PrimaryKey="True" Width="55"
                                 Visible="False" />
                             <cc1:JQGridColumn HeaderText="Month/Year" Width="350" DataField="MonthYear" TextAlign="Center" FooterValue="Total:">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn Width="350" HeaderText="Actual"  DataField="OccupancyRoomActual" TextAlign="Right" CssClass="occupied">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn Width="350" HeaderText="Budget"  DataField="OccupancyRoomBudget" TextAlign="Right" CssClass="occupied">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn Width="350" HeaderText="Room Actual"  DataField="RoomActual" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
@@ -77,17 +81,19 @@
                             <cc1:JQGridColumn Width="410" HeaderText="Others Budget" DataField="OtherBudget" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
-                        </Columns>
-                        <HeaderGroups>
+                        </columns>
+                        <headergroups>
+                            <cc1:JQGridHeaderGroup StartColumnName="OccupancyRoomActual" NumberOfColumns="2" TitleText="Occupancy Room (%)" />
                             <cc1:JQGridHeaderGroup StartColumnName="RoomActual" NumberOfColumns="2" TitleText="Room" />
                             <cc1:JQGridHeaderGroup StartColumnName="FBActual" NumberOfColumns="2" TitleText="F & B" />
                             <cc1:JQGridHeaderGroup StartColumnName="SpaActual" NumberOfColumns="2" TitleText="Spa" />
                             <cc1:JQGridHeaderGroup StartColumnName="OtherActual" NumberOfColumns="2" TitleText="Others"/>
-                        </HeaderGroups>
-                        <ToolBarSettings ShowRefreshButton="True" />
-                        <ExportSettings ExportDataRange="All" ExportHeaders="True" ></ExportSettings>
-                        <PagerSettings PageSize="32" />
-                        <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" ShrinkToFit="True" />
+                        </headergroups>
+                        <toolbarsettings showrefreshbutton="True" />
+                        <exportsettings exportdatarange="All" exportheaders="True"></exportsettings>
+                        <pagersettings pagesize="32" />
+                        <appearancesettings showrownumbers="true" showfooter="true" highlightrowsonhover="True"
+                            shrinktofit="True" />
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>

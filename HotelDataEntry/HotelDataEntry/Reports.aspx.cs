@@ -51,13 +51,18 @@ namespace HotelDataEntry
                         var actualRoom = 0.00;
                         var actualSpa = 0.00;
                         var actualOthers = 0.00;
+                        var actualOccupancyRoom = 0.00;
+                        var dateNo=0;
                         foreach (var t1 in listRevenueEntry)
                         {
+                            if (t1.OccupancyRoom>0) ++dateNo;
+                            actualOccupancyRoom += t1.OccupancyRoom;
                             actualFB += t1.FBRevenue;
                             actualRoom += t1.RoomRevenue;
                             actualSpa += t1.SpaRevenue;
                             actualOthers += t1.Others;
                         }
+                        report[k].OccupancyRoomActual = Math.Round((actualOccupancyRoom/dateNo),2);
                         report[k].FBActual = actualFB;
                         report[k].RoomActual = actualRoom;
                         report[k].SpaActual = actualSpa;

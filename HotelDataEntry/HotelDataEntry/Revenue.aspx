@@ -65,10 +65,10 @@
             });
 
             $(".various").fancybox({
-                maxWidth: 800,
+                maxWidth: 1200,
                 maxHeight: 500,
                 fitToView: true,
-                width: '80%',
+                width: '90%',
                 height: '80%',
                 autoSize: false,
                 openEffect: 'none',
