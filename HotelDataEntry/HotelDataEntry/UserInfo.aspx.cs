@@ -51,7 +51,7 @@ namespace HotelDataEntry
                 lbPosition.Visible = true;
                 lbPositionRequired.Visible = false;
                 lbPosition.Text = userInfo.Position;
-                lbAccessProperty.Text = userInfo.AccessProperties;
+                lbAccessProperty.Text = userInfo.PropertyId == 15 ? "All" : userInfo.AccessProperties;
                 lbUserPermission.Text = PermissionHelper.GetPermission(userInfo.PermissionId).PermissionName;
             }
             

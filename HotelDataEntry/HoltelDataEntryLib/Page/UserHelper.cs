@@ -24,6 +24,7 @@ namespace HotelDataEntryLib.Page
                             user.LastName,
                             user.Email,
                             permission.PermissionName,
+                            user.Username,
                             user.Position,
                             user.StatusLabel
                         }).ToList();
@@ -86,6 +87,7 @@ namespace HotelDataEntryLib.Page
                 getUser.Status = user.Status;
                 getUser.Position = user.Position;
                 getUser.AccessProperties = user.AccessProperties;
+                getUser.Username = user.Username;
                 try
                 {
                     hdc.SubmitChanges();
