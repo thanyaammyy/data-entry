@@ -50,6 +50,12 @@
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                     $(this).datepicker('setDate', new Date(year, 1, 1));
                     document.getElementById("<%= hiddenMonthYear.ClientID %>").value = year;
+                },
+                beforeShow: function (textbox, instance) {
+                    instance.dpDiv.css({
+                        marginTop: (-textbox.offsetHeight) + 'px',
+                        marginLeft: textbox.offsetWidth + 'px'
+                    });
                 }
             });
         });
