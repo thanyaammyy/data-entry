@@ -61,6 +61,12 @@
                     var strMonth = intMonth >= 10 ? intMonth : 0 + "" + intMonth;
                     var my = strMonth + "/" + year;
                     document.getElementById("<%= hiddenMonthYear.ClientID %>").value = my;
+                },
+                beforeShow: function (textbox, instance) {
+                    instance.dpDiv.css({
+                        marginTop: (-textbox.offsetHeight) + 'px',
+                        marginLeft: textbox.offsetWidth + 'px'
+                    });
                 }
             });
 
@@ -73,7 +79,7 @@
                 autoSize: false,
                 openEffect: 'none',
                 closeEffect: 'none',
-                showCloseButton  : true,
+                showCloseButton: true,
                 overlayShow: true,
                 hideOnOverlayClick: false,
                 hideOnContentClick: false,
