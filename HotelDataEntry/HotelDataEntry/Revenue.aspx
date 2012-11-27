@@ -50,7 +50,7 @@
             $("#PositionDate").attr("disabled", "true");
             $(".navButton").html("");
             var permission = <% = Session["permission"] %>;
-            if(permission=="2") {
+            if(permission=="2") {//permissionId =2 is auditor role
                 var dateNow = new Date();
                 var strDate = dateNow.getDate() + "/" + (dateNow.getMonth()+1) + "/" + dateNow.getFullYear();//corresponding format dd/MM/yy
                 if(strDate!=value[0].PositionDate.value) {
