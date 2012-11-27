@@ -37,7 +37,7 @@ namespace HotelDataEntry.CenterControl
 
             if (!string.IsNullOrEmpty(Session["permission"].ToString()))
             {
-                if (Convert.ToInt32(Session["permission"].ToString()) == 3)
+                if (Convert.ToInt32(Session["permission"].ToString()) == 4)//administrator permission
                 {
                     divAdmin.Style["display"] = "";
                 } 
