@@ -22,7 +22,7 @@ namespace HotelDataEntry
             {
                 if (!string.IsNullOrEmpty(Session["permission"].ToString()))
                 {
-                    if (Convert.ToInt32(Session["permission"]) != 3)
+                    if (Convert.ToInt32(Session["permission"]) != 4)//administrator permission
                     {
                         Response.Redirect("Login.aspx");
                     }
