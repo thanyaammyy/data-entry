@@ -88,6 +88,7 @@
     <Content Include="Script\jqueryUI\jquery.jqGrid.src.js" />
     <Content Include="Script\jqueryUI\jquery.jqTreeView.min.js" />
     <Content Include="Script\jqueryUI\jquery.ui.datepicker-th.js" />
+    <Content Include="Script\jqueryUI\JqueryBlockUI.js" />
     <Content Include="Script\sources\blank.gif" />
     <Content Include="Script\sources\fancybox_loading.gif" />
     <Content Include="Script\sources\fancybox_sprite.png" />
