@@ -25,8 +25,14 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <div style="width: auto; height: 450px">
-        <table width="450" style="padding-bottom: 10px; padding-top: 10px; padding-left: 5px;"
-            border="0" cellspacing="0" cellpadding="0" align="center">
+        <table width="450" style="padding-bottom: 10px; padding-top: 20px; padding-left: 5px;"
+            border="0" cellspacing="2" cellpadding="2" align="center">
+            
+            <tr>
+                <td colspan="2" class="TextBlack12">
+                   <b>Month-To-Date View</b> 
+                </td>
+            </tr>
             <tr>
                 <td class="TextBlack12">
                     Property
@@ -98,16 +104,16 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-        <div style="padding-top: 20px" id="divExportData" runat="server">
+       <%-- <div style="padding-top: 20px" id="divExportData" runat="server">
             <table class="TextBlack12" cellpadding="3" cellspacing="3">
                 <tr>
                     <td>
                         Export
                     </td>
-                    <%--<td>
+                    <td>
                         <asp:ImageButton Width="22" Height="22" ID="btnCSV" ImageUrl="Style/images/csv.png"
                             ToolTip="Export to CSV" runat="server" OnClick="btnCSV_Click" />
-                    </td>--%>
+                    </td>
                     <td>
                         <asp:ImageButton Width="22" Height="22" ID="btnExcel" ImageUrl="Style/images/excel.png"
                             ToolTip="Export to Excel" runat="server" OnClick="btnExcel_Click" />
@@ -118,7 +124,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </div>--%>
     </div>
     </form>
 </body>
