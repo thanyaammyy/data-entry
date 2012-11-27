@@ -8,6 +8,10 @@
         {
             display: none;
         }
+        .weekend 
+        {
+            background-color: lightskyblue; background-image: none;
+        }
     </style>
     <script type="text/javascript" language="javascript">
         function firstLogin() {
@@ -44,6 +48,51 @@
 
         function disableDate(value, column) {
             $("#PositionDate").attr("disabled", "true");
+        }
+
+        getColumnIndexByName = function(mygrid, columnName) {
+            var cm = mygrid.jqGrid('getGridParam', 'colModel');
+            for (var i = 0, l = cm.length; i < l; i++) {
+                if (cm[i].name === columnName) {
+                    return i; // return the index
+                }
+            }
+            return -1;
+        };
+
+        function onLoadComplete(data) {
+            var iCol = getColumnIndexByName($(this), 'Day'),
+                cRows = this.rows.length, row, className;
+
+            for (var iRow = 0; iRow < cRows; iRow++) {
+                row = this.rows[iRow];
+                className = row.className;
+                if ($.inArray('jqgrow', className.split(' ')) > 0) { 
+                    var x = $(row.cells[iCol]);
+                    if (x[0].innerHTML == "0" || x[0].innerHTML=="6") {
+                        if ($.inArray('weekend', className.split(' ')) === -1) {
+                            row.className = className + ' weekend';
+                        }
+                    }
+                }
+            }
+        }
+
+        function formatColor(cellValue, options, rowObject) {
+            var cellHtml = "";
+            if(rowObject[3]=="0"||rowObject[3]=="6") {
+                cellHtml = "<span originalValue='" +
+                                    cellValue + "'>" + cellValue + "</span>";
+            }
+            else {
+                cellHtml = "<span class='cellWithoutBackground' style='background-color:thistle' originalValue='" +
+                                    cellValue + "'>" + cellValue + "</span>";
+            }
+            return cellHtml;
+        }
+
+        function unformatColor(cellValue, options, cellObject) {
+            return $(cellObject.html()).attr("originalValue");
         }
 
         $(document).ready(function () {
@@ -174,8 +223,14 @@
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="true" DataType="DateTime"
                                 TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom"
+                            <cc1:JQGridColumn HeaderText="Day" DataField="Day" Visible="False"
+                                TextAlign="Center">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn  Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom"
                                 Editable="True" TextAlign="Right">
+                                <Formatter>
+                                    <cc1:CustomFormatter FormatFunction="formatColor" UnFormatFunction="unformatColor"/>
+                                </Formatter>
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateRooms" />
@@ -221,7 +276,7 @@
                             Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
                         <AppearanceSettings ShowRowNumbers="true" ShowFooter="true" HighlightRowsOnHover="True" />
-                        <ClientSideEvents AfterEditDialogShown="disableDate"></ClientSideEvents>
+                        <ClientSideEvents AfterEditDialogShown="disableDate" LoadComplete="onLoadComplete"></ClientSideEvents>
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>

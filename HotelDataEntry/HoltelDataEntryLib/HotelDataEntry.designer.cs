@@ -2181,7 +2181,7 @@ namespace HotelDataEntryLib
 		
 		private int _RevenueId;
 		
-		private System.Nullable<System.DateTime> _PositionDate;
+		private System.DateTime _PositionDate;
 		
 		private int _HotelRevenueId;
 		
@@ -2209,7 +2209,7 @@ namespace HotelDataEntryLib
     partial void OnCreated();
     partial void OnRevenueIdChanging(int value);
     partial void OnRevenueIdChanged();
-    partial void OnPositionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnPositionDateChanging(System.DateTime value);
     partial void OnPositionDateChanged();
     partial void OnHotelRevenueIdChanging(int value);
     partial void OnHotelRevenueIdChanged();
@@ -2257,8 +2257,8 @@ namespace HotelDataEntryLib
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> PositionDate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime PositionDate
 		{
 			get
 			{
