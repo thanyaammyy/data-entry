@@ -109,4 +109,12 @@ color: #727272;
 .occupied {
     background-color:thistle
 }
-
+span.cellWithoutBackground
+{
+    display:block;
+    background-image:none;
+    margin-right:-2px;
+    margin-left:-2px;
+    height:14px;
+    padding:4px;
+}

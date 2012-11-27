@@ -76,7 +76,8 @@ namespace HotelDataEntryLib.Page
                                         SpaRevenue = revenueEntry.SpaRevenue,
                                         Others = revenueEntry.Others,
                                         Total = revenueEntry.Total,
-                                        Budget = budgetEntry.Total/dates
+                                        Budget = revenueEntry.Total<=0?0:budgetEntry.Total / dates,
+                                        Day = revenueEntry.PositionDate.DayOfWeek.ToString()
                                     }).ToList();
             return list;
         }
