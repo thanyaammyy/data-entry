@@ -48,6 +48,16 @@
 
         function disableDate(value, column) {
             $("#PositionDate").attr("disabled", "true");
+            $(".navButton").html("");
+            var permission = <% = Session["permission"] %>;
+            if(permission=="2") {
+                var dateNow = new Date();
+                var strDate = dateNow.getDate() + "/" + (dateNow.getMonth()+1) + "/" + dateNow.getFullYear();//corresponding format dd/MM/yy
+                if(strDate!=value[0].PositionDate.value) {
+                    $("#sData").css( 'cursor', 'default' );
+                    $("#sData").attr("disabled", "true");
+                }
+            }
         }
 
         getColumnIndexByName = function(mygrid, columnName) {
@@ -221,7 +231,7 @@
                                 Visible="False" />
                             <cc1:JQGridColumn DataField="HotelRevenueId" Searchable="False" Width="55" Visible="False" />
                             <cc1:JQGridColumn HeaderText="Date" DataField="PositionDate" Editable="true" DataType="DateTime"
-                                TextAlign="Center" DataFormatString="{0:dd/MM/yy}" FooterValue="Total:">
+                                TextAlign="Center" DataFormatString="{0:dd/MM/yyyy}" FooterValue="Total:">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Day" DataField="Day" Visible="False"
                                 TextAlign="Center">
@@ -271,7 +281,7 @@
                                 TextAlign="Right">
                             </cc1:JQGridColumn>
                         </Columns>
-                        <ToolBarSettings ShowRefreshButton="True" ShowEditButton="True" />
+                        <ToolBarSettings ShowRefreshButton="True" ShowEditButton="false" />
                         <EditDialogSettings Modal="True" Width="350" TopOffset="500" LeftOffset="500" CloseAfterEditing="True"
                             Caption="Edit Revenue Entry"></EditDialogSettings>
                         <PagerSettings PageSize="32" />
