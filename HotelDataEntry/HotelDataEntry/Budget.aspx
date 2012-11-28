@@ -25,9 +25,16 @@
                 return [false, "Please enter a valid number format"];
         }
         function validateRooms(value, column) {
+            var occupancy = "";
+            if (value.indexOf("%") > -1) {
+                occupancy = value.substring(0, value.length - 1);
+            }
+            else {
+                occupancy = value;
+            }
             var pattern = /^\d+(\.\d{1,2})?$/;
-            if (pattern.test(value))
-                if (value > 100)
+            if (pattern.test(occupancy))
+                if (occupancy > 100)
                     return [false, "The occupancy should not more than 100%"];
                 else
                     return [true, ""];
@@ -37,6 +44,15 @@
 
         function disableDate(value, column) {
             $("#PositionMonth").attr("disabled", "true");
+        }
+
+        function formatOccupancy(cellValue, options, rowObject) {
+            var value = cellValue == "" ? cellValue : cellValue + "%";
+            return value;
+        }
+
+        function unformatOccupancy(cellValue, options, cellObject) {
+            return $(cellObject.html()).attr("originalValue");
         }
 
         $(document).ready(function () {
@@ -136,6 +152,9 @@
                                 TextAlign="Center" FooterValue="Total:">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn CssClass="occupied" Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom" Editable="True" TextAlign="Right">
+                                <Formatter>
+                                    <cc1:CustomFormatter FormatFunction="formatOccupancy" UnFormatFunction="unformatOccupancy"/>
+                                </Formatter>
                                 <EditClientSideValidators>
                                     <cc1:RequiredValidator />
                                     <cc1:CustomValidator ValidationFunction="validateRooms" />
