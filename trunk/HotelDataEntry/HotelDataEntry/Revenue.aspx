@@ -104,8 +104,11 @@
         function unformatColor(cellValue, options, cellObject) {
             return $(cellObject.html()).attr("originalValue");
         }
-        
-        
+
+        function onClickCalendar() {
+            $("#hiddenReport").css("display", "none");
+            $("#hiddenJqgrid").css("display", "none");
+        }
 
         $(document).ready(function () {
             $('input[name="calendar"]').blur();
@@ -183,11 +186,11 @@
                     <%if (Session["MonthYear"] == null)
                       {
                     %>
-                    <input type="text" id="calendar" name="calendar" />
+                    <input type="text" id="calendar" name="calendar" onclick="onClickCalendar();" />
                     <%}
                       else
                       {%>
-                    <input type="text" id="Text1" name="calendar" value="<%= Session["MonthYear"].ToString() %>" />
+                    <input type="text" id="Text1" name="calendar" onclick="onClickCalendar();" value="<%= Session["MonthYear"].ToString() %>" />
                     <% } %>
                     <asp:Label ID="lbCalendar" Visible="False" CssClass="asteric" runat="server">*</asp:Label>
                 </td>
@@ -206,9 +209,11 @@
                 </td>
                 <td align="center">
                     <div id="divReport" runat="server" style="display: none">
-                        <input type="button" id="btnMtd" value="Switch to Month-To-Date View"/>
-                        <div style="display: none">
-                            <a data-fancybox-type="iframe"  href="Reports.aspx" class="various">Switch to Month-To-Date View</a>
+                        <div id="hiddenReport">
+                            <input type="button" id="btnMtd" value="Switch to Month-To-Date View"/>
+                            <div style="display: none">
+                                <a data-fancybox-type="iframe"  href="Reports.aspx" class="various">Switch to Month-To-Date View</a>
+                            </div>
                         </div>
                     </div>
                 </td>
@@ -228,7 +233,8 @@
             </SelectParameters>
         </asp:ObjectDataSource>
         <div style="padding-top: 20px; display: none" runat="server" id="divJqgrid">
-            <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
+            <div id="hiddenJqgrid">
+                <asp:UpdatePanel ID="updatepanel1" UpdateMode="Conditional" runat="server">
                 <ContentTemplate>
                     <cc1:JQGrid ID="JqGridRevenueEntry" AutoWidth="True" runat="server" Height="80%"
                         OnRowEditing="JqGridDataEntry_RowEditing" oninit="JqGridRevenueEntry_Init">
@@ -296,6 +302,7 @@
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
+            </div>
         </div>
     </div>
 </asp:Content>
