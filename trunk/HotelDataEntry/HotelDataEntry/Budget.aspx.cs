@@ -106,11 +106,22 @@ namespace HotelDataEntry
         {
             var budgetEntryId = e.RowKey;
             var hotelEntryId = e.RowData["HotelEntryId"] == "" ? 0 : Convert.ToInt32(e.RowData["HotelEntryId"]);
-            var occupancyRoom = string.IsNullOrEmpty(e.RowData["OccupancyRoom"]) ? 0 : Convert.ToDouble(e.RowData["OccupancyRoom"]);
             var roomBudget = string.IsNullOrEmpty(e.RowData["RoomBudget"]) ? 0.00 : Convert.ToDouble(e.RowData["RoomBudget"]);
             var fbBudget = string.IsNullOrEmpty(e.RowData["FBBudget"]) ? 0.00 : Convert.ToDouble(e.RowData["FBBudget"]);
             var spa = string.IsNullOrEmpty(e.RowData["SpaBudget"]) ? 0.00 : Convert.ToDouble(e.RowData["SpaBudget"]);
             var others = string.IsNullOrEmpty(e.RowData["Others"]) ? 0.00 : Convert.ToDouble(e.RowData["Others"]);
+            var occupancyRoom = 0.0;
+            if (string.IsNullOrEmpty(e.RowData["OccupancyRoom"]))
+            {
+                occupancyRoom = 0;
+            }
+            else
+            {
+                var strOccupancy = "";
+                strOccupancy = e.RowData["OccupancyRoom"].Contains("%") ? e.RowData["OccupancyRoom"].Remove(e.RowData["OccupancyRoom"].Length - 1, 1) : e.RowData["OccupancyRoom"];
+                occupancyRoom = Convert.ToDouble(strOccupancy);
+            }
+
             var revenueEntry = new BudgetEntry()
             {
                 BudgetId  = Convert.ToInt32(budgetEntryId),
