@@ -104,6 +104,8 @@
         function unformatColor(cellValue, options, cellObject) {
             return $(cellObject.html()).attr("originalValue");
         }
+        
+        
 
         $(document).ready(function () {
             $('input[name="calendar"]').blur();
@@ -128,26 +130,29 @@
                     });
                 }
             });
-
-            $(".various").fancybox({
-                maxWidth: 1200,
-                maxHeight: 500,
-                fitToView: true,
-                width: '90%',
-                height: '80%',
-                autoSize: false,
-                openEffect: 'none',
-                closeEffect: 'none',
-                showCloseButton: true,
-                overlayShow: true,
-                hideOnOverlayClick: false,
-                hideOnContentClick: false,
-                enableEscapeButton: false,
-                helpers: {
-                    title: null
-                }
+            
+            $("#btnMtd").click(function() {
+                $(".various").trigger('click'); 
             });
 
+            $(".various").fancybox({
+                    maxWidth: 1200,
+                    maxHeight: 500,
+                    fitToView: true,
+                    width: '90%',
+                    height: '80%',
+                    autoSize: false,
+                    openEffect: 'none',
+                    closeEffect: 'none',
+                    showCloseButton: true,
+                    overlayShow: true,
+                    hideOnOverlayClick: false,
+                    hideOnContentClick: false,
+                    enableEscapeButton: false,
+                    helpers: {
+                        title: null
+                    }
+           });
         });
     </script>
 </asp:Content>
@@ -199,11 +204,12 @@
                 <td colspan="2" align="center">
                     <asp:Button runat="server" ID="btnCreateForm" OnClick="btnCreateForm_Click" Text="Show" />
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
+                <td align="center">
                     <div id="divReport" runat="server" style="display: none">
-                        <a data-fancybox-type="iframe"  href="Reports.aspx" class="various">Switch to Month-To-Date View</a>
+                        <input type="button" id="btnMtd" value="Switch to Month-To-Date View"/>
+                        <div style="display: none">
+                            <a data-fancybox-type="iframe"  href="Reports.aspx" class="various">Switch to Month-To-Date View</a>
+                        </div>
                     </div>
                 </td>
             </tr>
