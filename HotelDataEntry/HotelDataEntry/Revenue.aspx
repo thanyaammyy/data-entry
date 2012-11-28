@@ -36,9 +36,16 @@
         }
 
         function validateRooms(value, column) {
+            var occupancy = "";
+            if(value.indexOf("%") > -1) {
+                occupancy=value.substring(0, value.length-1);
+            }
+            else {
+                occupancy = value;
+            }
             var pattern = /^\d+(\.\d{1,2})?$/;
-            if (pattern.test(value))
-                if(value>100)
+            if (pattern.test(occupancy))
+                if(occupancy>100)
                     return [false, "The occupancy should not more than 100%"];
                 else
                     return [true, ""];
@@ -90,13 +97,14 @@
 
         function formatColor(cellValue, options, rowObject) {
             var cellHtml = "";
+            var value = cellValue==""?cellValue:cellValue+"%";
             if(rowObject[3]=="0"||rowObject[3]=="6") {
                 cellHtml = "<span originalValue='" +
-                                    cellValue + "'>" + cellValue + "</span>";
+                                    value + "'>" + value + "</span>";
             }
             else {
                 cellHtml = "<span class='cellWithoutBackground' style='background-color:thistle' originalValue='" +
-                                    cellValue + "'>" + cellValue + "</span>";
+                                    value + "'>" + value + "</span>";
             }
             return cellHtml;
         }
@@ -248,7 +256,7 @@
                             <cc1:JQGridColumn HeaderText="Day" DataField="Day" Visible="False"
                                 TextAlign="Center">
                             </cc1:JQGridColumn>
-                            <cc1:JQGridColumn  Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom"
+                            <cc1:JQGridColumn  Width="200" HeaderText="Occupancy (%)" DataField="OccupancyRoom" 
                                 Editable="True" TextAlign="Right">
                                 <Formatter>
                                     <cc1:CustomFormatter FormatFunction="formatColor" UnFormatFunction="unformatColor"/>
