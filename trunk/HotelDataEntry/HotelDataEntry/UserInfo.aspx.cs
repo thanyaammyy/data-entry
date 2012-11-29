@@ -16,7 +16,11 @@ namespace HotelDataEntry
         public string Position;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Session["Key"]==null)
+            {
+                Page.RegisterClientScriptBlock("closeIframeAdd", "<script type=\"text/javascript\" language=\"javascript\">parent.location.href = 'Login.aspx';parent.$.fancybox.close();</script>");
+                return;
+            }
             var strSharedSecret = ConfigurationManager.AppSettings["SharedSecret"];
             var decryptKey = Encryption.DecryptStringAES(Session["Key"].ToString(), strSharedSecret);
 
