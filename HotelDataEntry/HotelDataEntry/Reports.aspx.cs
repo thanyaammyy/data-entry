@@ -14,7 +14,11 @@ namespace HotelDataEntry
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["PropertyIdReport"] == null || Session["YearReport"] == null) return;
+            if (Session["PropertyIdReport"] == null || Session["YearReport"] == null)
+            {
+                Page.RegisterClientScriptBlock("closeIframeAdd", "<script type=\"text/javascript\" language=\"javascript\">parent.location.href = 'Login.aspx';</script>");
+                return;
+            }
             var str = Session["YearReport"].ToString();
             if (string.IsNullOrEmpty(str)) return;
             var year = Convert.ToInt32(str);

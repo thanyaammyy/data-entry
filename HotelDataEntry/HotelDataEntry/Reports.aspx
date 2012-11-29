@@ -9,13 +9,10 @@
     <meta content="Onyx Hospitality: Corporate Office" name="DESCRIPTION" />
     <title>Onyx-Hospitality | Report</title>
     <link href="Style/main.css" rel="stylesheet" type="text/css" />
-    <link href="Script/sources/jquery.fancybox.css" rel="stylesheet" type="text/css" />
     <link href="Style/jquery-ui-1.9.1.custom.css" rel="stylesheet" type="text/css" />
     <link href="Style/ui.jqgrid.css" rel="stylesheet" type="text/css" />
     <script src="Script/jqueryUI/jquery-1.7.2.min.js" type="text/javascript"></script>
     <script src="Script/jqueryUI/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
-    <script src="Script/jqueryUI/jquery.jqDatePicker.min.js" type="text/javascript"></script>
-    <script src="Script/sources/jquery.fancybox.js" type="text/javascript"></script>
     <script src="Script/jqueryUI/grid.locale-en.js" type="text/javascript"></script>
     <script src="Script/jqueryUI/jquery.jqGrid.src.js" type="text/javascript"></script>
     <script src="Script/jqueryUI/jquery.jqAutoComplete.min.js" type="text/javascript"></script>
