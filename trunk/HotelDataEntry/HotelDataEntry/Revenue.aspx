@@ -60,9 +60,40 @@
             if(permission=="2") {//permissionId =2 is auditor role
                 var dateNow = new Date();
                 var strDate = dateNow.getDate() + "/" + (dateNow.getMonth()+1) + "/" + dateNow.getFullYear();//corresponding format dd/MM/yy
-                if(strDate!=value[0].PositionDate.value) {
-                    $("#sData").css( 'cursor', 'default' );
-                    $("#sData").attr("disabled", "true");
+                
+                var positionDate = value[0].PositionDate.value;
+                var strRoomRevenue = value[0].RoomRevenue.value;
+                var strFBRevenue = value[0].FBRevenue.value;
+                var strSpaRevenue = value[0].SpaRevenue.value;
+                var strOthers = value[0].Others.value;
+                var strOccupancy = value[0].OccupancyRoom.value;
+
+                var occupancy = 0;
+                var FBRevenue = 0;
+                var roomRevenue = 0;
+                var spaRevenue = 0;
+                var others = 0;
+                
+                if(strOccupancy) {
+                    var str = "";
+                    if(strOccupancy.indexOf("%") > -1) {
+                        str=strOccupancy.substring(0, strOccupancy.length-1);
+                    }
+                    else {
+                        str = strOccupancy;
+                    }
+                    occupancy = parseFloat(str);
+                }
+                if(strRoomRevenue) roomRevenue = parseFloat(strRoomRevenue);
+                if(strFBRevenue) FBRevenue = parseFloat(strFBRevenue);
+                if(strSpaRevenue) spaRevenue = parseFloat(strSpaRevenue);
+                if(strOthers) others = parseFloat(strOthers);
+                
+                if(strDate!=positionDate) {
+                    if(FBRevenue>0&&roomRevenue>0&&spaRevenue>0&&others>0&&occupancy>0) {
+                        $("#sData").css( 'cursor', 'default' );
+                        $("#sData").attr("disabled", "true");
+                    }
                 }
             }
         }
