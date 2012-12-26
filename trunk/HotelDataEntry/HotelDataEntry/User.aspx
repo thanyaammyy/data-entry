@@ -129,27 +129,27 @@
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Firstname" DataField="FirstName" Editable="True" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Firstname" DataField="FirstName" Editable="True" TextAlign="Left">
                         <EditClientSideValidators>
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Lastname" DataField="LastName" Editable="True" TextAlign="Left">
                         <EditClientSideValidators>
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Username" DataField="Username" Editable="True" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Username" DataField="Username" Editable="True" TextAlign="Left">
                         <EditClientSideValidators>
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Position" DataField="Position" Editable="True" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Position" DataField="Position" Editable="True" TextAlign="Left">
                         <EditClientSideValidators>
                             <cc1:RequiredValidator />
                         </EditClientSideValidators>
                     </cc1:JQGridColumn>
-                    <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Center">
+                    <cc1:JQGridColumn HeaderText="Email" DataField="Email" Editable="True" TextAlign="Left">
                         <EditClientSideValidators>
                             <cc1:EmailValidator />
                         </EditClientSideValidators>
@@ -168,7 +168,7 @@
                 <ToolBarSettings ShowEditButton="True" ShowDeleteButton="true" showAddButton="True"
                     ShowRefreshButton="True" ShowSearchButton="True" />
                 <AppearanceSettings ShowRowNumbers="true" />
-                <PagerSettings PageSize="20" />
+                <PagerSettings PageSize="20" PageSizeOptions="[20,40,60]"/>
                 <DeleteDialogSettings LeftOffset="497" TopOffset="241"></DeleteDialogSettings>
                 <AddDialogSettings Width="400" Modal="True" TopOffset="250" LeftOffset="500" Height="300"
                     CloseAfterAdding="True" Caption="Add User" ClearAfterAdding="True"></AddDialogSettings>
