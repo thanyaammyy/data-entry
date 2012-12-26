@@ -120,6 +120,7 @@ namespace HotelDataEntry
                     Username = username,
                     Position = position
                 };
+                if (UserHelper.IsUserExist(user.Username)) return;
                 UserHelper.AddUserProfile(user);
             }
         }

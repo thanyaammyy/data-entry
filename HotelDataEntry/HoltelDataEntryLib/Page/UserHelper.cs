@@ -45,6 +45,20 @@ namespace HotelDataEntryLib.Page
             return user;
         }
 
+        public static bool IsUserExist(string username)
+        {
+            var user = false;
+            using (var hdc = new HotelDataEntryDataContext())
+            {
+                var count = hdc.Users.Count(item => item.Username == username);
+                if (count != 0)
+                {
+                    user = true;
+                }
+            }
+            return user;
+        }
+
         public static User GetUserInfo(int userId)
         {
             var hdc = new HotelDataEntryDataContext();
