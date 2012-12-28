@@ -126,6 +126,7 @@
     <Content Include="Style\ui.jqgrid.css" />
     <Content Include="User.aspx" />
     <Content Include="UserInfo.aspx" />
+    <Content Include="version.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
