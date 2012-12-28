@@ -154,7 +154,7 @@
             $('input[name="calendar"]').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: "2008:2020",
+                yearRange: "-1:+1",
                 dateFormat: 'mm/yy',
                 onClose: function (dateText, inst) {
                     var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
