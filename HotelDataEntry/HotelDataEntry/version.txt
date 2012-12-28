@@ -1,0 +1,43 @@
+Complete requirement
+Date 08-11-2012
+
+Session login fixed
+Date 13-11-2012
+
+Occupancy added to month-to-date view
+Date 16-11-2012
+
+fix bug NaN
+Date 16-11-2012
+
+-Show Add user button
+-add adding user row
+-change OHG AccessProperty = "ALL"
+Date 16-11-2012
+
+-change postion calendar
+-hilight saturday and sunday
+-change accumulate budget in revenue page to current input date(check from 'total')
+-change permission
+	^add auditor who can edit/input only current datetime
+	^FC can input/edit in everyday
+	^GM can view only
+Date 27-11-2012
+
+-Change link switch to MTD view to button
+-Display % into Occupancy Column and support user summiting % to database
+Date 28-11-2012
+
+-Redirect page when session time out
+Date29-11-2012
+
+-Auditor can input income on previous date until all incomes are calculated
+Date30-11-2012
+
+-Catch Add duplicate username
+-User align left
+-Paging 20-40-60
+Date26-12-2012
+
+-change yearrange calendar to -1:+1
+Date28-12-2012
