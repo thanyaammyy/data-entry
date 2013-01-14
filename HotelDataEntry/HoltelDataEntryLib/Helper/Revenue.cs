@@ -17,7 +17,9 @@ namespace HotelDataEntryLib.Helper
         public double Others { get; set; }
         public double Total { get; set; }
         public double Budget { get; set; }
-        public DateTime UpdateDateTime { get; set; }
+        public DateTime? UpdateDateTime { get; set; }
         public string Day { get; set; }
+        public long UpdateDateTimeMillisecond { get; set; }
+        public long DateNowMillisecond { get; set; }
     }
 }

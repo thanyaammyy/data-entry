@@ -59,7 +59,6 @@
             var permission = <% = Session["permission"] %>;
             if(permission=="2") {//permissionId =2 is auditor role
                 var dateNow = new Date();
-                var strDate = dateNow.getDate() + "/" + (dateNow.getMonth()+1) + "/" + dateNow.getFullYear();//corresponding format dd/MM/yy
                 
                 var positionDate = value[0].PositionDate.value;
                 var strRoomRevenue = value[0].RoomRevenue.value;
@@ -67,6 +66,8 @@
                 var strSpaRevenue = value[0].SpaRevenue.value;
                 var strOthers = value[0].Others.value;
                 var strOccupancy = value[0].OccupancyRoom.value;
+                var updateDatetimeMillisec = value[0].UpdateDateTimeMillisecond.value;
+                var dateNowMillisecond = value[0].DateNowMillisecond.value;
 
                 var occupancy = 0;
                 var FBRevenue = 0;
@@ -89,11 +90,9 @@
                 if(strSpaRevenue) spaRevenue = parseFloat(strSpaRevenue);
                 if(strOthers) others = parseFloat(strOthers);
                 
-                if(strDate!=positionDate) {
-                    if(FBRevenue>0&&roomRevenue>0&&spaRevenue>0&&others>0&&occupancy>0) {
-                        $("#sData").css( 'cursor', 'default' );
-                        $("#sData").attr("disabled", "true");
-                    }
+                if(dateNowMillisecond-updateDatetimeMillisec>864000000000) {
+                    $("#sData").css( 'cursor', 'default' );
+                    $("#sData").attr("disabled", "true");
                 }
             }
         }
@@ -330,6 +329,12 @@
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="False" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Update Date-Time" DataField="UpdateDateTime" Editable="True" Visible="False">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Update Date-Time Millisec" DataField="UpdateDateTimeMillisecond" Editable="True" Visible="False">
+                            </cc1:JQGridColumn>
+                            <cc1:JQGridColumn HeaderText="Date Now Millisec" DataField="DateNowMillisecond" Editable="True" Visible="False">
                             </cc1:JQGridColumn>
                         </Columns>
                         <ToolBarSettings ShowRefreshButton="True" ShowEditButton="false" />
