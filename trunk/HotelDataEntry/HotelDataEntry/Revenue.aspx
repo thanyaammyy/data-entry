@@ -55,41 +55,15 @@
 
         function disableDate(value, column) {
             $("#PositionDate").attr("disabled", "true");
+            $("#tr_UpdateDateTimeMillisecond").hide();
+            $("#tr_DateNowMillisecond").hide();
             $(".navButton").html("");
             var permission = <% = Session["permission"] %>;
             if(permission=="2") {//permissionId =2 is auditor role
-                var dateNow = new Date();
-                
-                var positionDate = value[0].PositionDate.value;
-                var strRoomRevenue = value[0].RoomRevenue.value;
-                var strFBRevenue = value[0].FBRevenue.value;
-                var strSpaRevenue = value[0].SpaRevenue.value;
-                var strOthers = value[0].Others.value;
-                var strOccupancy = value[0].OccupancyRoom.value;
+
                 var updateDatetimeMillisec = value[0].UpdateDateTimeMillisecond.value;
                 var dateNowMillisecond = value[0].DateNowMillisecond.value;
-
-                var occupancy = 0;
-                var FBRevenue = 0;
-                var roomRevenue = 0;
-                var spaRevenue = 0;
-                var others = 0;
-                
-                if(strOccupancy) {
-                    var str = "";
-                    if(strOccupancy.indexOf("%") > -1) {
-                        str=strOccupancy.substring(0, strOccupancy.length-1);
-                    }
-                    else {
-                        str = strOccupancy;
-                    }
-                    occupancy = parseFloat(str);
-                }
-                if(strRoomRevenue) roomRevenue = parseFloat(strRoomRevenue);
-                if(strFBRevenue) FBRevenue = parseFloat(strFBRevenue);
-                if(strSpaRevenue) spaRevenue = parseFloat(strSpaRevenue);
-                if(strOthers) others = parseFloat(strOthers);
-                
+              
                 if(dateNowMillisecond-updateDatetimeMillisec>864000000000) {
                     $("#sData").css( 'cursor', 'default' );
                     $("#sData").attr("disabled", "true");
@@ -329,8 +303,6 @@
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Budget" DataField="Budget" Editable="False" DataFormatString="{0:#,##0.00;(#,##0.00);0}"
                                 TextAlign="Right">
-                            </cc1:JQGridColumn>
-                            <cc1:JQGridColumn HeaderText="Update Date-Time" DataField="UpdateDateTime" Editable="True" Visible="False">
                             </cc1:JQGridColumn>
                             <cc1:JQGridColumn HeaderText="Update Date-Time Millisec" DataField="UpdateDateTimeMillisecond" Editable="True" Visible="False">
                             </cc1:JQGridColumn>
