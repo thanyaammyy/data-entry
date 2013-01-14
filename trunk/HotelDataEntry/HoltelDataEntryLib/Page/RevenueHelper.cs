@@ -78,7 +78,10 @@ namespace HotelDataEntryLib.Page
                                         Others = revenueEntry.Others,
                                         Total = revenueEntry.Total,
                                         Budget = revenueEntry.Total<=0?0:budgetEntry.Total / dates,
-                                        Day = revenueEntry.PositionDate.DayOfWeek.ToString()
+                                        Day = revenueEntry.PositionDate.DayOfWeek.ToString(),
+                                        UpdateDateTime = revenueEntry.UpdateDateTime,
+                                        DateNowMillisecond = DateTime.Now.Ticks,
+                                        UpdateDateTimeMillisecond = Convert.ToDateTime(revenueEntry.UpdateDateTime).Ticks
                                     }).ToList();
             return list;
         }
