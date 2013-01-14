@@ -65,6 +65,7 @@ namespace HotelDataEntryLib.Page
                          join budgetEntry in hdc.BudgetEntries on hotelBudget.HotelBudgetId equals budgetEntry.HotelBudgetId
                          where revenueEntry.HotelRevenueId == hotelEntry.HotelRevenueId
                                && budgetEntry.PositionMonth == positionMonth
+                         orderby revenueEntry.PositionDate
                          select new Revenue()
                                     {
                                         RevenueId = revenueEntry.RevenueId,
