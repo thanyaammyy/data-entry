@@ -41,3 +41,6 @@ Date26-12-2012
 
 -change yearrange calendar to -1:+1
 Date28-12-2012
+
+-change income auditor condition to allow edit last update record (count from revenue feilds eg. fb, room until total) within 24 hours.
+Date15-01-2013
