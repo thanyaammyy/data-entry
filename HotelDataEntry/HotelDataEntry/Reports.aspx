@@ -120,15 +120,11 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-        <%-- <div style="padding-top: 20px" id="divExportData" runat="server">
+         <div style="padding-top: 20px" id="divExportData" runat="server">
             <table class="TextBlack12" cellpadding="3" cellspacing="3">
                 <tr>
                     <td>
                         Export
-                    </td>
-                    <td>
-                        <asp:ImageButton Width="22" Height="22" ID="btnCSV" ImageUrl="Style/images/csv.png"
-                            ToolTip="Export to CSV" runat="server" OnClick="btnCSV_Click" />
                     </td>
                     <td>
                         <asp:ImageButton Width="22" Height="22" ID="btnExcel" ImageUrl="Style/images/excel.png"
@@ -140,7 +136,7 @@
                     </td>
                 </tr>
             </table>
-        </div>--%>
+        </div>
     </div>
     </form>
 </body>

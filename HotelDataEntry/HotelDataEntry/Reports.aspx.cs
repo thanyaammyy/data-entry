@@ -12,6 +12,8 @@ namespace HotelDataEntry
 {
     public partial class Reports : System.Web.UI.Page
     {
+        private string _propertyName;
+        private string _year;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["PropertyIdReport"] == null || Session["YearReport"] == null)
@@ -24,8 +26,10 @@ namespace HotelDataEntry
             var year = Convert.ToInt32(str);
             var propertyId = Convert.ToInt32(Session["PropertyIdReport"]);
             var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(propertyId);
-            lbProperty.Text = property.PropertyName;
-            lbYear.Text = year.ToString();
+            _propertyName = property.PropertyName;
+            _year = year.ToString();
+            lbProperty.Text = _propertyName;
+            lbYear.Text = _year;
         }
 
         private void BindingJqGridReport(int year, int propertyId)
@@ -134,43 +138,119 @@ namespace HotelDataEntry
             JqGridReport.Columns.FromDataField("MonthYear").FooterValue = "Total";
         }
 
-        //protected void btnCSV_Click(object sender, System.Web.UI.ImageClickEventArgs e)
-        //{
-        //    JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
-        //    JqGridReport.ExportToCSV("report.csv");
-        //}
-
         protected void btnExcel_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
+            JqGridReport.ExportSettings.ExportHeaders = true;
             JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
-            JqGridReport.ExportToExcel("report.xls");
+
+            var dt = JqGridReport.GetExportData();
+
+            dt.Rows.Add("Total", "-", "-", JqGridReport.Columns.FromDataField("RoomActual").FooterValue, JqGridReport.Columns.FromDataField("RoomBudget").FooterValue, JqGridReport.Columns.FromDataField("FBActual").FooterValue,
+                JqGridReport.Columns.FromDataField("FBActual").FooterValue, JqGridReport.Columns.FromDataField("SpaActual").FooterValue, JqGridReport.Columns.FromDataField("SpaBudget").FooterValue,
+                JqGridReport.Columns.FromDataField("OtherActual").FooterValue, JqGridReport.Columns.FromDataField("OtherBudget").FooterValue);
+            ExportToExcel(dt);
         }
 
         protected void btnPDF_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
+            JqGridReport.ExportSettings.ExportHeaders = true;
             JqGridReport.ExportSettings.ExportDataRange = ExportDataRange.All;
+
             var dt = JqGridReport.GetExportData();
+           
+            dt.Rows.Add("Total","-","-",JqGridReport.Columns.FromDataField("RoomActual").FooterValue, JqGridReport.Columns.FromDataField("RoomBudget").FooterValue, JqGridReport.Columns.FromDataField("FBActual").FooterValue,
+                JqGridReport.Columns.FromDataField("FBActual").FooterValue, JqGridReport.Columns.FromDataField("SpaActual").FooterValue, JqGridReport.Columns.FromDataField("SpaBudget").FooterValue,
+                JqGridReport.Columns.FromDataField("OtherActual").FooterValue, JqGridReport.Columns.FromDataField("OtherBudget").FooterValue);
             ExportToPDF(dt);
+        }
+
+        private void ExportToExcel(DataTable dt)
+        {
+            var attachment = "attachment; filename="+_propertyName+" "+_year+".xls";
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", attachment);
+            Response.ContentType = "application/vnd.ms-excel";
+            var tab = "";
+            foreach (DataColumn dc in dt.Columns)
+            {
+                if (dc.ColumnName.ToLower().Equals("actual") || dc.ColumnName.ToLower().Equals("budget"))
+                {
+                    Response.Write(tab + "Occupancy(%) "+dc.ColumnName);
+                }
+                else
+                {
+                    Response.Write(tab + dc.ColumnName);
+                }
+                tab = "\t";
+            }
+            Response.Write("\n");
+            foreach (DataRow dr in dt.Rows)
+            {
+                tab = "";
+                int i;
+                for (i = 0; i < dt.Columns.Count; i++)
+                {
+                    if(i==dt.Rows.Count)
+                    {
+                        Response.Write(tab + dr[i].ToString());
+                    }
+                    else
+                    {
+                        Response.Write(tab + dr[i].ToString());
+                    }
+
+                    tab = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
         }
 
         private void ExportToPDF(DataTable dt)
         {
-            var pdfDoc = new Document();
+            var attachment = "attachment; filename=" + _propertyName + " " + _year + ".pdf";
+            var pdfDoc = new Document(PageSize.A4.Rotate());
             var pdfStream = new MemoryStream();
             var pdfWriter = PdfWriter.GetInstance(pdfDoc, pdfStream);
 
             pdfDoc.Open();//Open Document to write
+            pdfDoc.AddSubject(_year);
+            pdfDoc.AddTitle(_propertyName);
+
+            pdfDoc.AddCreationDate();
             pdfDoc.NewPage();
 
-            var font8 = FontFactory.GetFont("ARIAL", 7);
+            var fontH = FontFactory.GetFont("ARIAL", 9, Font.BOLD);
+            var fontT = FontFactory.GetFont("ARIAL", 12, Font.BOLD);
+            var font8 = FontFactory.GetFont("ARIAL", 8);
+            var font8B = FontFactory.GetFont("ARIAL", 8, Font.BOLD);
+
+            Paragraph preface = new Paragraph();
+
+            // Lets write a big header
+            preface.Add(new Paragraph(_propertyName + " " + _year, fontT));   
 
             var pdfTable = new PdfPTable(dt.Columns.Count);
+            pdfTable.HorizontalAlignment = 0;
+            pdfTable.TotalWidth = 781f;
+            pdfTable.LockedWidth = true;
+
             PdfPCell pdfPCell = null;
+
+            
 
             //Add Header of the pdf table
             for (var column = 0; column < dt.Columns.Count; column++)
             {
-                pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Columns[column].Caption, font8)));
+                if (dt.Columns[column].Caption.ToLower().Equals("actual") || dt.Columns[column].Caption.ToLower().Equals("budget"))
+                {
+                    pdfPCell = new PdfPCell(new Phrase(new Chunk("Occupancy(%) "+dt.Columns[column].Caption, fontH)));
+                }
+                else
+                {
+                    pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Columns[column].Caption, fontH)));
+                   
+                }
                 pdfTable.AddCell(pdfPCell);
             }
 
@@ -179,12 +259,26 @@ namespace HotelDataEntry
             {
                 for (var column = 0; column < dt.Columns.Count; column++)
                 {
-                    pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8)));
+                    if(rows ==dt.Rows.Count-1)
+                    {
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8B)));
+                        
+                    }
+                    else
+                    {
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8)));
+                        
+                    }
                     pdfTable.AddCell(pdfPCell);
                 }
             }
 
+            var widths = new float[] { 55, 75f, 75f, 72f, 72f, 72f, 72f, 72f, 72f, 72f, 72f };
+            pdfTable.SetWidths(widths);
             pdfTable.SpacingBefore = 15f; // Give some space after the text or it may overlap the table            
+
+            pdfDoc.SetMargins(5.0f, 5.0f, 40.0f, 0f);
+            pdfDoc.Add(preface);
             pdfDoc.Add(pdfTable); // add pdf table to the document
             pdfDoc.Close();
             pdfWriter.Close();
@@ -193,7 +287,7 @@ namespace HotelDataEntry
             Response.ClearContent();
             Response.ClearHeaders();
             Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=report.pdf");
+            Response.AppendHeader("Content-Disposition", attachment);
             Response.BinaryWrite(pdfStream.ToArray());
             Response.End();
         }
