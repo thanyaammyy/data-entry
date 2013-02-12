@@ -151,9 +151,14 @@ namespace HotelDataEntry
 
             var dt = JqGridReport.GetExportData();
 
-            dt.Rows.Add("Total", "-", "-", JqGridReport.Columns.FromDataField("RoomActual").FooterValue, JqGridReport.Columns.FromDataField("RoomBudget").FooterValue, JqGridReport.Columns.FromDataField("FBActual").FooterValue,
-                JqGridReport.Columns.FromDataField("FBActual").FooterValue, JqGridReport.Columns.FromDataField("SpaActual").FooterValue, JqGridReport.Columns.FromDataField("SpaBudget").FooterValue,
-                JqGridReport.Columns.FromDataField("OtherActual").FooterValue, JqGridReport.Columns.FromDataField("OtherBudget").FooterValue);
+            dt.Rows.Add("Total", "-", "-", JqGridReport.Columns.FromDataField("RoomActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("RoomBudget").FooterValue, 
+                JqGridReport.Columns.FromDataField("FBActual").FooterValue,
+                JqGridReport.Columns.FromDataField("FBActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("SpaActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("SpaBudget").FooterValue,
+                JqGridReport.Columns.FromDataField("OtherActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("OtherBudget").FooterValue);
             ExportToExcel(dt);
         }
 
@@ -164,20 +169,25 @@ namespace HotelDataEntry
 
             var dt = JqGridReport.GetExportData();
            
-            dt.Rows.Add("Total","-","-",JqGridReport.Columns.FromDataField("RoomActual").FooterValue, JqGridReport.Columns.FromDataField("RoomBudget").FooterValue, JqGridReport.Columns.FromDataField("FBActual").FooterValue,
-                JqGridReport.Columns.FromDataField("FBActual").FooterValue, JqGridReport.Columns.FromDataField("SpaActual").FooterValue, JqGridReport.Columns.FromDataField("SpaBudget").FooterValue,
-                JqGridReport.Columns.FromDataField("OtherActual").FooterValue, JqGridReport.Columns.FromDataField("OtherBudget").FooterValue);
+            dt.Rows.Add("Total","-","-",JqGridReport.Columns.FromDataField("RoomActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("RoomBudget").FooterValue, 
+                JqGridReport.Columns.FromDataField("FBActual").FooterValue,
+                JqGridReport.Columns.FromDataField("FBActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("SpaActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("SpaBudget").FooterValue,
+                JqGridReport.Columns.FromDataField("OtherActual").FooterValue, 
+                JqGridReport.Columns.FromDataField("OtherBudget").FooterValue);
             ExportToPDF(dt);
         }
 
         private void ExportToExcel(DataTable dt)
         {
-            var attachment = "attachment; filename="+_propertyName+" "+_year+".xls";
+            var attachment = "attachment; filename="+_propertyName+" MTD "+_year+".xls";
             Response.ClearContent();
             Response.AddHeader("content-disposition", attachment);
             Response.ContentType = "application/vnd.ms-excel";
             var tab = "";
-            Response.Write("["+_currency+"] "+_propertyName+" "+_year);
+            Response.Write("["+_currency+"] "+_propertyName+" MTD "+_year);
             Response.Write("\r\n");
             foreach (DataColumn dc in dt.Columns)
             {
@@ -209,7 +219,7 @@ namespace HotelDataEntry
 
         private void ExportToPDF(DataTable dt)
         {
-            var attachment = "attachment; filename=" + _propertyName + " " + _year + ".pdf";
+            var attachment = "attachment; filename=" + _propertyName + " MTD " + _year + ".pdf";
             var pdfDoc = new Document(PageSize.A4.Rotate());
             var pdfStream = new MemoryStream();
             var pdfWriter = PdfWriter.GetInstance(pdfDoc, pdfStream);
@@ -229,7 +239,7 @@ namespace HotelDataEntry
             Paragraph preface = new Paragraph();
 
             // Lets write a big header
-            preface.Add(new Paragraph("[" + _currency + "] " + _propertyName + " " + _year, fontT));
+            preface.Add(new Paragraph("[" + _currency + "] " + _propertyName + " MTD " + _year, fontT));
 
             var pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
