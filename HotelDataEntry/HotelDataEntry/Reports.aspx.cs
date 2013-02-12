@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using HotelDataEntryLib;
+using HotelDataEntryLib.Page;
 using Trirand.Web.UI.WebControls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -14,6 +15,7 @@ namespace HotelDataEntry
     {
         private string _propertyName;
         private string _year;
+        private string _currency;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["PropertyIdReport"] == null || Session["YearReport"] == null)
@@ -30,6 +32,10 @@ namespace HotelDataEntry
             _year = year.ToString();
             lbProperty.Text = _propertyName;
             lbYear.Text = _year;
+
+            var curr = PropertyHelper.GetProperty(propertyId);
+            var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
+            _currency = currency.CurrencyCode;
         }
 
         private void BindingJqGridReport(int year, int propertyId)
@@ -171,6 +177,8 @@ namespace HotelDataEntry
             Response.AddHeader("content-disposition", attachment);
             Response.ContentType = "application/vnd.ms-excel";
             var tab = "";
+            Response.Write("["+_currency+"] "+_propertyName+" "+_year);
+            Response.Write("\r\n");
             foreach (DataColumn dc in dt.Columns)
             {
                 if (dc.ColumnName.ToLower().Equals("actual") || dc.ColumnName.ToLower().Equals("budget"))
@@ -190,15 +198,8 @@ namespace HotelDataEntry
                 int i;
                 for (i = 0; i < dt.Columns.Count; i++)
                 {
-                    if(i==dt.Rows.Count)
-                    {
-                        Response.Write(tab + dr[i].ToString());
-                    }
-                    else
-                    {
-                        Response.Write(tab + dr[i].ToString());
-                    }
 
+                    Response.Write(tab + dr[i].ToString());
                     tab = "\t";
                 }
                 Response.Write("\n");
@@ -228,7 +229,7 @@ namespace HotelDataEntry
             Paragraph preface = new Paragraph();
 
             // Lets write a big header
-            preface.Add(new Paragraph(_propertyName + " " + _year, fontT));   
+            preface.Add(new Paragraph("[" + _currency + "] " + _propertyName + " " + _year, fontT));
 
             var pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
@@ -244,7 +245,7 @@ namespace HotelDataEntry
             {
                 if (dt.Columns[column].Caption.ToLower().Equals("actual") || dt.Columns[column].Caption.ToLower().Equals("budget"))
                 {
-                    pdfPCell = new PdfPCell(new Phrase(new Chunk("Occupancy(%) "+dt.Columns[column].Caption, fontH)));
+                    pdfPCell = new PdfPCell(new Phrase(new Chunk("Occupancy(%) " + dt.Columns[column].Caption, fontH)));
                 }
                 else
                 {
@@ -262,13 +263,13 @@ namespace HotelDataEntry
                     if(rows ==dt.Rows.Count-1)
                     {
                         pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8B)));
-                        
                     }
                     else
                     {
                         pdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font8)));
                         
                     }
+                    if (column != 0) pdfPCell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     pdfTable.AddCell(pdfPCell);
                 }
             }
