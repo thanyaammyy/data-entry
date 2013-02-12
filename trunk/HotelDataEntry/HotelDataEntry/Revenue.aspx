@@ -180,7 +180,7 @@
 
             $(".various").fancybox({
                     maxWidth: 1200,
-                    maxHeight: 500,
+                    maxHeight: 550,
                     fitToView: true,
                     width: '90%',
                     height: '80%',

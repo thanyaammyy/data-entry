@@ -201,6 +201,23 @@
                     </cc1:JQGrid>
                 </ContentTemplate>
             </asp:UpdatePanel>
+            <div style="padding-top: 20px" id="divExportData" runat="server">
+            <table class="TextBlack12" cellpadding="3" cellspacing="3">
+                <tr>
+                    <td>
+                        Export
+                    </td>
+                    <td>
+                        <asp:ImageButton Width="22" Height="22" ID="btnExcel" ImageUrl="Style/images/excel.png"
+                            ToolTip="Export to Excel" runat="server" OnClick="btnExcel_Click" />
+                    </td>
+                    <td>
+                        <asp:ImageButton Width="22" Height="22" ID="btnPDF" ImageUrl="Style/images/pdf.png"
+                            ToolTip="Export to PDF" runat="server" OnClick="btnPDF_Click" />
+                    </td>
+                </tr>
+            </table>
+        </div>
         </div>
     </div>
 </asp:Content>

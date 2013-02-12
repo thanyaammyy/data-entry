@@ -42,10 +42,12 @@ namespace HotelDataEntry
                 if (Session["fromMenuRevenue"] == null)
                 {
                     if (Session["rPropertyId"] == null || Session["MonthYear"] == null) return;
-                    ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+                    
                     var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(Convert.ToInt32(Session["rPropertyId"]));
                     _propertyName = property.PropertyName;
                     _year = Session["MonthYear"].ToString();
+
+                    ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
                 }
                 else
                 {
@@ -64,10 +66,12 @@ namespace HotelDataEntry
             MonthYear = hiddenMonthYear.Value;
             Session["rPropertyId"] = propertyId;
             Session["MonthYear"] = MonthYear;
-            ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+            
             var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(Convert.ToInt32(Session["rPropertyId"]));
             _propertyName = property.PropertyName;
             _year = Session["MonthYear"].ToString();
+
+            ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
         }
 
         private void ShowData(int propertyId,  string my)
@@ -258,7 +262,9 @@ namespace HotelDataEntry
         protected void JqGridRevenueEntry_Init(object sender, EventArgs e)
         {
             if (Session["rPropertyId"] == null || Session["MonthYear"] == null) return;
+
             ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+
             var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(Convert.ToInt32(Session["rPropertyId"]));
             _propertyName = property.PropertyName;
             _year = Session["MonthYear"].ToString();
@@ -298,12 +304,12 @@ namespace HotelDataEntry
 
         private void ExportToExcel(DataTable dt)
         {
-            var attachment = "attachment; filename=" + _propertyName + " " + _year + ".xls";
+            var attachment = "attachment; filename=" + _propertyName + " Revenue " + _year + ".xls";
             Response.ClearContent();
             Response.AddHeader("content-disposition", attachment);
             Response.ContentType = "application/vnd.ms-excel";
             var tab = "";
-            Response.Write("[" + _currency + "] " + _propertyName + " " + _year);
+            Response.Write("[" + _currency + "] " + _propertyName + " Revenue " + _year);
             Response.Write("\r\n");
             foreach (DataColumn dc in dt.Columns)
             {
@@ -327,7 +333,7 @@ namespace HotelDataEntry
 
         private void ExportToPDF(DataTable dt)
         {
-            var attachment = "attachment; filename=" + _propertyName + " " + _year + ".pdf";
+            var attachment = "attachment; filename=" + _propertyName + " Revenue " + _year + ".pdf";
             var pdfDoc = new Document(PageSize.A4.Rotate());
             var pdfStream = new MemoryStream();
             var pdfWriter = PdfWriter.GetInstance(pdfDoc, pdfStream);
@@ -347,7 +353,7 @@ namespace HotelDataEntry
             Paragraph preface = new Paragraph();
 
             // Lets write a big header
-            preface.Add(new Paragraph("["+_currency+"] "+_propertyName + " " + _year, fontT));
+            preface.Add(new Paragraph("["+_currency+"] "+_propertyName + " Revenue " + _year, fontT));
 
             var pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
