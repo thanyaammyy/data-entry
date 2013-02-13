@@ -363,6 +363,24 @@
                 </tr>
             </table>
         </div>
+        
+        <div style="padding-top: 20px" id="div1" runat="server">
+            <table class="TextBlack12" cellpadding="3" cellspacing="3">
+                <tr>
+                    <td>
+                        Export All Properties
+                    </td>
+                    <td>
+                        <asp:ImageButton Width="22" Height="22" ID="btnExcelAll" ImageUrl="Style/images/excel.png"
+                            ToolTip="Export to Excel" runat="server" onclick="btnExcelAll_Click"/>
+                    </td>
+                    <td>
+                        <asp:ImageButton Width="22" Height="22" ID="btnPDFAll" ImageUrl="Style/images/pdf.png"
+                            ToolTip="Export to PDF" runat="server" onclick="btnPDFAll_Click" />
+                    </td>
+                </tr>
+            </table>
+        </div>
             </div>
         </div>
         

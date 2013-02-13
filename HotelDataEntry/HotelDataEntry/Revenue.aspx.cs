@@ -311,6 +311,7 @@ namespace HotelDataEntry
             var tab = "";
             Response.Write("[" + _currency + "] " + _propertyName + " Revenue " + _year);
             Response.Write("\r\n");
+            Response.Write("\r\n");
             foreach (DataColumn dc in dt.Columns)
             {
                 Response.Write(tab + dc.ColumnName);
@@ -328,6 +329,8 @@ namespace HotelDataEntry
                 }
                 Response.Write("\n");
             }
+            Response.Write("\n");
+            Response.Write("Print Date: [" + DateTime.Now + "] ");
             Response.End();
         }
 
@@ -350,10 +353,12 @@ namespace HotelDataEntry
             var font8 = FontFactory.GetFont("ARIAL", 8);
             var font8B = FontFactory.GetFont("ARIAL", 8, Font.BOLD);
 
-            Paragraph preface = new Paragraph();
+            var preface = new Paragraph();
+            var prefacedate = new Paragraph();
 
             // Lets write a big header
             preface.Add(new Paragraph("["+_currency+"] "+_propertyName + " Revenue " + _year, fontT));
+            prefacedate.Add(new Paragraph("Print Date: [" + DateTime.Now + "] ", font8B));
 
             var pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
@@ -398,6 +403,7 @@ namespace HotelDataEntry
             pdfDoc.SetMargins(5.0f, 5.0f, 40.0f, 0f);
             pdfDoc.Add(preface);
             pdfDoc.Add(pdfTable); // add pdf table to the document
+            pdfDoc.Add(prefacedate);
             pdfDoc.Close();
             pdfWriter.Close();
 
@@ -408,6 +414,16 @@ namespace HotelDataEntry
             Response.AppendHeader("Content-Disposition", attachment);
             Response.BinaryWrite(pdfStream.ToArray());
             Response.End();
+        }
+
+        protected void btnExcelAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void btnPDFAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+
         }
     }
 }
