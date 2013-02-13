@@ -36,7 +36,7 @@ namespace HotelDataEntryLib.Page
                 var user = UserHelper.GetUserInfo(userId);
                 var str = user.AccessProperties;
                 
-                if (str.Contains("N/A") || string.IsNullOrEmpty(str))
+                if (str.Contains("N/A") || String.IsNullOrEmpty(str))
                 {
                     return listAccessProperty;
                 }
@@ -84,7 +84,7 @@ namespace HotelDataEntryLib.Page
         {
             using (var hdc = new HotelDataEntryDataContext())
             {
-                hdc.Properties.InsertOnSubmit(new HotelDataEntryLib.Property
+                hdc.Properties.InsertOnSubmit(new Property
                 {
                     PropertyCode = property.PropertyCode,
                     PropertyName = property.PropertyName,

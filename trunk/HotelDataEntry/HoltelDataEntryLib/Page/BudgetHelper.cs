@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using HotelDataEntryLib.Helper;
 
 namespace HotelDataEntryLib.Page
 {
@@ -48,6 +49,7 @@ namespace HotelDataEntryLib.Page
              var revenueEntryList = hdc.BudgetEntries.Where(item => item.HotelBudgetId == hotelEntry.HotelBudgetId).ToList();
              return revenueEntryList;
          }
+
          public static void UpdateBudgetEntry(BudgetEntry budgetEntry)
          {
              using (var hdc = new HotelDataEntryDataContext())
@@ -73,6 +75,24 @@ namespace HotelDataEntryLib.Page
                      }
                  }
              }
+         }
+
+         public static List<Budget> GetAllPropertyByHotelBudget(int year)
+         {
+             var hdc = new HotelDataEntryDataContext();
+             var list = (from property in hdc.Properties
+                         join hotelBudget in hdc.HotelBudgets on property.PropertyId equals hotelBudget.PropertyId
+                         join currency in hdc.Currencies on property.CurrencyId equals currency.CurrencyId
+                         where hotelBudget.Year == year
+                         orderby property.PropertyCode
+                         select new Budget()
+                         {
+                             HotelBudgetId = hotelBudget.HotelBudgetId,
+                             PropertyId = property.PropertyId,
+                             PropertyName = property.PropertyName,
+                             CurrencyCode = currency.CurrencyCode
+                         }).ToList();
+             return list;
          }
     }
 }

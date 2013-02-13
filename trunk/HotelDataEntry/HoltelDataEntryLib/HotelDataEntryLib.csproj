@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Budget.cs" />
     <Compile Include="Helper\Encryption.cs" />
     <Compile Include="Helper\Report.cs" />
     <Compile Include="Helper\Reports.cs" />

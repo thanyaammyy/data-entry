@@ -110,7 +110,7 @@ namespace HotelDataEntry
             var userPermission = Session["permission"].ToString();
             var dataEntryList = BudgetHelper.ListBudgetEntryByYear(hotelEntry);
             JqGridBudgetEntry.DataSource = dataEntryList;
-            CalculateTotal(dataEntryList);
+            AppendTotal(dataEntryList);
             JqGridBudgetEntry.DataBind();
             if (!string.IsNullOrEmpty(userPermission))
             {
@@ -156,8 +156,9 @@ namespace HotelDataEntry
             BudgetHelper.UpdateBudgetEntry(revenueEntry);
         }
 
-        protected void CalculateTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
+        protected List<double> CalculateTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
         {
+            var list = new List<double>(5);
             var roomTotal = 0.00;
             var fbTotal = 0.00;
             var spaTotal = 0.00;
@@ -180,12 +181,22 @@ namespace HotelDataEntry
                 var tmd = revenueEntry.Total;
                 total += tmd;
             }
-       
-            JqGridBudgetEntry.Columns.FromDataField("RoomBudget").FooterValue = roomTotal.ToString("#,##0.00");
-            JqGridBudgetEntry.Columns.FromDataField("FBBudget").FooterValue = fbTotal.ToString("#,##0.00");
-            JqGridBudgetEntry.Columns.FromDataField("SpaBudget").FooterValue = spaTotal.ToString("#,##0.00");
-            JqGridBudgetEntry.Columns.FromDataField("Others").FooterValue = othersTotal.ToString("#,##0.00");
-            JqGridBudgetEntry.Columns.FromDataField("Total").FooterValue = total.ToString("#,##0.00");
+            list.Add(roomTotal);
+            list.Add(fbTotal);
+            list.Add(spaTotal);
+            list.Add(othersTotal);
+            list.Add(total);
+            return list;
+        }
+
+        protected void AppendTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
+        {
+            var list = CalculateTotal(listRevenueEntry);
+            JqGridBudgetEntry.Columns.FromDataField("RoomBudget").FooterValue = list[0].ToString("#,##0.00");
+            JqGridBudgetEntry.Columns.FromDataField("FBBudget").FooterValue = list[1].ToString("#,##0.00");
+            JqGridBudgetEntry.Columns.FromDataField("SpaBudget").FooterValue = list[2].ToString("#,##0.00");
+            JqGridBudgetEntry.Columns.FromDataField("Others").FooterValue = list[3].ToString("#,##0.00");
+            JqGridBudgetEntry.Columns.FromDataField("Total").FooterValue = list[4].ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("PositionMonth").FooterValue = "Total";
         }
 
@@ -212,6 +223,7 @@ namespace HotelDataEntry
                 var curr = PropertyHelper.GetProperty(property);
                 var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
                 lbCurerncy.Text = currency.CurrencyCode;
+                _currency = currency.CurrencyCode;
             }
             else
             {
@@ -227,6 +239,7 @@ namespace HotelDataEntry
                 var curr = PropertyHelper.GetProperty(property);
                 var currency = CurrencyHelper.GetCurrency(curr.CurrencyId);
                 lbCurerncy.Text = currency.CurrencyCode;
+                _currency = currency.CurrencyCode;
             }
         }
 
@@ -280,6 +293,7 @@ namespace HotelDataEntry
             var tab = "";
             Response.Write("[" + _currency + "] " + _propertyName + " Budget " + _year);
             Response.Write("\r\n");
+            Response.Write("\r\n");
             foreach (DataColumn dc in dt.Columns)
             {
                 Response.Write(tab + dc.ColumnName);
@@ -297,6 +311,9 @@ namespace HotelDataEntry
                 }
                 Response.Write("\n");
             }
+            Response.Write("\n");
+            Response.Write("Print Date: [" + DateTime.Now + "] ");
+            Response.Write("\r\n");
             Response.End();
         }
 
@@ -319,10 +336,13 @@ namespace HotelDataEntry
             var font8 = FontFactory.GetFont("ARIAL", 8);
             var font8B = FontFactory.GetFont("ARIAL", 8, Font.BOLD);
 
-            Paragraph preface = new Paragraph();
+            var preface = new Paragraph();
+            var prefacedate = new Paragraph();
 
             // Lets write a big header
             preface.Add(new Paragraph("[" + _currency + "] " + _propertyName + " Budget " + _year, fontT));
+            prefacedate.Add(new Paragraph("Print Date: [" + DateTime.Now + "] ", font8B));
+
 
             var pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
@@ -367,6 +387,7 @@ namespace HotelDataEntry
             pdfDoc.SetMargins(5.0f, 5.0f, 40.0f, 0f);
             pdfDoc.Add(preface);
             pdfDoc.Add(pdfTable); // add pdf table to the document
+            pdfDoc.Add(prefacedate);
             pdfDoc.Close();
             pdfWriter.Close();
 
@@ -377,6 +398,49 @@ namespace HotelDataEntry
             Response.AppendHeader("Content-Disposition", attachment);
             Response.BinaryWrite(pdfStream.ToArray());
             Response.End();
+        }
+
+        protected void btnPDFAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+            var allDt = new DataTable();
+            var hb = new HotelBudget();
+
+            //Initail column
+            allDt.Columns.Add("Month/Year");
+            allDt.Columns.Add("Occupancy(%)");
+            allDt.Columns.Add("Room Budget");
+            allDt.Columns.Add("F & B Budget");
+            allDt.Columns.Add("Spa Budget");
+            allDt.Columns.Add("Others");
+            allDt.Columns.Add("Toatal");
+
+            if (Session["year"] == null) return;
+            var year = Convert.ToInt32(Session["year"].ToString());
+            var budget = HotelDataEntryLib.Page.BudgetHelper.GetAllPropertyByHotelBudget(year);
+            for (var i = 0; i < budget.Count; i++)
+            {
+                var dt = new DataTable();
+                allDt.Columns.Add("Month/Year");
+                allDt.Columns.Add("Occupancy(%)");
+                allDt.Columns.Add("Room Budget");
+                allDt.Columns.Add("F & B Budget");
+                allDt.Columns.Add("Spa Budget");
+                allDt.Columns.Add("Others");
+                allDt.Columns.Add("Toatal");
+
+                hb.HotelBudgetId = budget[i].HotelBudgetId;
+                var listBudget = BudgetHelper.ListBudgetEntryByYear(hb);
+                var total = CalculateTotal(listBudget);
+                dt.Rows.Add(listBudget);
+                dt.Rows.Add("Total", "-", total[0], total[1], total[2], total[3], total[4]);
+
+            }
+            //ExportToPDF(dt);
+        }
+
+        protected void btnExcelAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+
         }
     }
 }

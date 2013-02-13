@@ -189,6 +189,7 @@ namespace HotelDataEntry
             var tab = "";
             Response.Write("["+_currency+"] "+_propertyName+" MTD "+_year);
             Response.Write("\r\n");
+            Response.Write("\r\n");
             foreach (DataColumn dc in dt.Columns)
             {
                 if (dc.ColumnName.ToLower().Equals("actual") || dc.ColumnName.ToLower().Equals("budget"))
@@ -214,6 +215,8 @@ namespace HotelDataEntry
                 }
                 Response.Write("\n");
             }
+            Response.Write("\n");
+            Response.Write("Print Date: [" + DateTime.Now + "] ");
             Response.End();
         }
 
@@ -236,11 +239,14 @@ namespace HotelDataEntry
             var font8 = FontFactory.GetFont("ARIAL", 8);
             var font8B = FontFactory.GetFont("ARIAL", 8, Font.BOLD);
 
-            Paragraph preface = new Paragraph();
+            var preface = new Paragraph();
+            var prefacedate = new Paragraph();
 
             // Lets write a big header
             preface.Add(new Paragraph("[" + _currency + "] " + _propertyName + " MTD " + _year, fontT));
+            prefacedate.Add(new Paragraph("Print Date: [" + DateTime.Now + "] ", font8B));
 
+           
             var pdfTable = new PdfPTable(dt.Columns.Count);
             pdfTable.HorizontalAlignment = 0;
             pdfTable.TotalWidth = 781f;
@@ -284,6 +290,8 @@ namespace HotelDataEntry
                 }
             }
 
+            
+
             var widths = new float[] { 55, 75f, 75f, 72f, 72f, 72f, 72f, 72f, 72f, 72f, 72f };
             pdfTable.SetWidths(widths);
             pdfTable.SpacingBefore = 15f; // Give some space after the text or it may overlap the table            
@@ -291,6 +299,7 @@ namespace HotelDataEntry
             pdfDoc.SetMargins(5.0f, 5.0f, 40.0f, 0f);
             pdfDoc.Add(preface);
             pdfDoc.Add(pdfTable); // add pdf table to the document
+            pdfDoc.Add(prefacedate);
             pdfDoc.Close();
             pdfWriter.Close();
 
