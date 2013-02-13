@@ -86,6 +86,15 @@ namespace HotelDataEntry
                 lbCalendar.Visible = false;
                 lbCompany.Visible = false;
                 divJqgrid.Attributes["style"] = "";
+
+                var username = Session["UserSession"].ToString();
+                var user = UserHelper.GetUser(username);
+
+                if(user.PropertyId==15)//OHG ID
+                {
+                    divExportAllData.Attributes["style"] = "";
+                }
+
                 var hotelEntry = new HotelDataEntryLib.HotelBudget()
                 {
                     PropertyId = propertyId,
@@ -205,6 +214,7 @@ namespace HotelDataEntry
             Year = hiddenMonthYear.Value;
             Session["year"] = Year;
             divJqgrid.Attributes["style"] = "display:none";
+
             var selectedValue = ddlCompany.SelectedValue;
   
             if (((DropDownList)sender).SelectedValue != "")
@@ -334,7 +344,7 @@ namespace HotelDataEntry
             var fontH = FontFactory.GetFont("ARIAL", 9, Font.BOLD);
             var fontT = FontFactory.GetFont("ARIAL", 12, Font.BOLD);
             var font8 = FontFactory.GetFont("ARIAL", 8);
-            var font8B = FontFactory.GetFont("ARIAL", 8, Font.BOLD);
+            var font8B = FontFactory.GetFont("ARIAL", 8, Font.  BOLD);
 
             var preface = new Paragraph();
             var prefacedate = new Paragraph();
@@ -402,45 +412,189 @@ namespace HotelDataEntry
 
         protected void btnPDFAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
-            var allDt = new DataTable();
             var hb = new HotelBudget();
-
-            //Initail column
-            allDt.Columns.Add("Month/Year");
-            allDt.Columns.Add("Occupancy(%)");
-            allDt.Columns.Add("Room Budget");
-            allDt.Columns.Add("F & B Budget");
-            allDt.Columns.Add("Spa Budget");
-            allDt.Columns.Add("Others");
-            allDt.Columns.Add("Toatal");
-
             if (Session["year"] == null) return;
             var year = Convert.ToInt32(Session["year"].ToString());
             var budget = HotelDataEntryLib.Page.BudgetHelper.GetAllPropertyByHotelBudget(year);
+            
+            var attachment = "attachment; filename= All Properties" + " Budget " + _year + ".pdf";
+            var pdfDoc = new Document(PageSize.A4.Rotate(), 30.0f, 5.0f, 40.0f, 0f);
+            var pdfStream = new MemoryStream();
+            var pdfWriter = PdfWriter.GetInstance(pdfDoc, pdfStream);
+
+            pdfDoc.Open();//Open Document to write
+
+            pdfDoc.NewPage();
+
+            var fontH = FontFactory.GetFont("ARIAL", 9, Font.BOLD);
+            var fontT = FontFactory.GetFont("ARIAL", 12, Font.BOLD);
+            var font8 = FontFactory.GetFont("ARIAL", 8);
+            var font8B = FontFactory.GetFont("ARIAL", 8, Font.BOLD);
+
+            
+            var prefacedate = new Paragraph {new Paragraph("Print Date: [" + DateTime.Now + "] ", font8B)};
+            var widths = new float[] { 55, 75f, 75f, 72f, 72f, 72f, 72f };
+            
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
             for (var i = 0; i < budget.Count; i++)
             {
-                var dt = new DataTable();
-                allDt.Columns.Add("Month/Year");
-                allDt.Columns.Add("Occupancy(%)");
-                allDt.Columns.Add("Room Budget");
-                allDt.Columns.Add("F & B Budget");
-                allDt.Columns.Add("Spa Budget");
-                allDt.Columns.Add("Others");
-                allDt.Columns.Add("Toatal");
+                //Begin table
+                var pdfTable = new PdfPTable(7);
+                pdfTable.HorizontalAlignment = 0;
+                pdfTable.TotalWidth = 781f;
+                pdfTable.LockedWidth = true;
+                pdfTable.SetWidths(widths);
+                pdfTable.SpacingBefore = 15f; // Give some space after the text or it may overlap the table            
 
                 hb.HotelBudgetId = budget[i].HotelBudgetId;
                 var listBudget = BudgetHelper.ListBudgetEntryByYear(hb);
                 var total = CalculateTotal(listBudget);
-                dt.Rows.Add(listBudget);
-                dt.Rows.Add("Total", "-", total[0], total[1], total[2], total[3], total[4]);
+                var preface = new Paragraph();
+                // Header
+                preface.Add(new Paragraph("[" + budget[i].CurrencyCode + "] " + budget[i].PropertyName + " Budget " + year, fontT));
+                pdfDoc.Add(preface);
 
+                PdfPCell pdfPCell = null;
+
+                //Add Header of the pdf table
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Month/Year", fontH)));
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Occupancy(%)", fontH)));
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Room Budget", fontH)));
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("F & B Budget", fontH)));
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Spa Budget", fontH)));
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Others", fontH)));
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Total", fontH)));
+                pdfTable.AddCell(pdfPCell);
+
+                //How add the data from datatable to pdf table
+                for (var rows = 0; rows < listBudget.Count; rows++)
+                {
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].PositionMonth, font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell);
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].OccupancyRoom.ToString("#,##0.00"), font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell);
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].RoomBudget.ToString("#,##0.00"), font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell);
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].FBBudget.ToString("#,##0.00"), font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell);
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].SpaBudget.ToString("#,##0.00"), font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell);
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].Others.ToString("#,##0.00"), font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell);
+                        pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].Total.ToString("#,##0.00"), font8)))
+                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                        pdfTable.AddCell(pdfPCell); 
+
+                }
+
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("Total", font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk("-", font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk(total[0].ToString("#,##0.00"), font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk(total[1].ToString("#,##0.00"), font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk(total[2].ToString("#,##0.00"), font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk(total[3].ToString("#,##0.00"), font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+                pdfPCell = new PdfPCell(new Phrase(new Chunk(total[4].ToString("#,##0.00"), font8B))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                pdfTable.AddCell(pdfPCell);
+
+                pdfDoc.Add(pdfTable); // add pdf table to the document
+
+                var newLine = new Paragraph();
+                    newLine.Add(new Paragraph("",fontT));
+                preface.Leading = 50.0f;
+
+                pdfDoc.Add(newLine);
             }
-            //ExportToPDF(dt);
+ 
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            pdfDoc.Add(prefacedate);
+            pdfDoc.Close();
+            pdfWriter.Close();
+
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", attachment);
+            Response.BinaryWrite(pdfStream.ToArray());
+            Response.End();
         }
 
         protected void btnExcelAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {
+            var hb = new HotelBudget();
+            if (Session["year"] == null) return;
+            var year = Convert.ToInt32(Session["year"].ToString());
+            var budget = HotelDataEntryLib.Page.BudgetHelper.GetAllPropertyByHotelBudget(year);
 
+            var attachment = "attachment; filename=All Properties" + " Budget " + _year + ".xls";
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", attachment);
+            Response.ContentType = "application/vnd.ms-excel";
+            for (var i = 0; i < budget.Count; i++)
+            {
+                Response.Write("[" + budget[i].CurrencyCode + "] " + budget[i].PropertyName + " Budget " + _year);
+                Response.Write("\r\n");
+                Response.Write("\r\n");
+
+                Response.Write("Month/Year\t");
+                Response.Write("Occupancy(%)\t");
+                Response.Write("Room Budget\t");
+                Response.Write("F & B Budget\t");
+                Response.Write("Spa Budget\t");
+                Response.Write("Others\t");
+                Response.Write("Total\t");
+                Response.Write("\n");
+
+                hb.HotelBudgetId = budget[i].HotelBudgetId;
+                var listBudget = BudgetHelper.ListBudgetEntryByYear(hb);
+                var total = CalculateTotal(listBudget);
+                for (var j = 0; j < listBudget.Count;j++ )
+                {
+                    Response.Write(listBudget[j].PositionMonth+"\t");
+                    Response.Write(listBudget[j].OccupancyRoom.ToString("#,##0.00") + "\t");
+                    Response.Write(listBudget[j].RoomBudget.ToString("#,##0.00") + "\t");
+                    Response.Write(listBudget[j].FBBudget.ToString("#,##0.00") + "\t");
+                    Response.Write(listBudget[j].SpaBudget.ToString("#,##0.00") + "\t");
+                    Response.Write(listBudget[j].Others.ToString("#,##0.00") + "\t");
+                    Response.Write(listBudget[j].Total.ToString("#,##0.00") + "\t");
+                    Response.Write("\n");
+                }
+                Response.Write("Total" + "\t");
+                Response.Write("-" + "\t");
+                Response.Write(total[0].ToString("#,##0.00") + "\t");
+                Response.Write(total[1].ToString("#,##0.00") + "\t");
+                Response.Write(total[2].ToString("#,##0.00") + "\t");
+                Response.Write(total[3].ToString("#,##0.00") + "\t");
+                Response.Write(total[4].ToString("#,##0.00") + "\t");
+                Response.Write("\n");
+                Response.Write("\n");
+                Response.Write("\n");
+            }
+
+            Response.Write("\n");
+            Response.Write("Print Date: [" + DateTime.Now + "] ");
+            Response.Write("\r\n");
+            Response.End();
         }
     }
 }

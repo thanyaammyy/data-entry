@@ -320,6 +320,24 @@ namespace HotelDataEntry
             var year = Session["YearReport"].ToString();
             var propertyId = Session["PropertyIdReport"].ToString();
             BindingJqGridReport(Convert.ToInt32(year), Convert.ToInt32(propertyId));
+
+            var username = Session["UserSession"].ToString();
+            var user = UserHelper.GetUser(username);
+
+            if (user.PropertyId == 15)//OHG ID
+            {
+                divExportAllData.Attributes["style"] = "";
+            }
+        }
+
+        protected void btnExcelAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void btnPDFAll_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+
         }
     }
 }

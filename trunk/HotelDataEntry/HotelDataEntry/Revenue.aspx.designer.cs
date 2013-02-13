@@ -148,13 +148,13 @@ namespace HotelDataEntry {
         protected global::System.Web.UI.WebControls.ImageButton btnPDF;
         
         /// <summary>
-        /// div1 control.
+        /// divExportAllData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExportAllData;
         
         /// <summary>
         /// btnExcelAll control.
