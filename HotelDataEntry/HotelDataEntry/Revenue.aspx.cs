@@ -90,6 +90,15 @@ namespace HotelDataEntry
                 lbCompany.Visible = false;
                 divReport.Attributes["style"] = "";
                 divJqgrid.Attributes["style"] = "";
+
+                var username = Session["UserSession"].ToString();
+                var user = UserHelper.GetUser(username);
+
+                if(user.PropertyId==15)//OHG ID
+                {
+                    divExportAllData.Attributes["style"] = "";
+                }
+
                 var str = my.Split('/');
                 if(!string.IsNullOrEmpty(str[0])&&!string.IsNullOrEmpty(str[1]))
                 {

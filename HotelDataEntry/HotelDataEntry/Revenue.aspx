@@ -180,7 +180,7 @@
 
             $(".various").fancybox({
                     maxWidth: 1200,
-                    maxHeight: 550,
+                    maxHeight: 580,
                     fitToView: true,
                     width: '90%',
                     height: '80%',
@@ -364,7 +364,7 @@
             </table>
         </div>
         
-        <div style="padding-top: 20px" id="div1" runat="server">
+        <div style="padding-top: 20px;display: none" id="divExportAllData" runat="server">
             <table class="TextBlack12" cellpadding="3" cellspacing="3">
                 <tr>
                     <td>
