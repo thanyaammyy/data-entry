@@ -448,13 +448,13 @@ namespace HotelDataEntry
             var year = Convert.ToInt32(my.Split('/')[1]);
             var revenue = HotelDataEntryLib.Page.RevenueHelper.GetAllPropertyByHotelRevenue(year, month);
 
-            var attachment = "attachment; filename=All Properties" + " Revenue " + _year + ".xls";
+            var attachment = "attachment; filename=All Properties" + " Revenue " + my + ".xls";
             Response.ClearContent();
             Response.AddHeader("content-disposition", attachment);
             Response.ContentType = "application/vnd.ms-excel";
             for (var i = 0; i < revenue.Count; i++)
             {
-                Response.Write("[" + revenue[i].CurrencyCode + "] " + revenue[i].PropertyName + " Revenue " + _year);
+                Response.Write("[" + revenue[i].CurrencyCode + "] " + revenue[i].PropertyName + " Revenue " + my);
                 Response.Write("\r\n");
                 Response.Write("\r\n");
 
@@ -514,7 +514,7 @@ namespace HotelDataEntry
             var year = Convert.ToInt32(my.Split('/')[1]);
             var revenue = HotelDataEntryLib.Page.RevenueHelper.GetAllPropertyByHotelRevenue(year, month);
 
-            var attachment = "attachment; filename= All Properties" + " Revenue " + _year + ".pdf";
+            var attachment = "attachment; filename= All Properties" + " Revenue " + my + ".pdf";
             var pdfDoc = new Document(PageSize.A4.Rotate(), 30.0f, 5.0f, 40.0f, 0f);
             var pdfStream = new MemoryStream();
             var pdfWriter = PdfWriter.GetInstance(pdfDoc, pdfStream);
@@ -551,7 +551,7 @@ namespace HotelDataEntry
                 var total = CalculateTotal(listRevenue);
                 var preface = new Paragraph();
                 // Header
-                preface.Add(new Paragraph("[" + revenue[i].CurrencyCode + "] " + revenue[i].PropertyName + " Revenue " + year, fontT));
+                preface.Add(new Paragraph("[" + revenue[i].CurrencyCode + "] " + revenue[i].PropertyName + " Revenue " + my, fontT));
                 pdfDoc.Add(preface);
 
                 PdfPCell pdfPCell = null;
