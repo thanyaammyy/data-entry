@@ -477,7 +477,7 @@ namespace HotelDataEntry
                 for (var rows = 0; rows < listBudget.Count; rows++)
                 {
                         pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].PositionMonth, font8)))
-                                        {HorizontalAlignment = Element.ALIGN_RIGHT};
+                                        {HorizontalAlignment = Element.ALIGN_LEFT};
                         pdfTable.AddCell(pdfPCell);
                         pdfPCell = new PdfPCell(new Phrase(new Chunk(listBudget[rows].OccupancyRoom.ToString("#,##0.00"), font8)))
                                         {HorizontalAlignment = Element.ALIGN_RIGHT};
