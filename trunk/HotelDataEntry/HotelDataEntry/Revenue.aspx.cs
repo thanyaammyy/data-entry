@@ -578,7 +578,7 @@ namespace HotelDataEntry
                 for (var rows = 0; rows < listRevenue.Count; rows++)
                 {
                     var date = DateTime.Parse(listRevenue[rows].PositionDate.ToString());
-                    pdfPCell = new PdfPCell(new Phrase(new Chunk(date.ToShortDateString(), font8))) { HorizontalAlignment = Element.ALIGN_RIGHT };
+                    pdfPCell = new PdfPCell(new Phrase(new Chunk(date.ToShortDateString(), font8))) { HorizontalAlignment = Element.ALIGN_LEFT };
                     pdfTable.AddCell(pdfPCell);
                     pdfPCell = new PdfPCell(new Phrase(new Chunk(listRevenue[rows].OccupancyRoom.ToString("#,##0.00"), font8))) { HorizontalAlignment = Element.ALIGN_RIGHT };
                     pdfTable.AddCell(pdfPCell);

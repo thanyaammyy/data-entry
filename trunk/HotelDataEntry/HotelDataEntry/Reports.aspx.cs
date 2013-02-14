@@ -506,7 +506,7 @@ namespace HotelDataEntry
                 for (var j = 0; j < report.Count; j++)
                 {
                     pdfPCell = new PdfPCell(new Phrase(new Chunk(report[j].MonthYear, font8)))
-                                   {HorizontalAlignment = Element.ALIGN_RIGHT};
+                                   {HorizontalAlignment = Element.ALIGN_LEFT};
                     pdfTable.AddCell(pdfPCell);
                     pdfPCell =
                         new PdfPCell(new Phrase(new Chunk(report[j].OccupancyRoomActual.ToString("#,##0.00"), font8)))
