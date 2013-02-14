@@ -47,3 +47,6 @@ Date15-01-2013
 
 -Add report to mtd
 Date 12-02-2013
+
+-Add report All properties to mtd
+Date 14-02-2013
