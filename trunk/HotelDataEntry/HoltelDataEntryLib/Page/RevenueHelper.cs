@@ -118,5 +118,23 @@ namespace HotelDataEntryLib.Page
             var hdc = new HotelDataEntryDataContext();
             return hdc.RevenueEntries.Where(item => item.HotelRevenueId == hotelRevenueId).ToList();
         }
+
+        public static List<HotelDataEntryLib.Helper.HotelRevenue> GetAllPropertyByHotelRevenue(int year, int month)
+        {
+            var hdc = new HotelDataEntryDataContext();
+            var list = (from property in hdc.Properties
+                        join hotelRevenue in hdc.HotelRevenues on property.PropertyId equals hotelRevenue.PropertyId
+                        join currency in hdc.Currencies on property.CurrencyId equals currency.CurrencyId
+                        where hotelRevenue.Year == year && hotelRevenue.Month==month
+                        orderby property.PropertyCode
+                        select new HotelDataEntryLib.Helper.HotelRevenue()
+                        {
+                            HotelRevenueId = hotelRevenue.HotelRevenueId,
+                            PropertyId = property.PropertyId,
+                            PropertyName = property.PropertyName,
+                            CurrencyCode = currency.CurrencyCode
+                        }).ToList();
+            return list;
+        }
     }
 }
