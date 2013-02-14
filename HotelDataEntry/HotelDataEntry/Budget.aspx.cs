@@ -165,7 +165,7 @@ namespace HotelDataEntry
             BudgetHelper.UpdateBudgetEntry(revenueEntry);
         }
 
-        protected List<double> CalculateTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
+        protected List<double> CalculateTotal(List<HotelDataEntryLib.BudgetEntry> listBudgetEntry)
         {
             var list = new List<double>(5);
             var roomTotal = 0.00;
@@ -173,7 +173,7 @@ namespace HotelDataEntry
             var spaTotal = 0.00;
             var othersTotal = 0.00;
             var total = 0.00;
-            foreach (var revenueEntry in listRevenueEntry)
+            foreach (var revenueEntry in listBudgetEntry)
             {
                 var roomRevenues = revenueEntry.RoomBudget;
                 roomTotal += roomRevenues;
@@ -198,9 +198,9 @@ namespace HotelDataEntry
             return list;
         }
 
-        protected void AppendTotal(List<HotelDataEntryLib.BudgetEntry> listRevenueEntry)
+        protected void AppendTotal(List<HotelDataEntryLib.BudgetEntry> listBudgetEntry)
         {
-            var list = CalculateTotal(listRevenueEntry);
+            var list = CalculateTotal(listBudgetEntry);
             JqGridBudgetEntry.Columns.FromDataField("RoomBudget").FooterValue = list[0].ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("FBBudget").FooterValue = list[1].ToString("#,##0.00");
             JqGridBudgetEntry.Columns.FromDataField("SpaBudget").FooterValue = list[2].ToString("#,##0.00");
