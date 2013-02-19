@@ -27,7 +27,7 @@ namespace HotelDataEntryLib.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=10.1.201.141\\ITSQL;Initial Catalog=HotelDataEntry;Persist Security In" +
-            "fo=True;User ID=dataentry;Password=P@ssw0rd")]
+            "fo=True;User ID=sa;Password=sa@onyx#sqlsa10")]
         public string DataEntryConnectionString {
             get {
                 return ((string)(this["DataEntryConnectionString"]));
