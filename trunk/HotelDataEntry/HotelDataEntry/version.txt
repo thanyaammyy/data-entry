@@ -50,3 +50,6 @@ Date 12-02-2013
 
 -Add report All properties to mtd
 Date 14-02-2013
+
+-Change DB Connection String
+Date 19-02-2013
