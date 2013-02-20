@@ -85,7 +85,8 @@ namespace HotelDataEntry
         {
             try
             {
-                var entry = new DirectoryEntry("LDAP://onyx-hq/CN=Builtin,DC=ONYX-HOSPITALITY,DC=GROUP", userName, password);
+                var ldap = ConfigurationManager.AppSettings["Ldap"];
+                var entry = new DirectoryEntry(ldap, userName, password);
                 var nativeObject = entry.NativeObject;
                 return true;
             }
