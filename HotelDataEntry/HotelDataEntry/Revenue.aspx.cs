@@ -63,16 +63,26 @@ namespace HotelDataEntry
         protected void btnCreateForm_Click(object sender, EventArgs e)
         {
             Session["fromMenuRevenue"] = null;
-            var propertyId = ddlCompany.SelectedValue;
-            MonthYear = hiddenMonthYear.Value;
-            Session["rPropertyId"] = propertyId;
-            Session["MonthYear"] = MonthYear;
-            
-            var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(Convert.ToInt32(Session["rPropertyId"]));
-            _propertyName = property.PropertyName;
-            _year = Session["MonthYear"].ToString();
+            var propertyId = Convert.ToInt32(ddlCompany.SelectedValue);
+            if(propertyId<=0)
+            {
+                lbError.Visible = true;
+                lbCalendar.Visible = true;
+                lbCompany.Visible = true;
+                divReport.Attributes["style"] = "display:none";
+            }
+            else
+            {
+                MonthYear = hiddenMonthYear.Value;
+                Session["rPropertyId"] = propertyId;
+                Session["MonthYear"] = MonthYear;
 
-            ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+                var property = HotelDataEntryLib.Page.PropertyHelper.GetProperty(Convert.ToInt32(Session["rPropertyId"]));
+                _propertyName = property.PropertyName;
+                _year = Session["MonthYear"].ToString();
+
+                ShowData(Convert.ToInt32(Session["rPropertyId"]), Session["MonthYear"].ToString());
+            }            
         }
 
         private void ShowData(int propertyId,  string my)
